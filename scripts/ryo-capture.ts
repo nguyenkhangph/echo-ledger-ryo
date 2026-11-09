@@ -4,7 +4,16 @@
 import { mkdirSync, writeFileSync } from "node:fs";
 import { RyoClient, redact } from "../agent/src/ryo/client";
 
+// Capture is a one-off probe: shorter timeout and fewer retries than the agent, with progress on every attempt.
+process.env.RYO_TIMEOUT_MS ||= "45000";
+process.env.RYO_MAX_ATTEMPTS ||= "2";
 const client = new RyoClient();
+client.onAttempt = (e) =>
+  console.log(
+    e.phase === "start"
+      ? `  … ${e.tool} attempt ${e.attempt} via ${e.via} (waiting up to ${client.config.timeoutMs / 1000}s)`
+      : `  ← ${e.tool} attempt ${e.attempt}: ${e.status ?? "no response"} in ${((e.ms ?? 0) / 1000).toFixed(1)}s${e.error ? ` (${e.error})` : ""}`,
+  );
 if (!client.config.key) {
   console.error("Set RYO_MCP_KEY first (it is never written to disk).");
   process.exit(1);
@@ -20,6 +29,7 @@ const who: any = await client.whoami().catch((e) => ({ error: String(e) }));
 // Keep only non-secret fields from whoami.
 const whoSafe = { label: who?.label, scope: who?.scope, expires_at: who?.expires_at ?? who?.expiresAt, quota: who?.quota, tools: who?.tools ?? who?.tool_names, error: who?.error };
 console.log("whoami:", JSON.stringify(whoSafe));
+console.log("reading catalog …");
 const tools: any = await client.tools();
 save("fixtures/ryo/tools.json", { listedAt: new Date().toISOString(), endpoint: client.config.url, health, tools });
 const names: string[] = (tools?.tools ?? tools ?? []).map((t: any) => t.name);

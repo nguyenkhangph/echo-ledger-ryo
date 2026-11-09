@@ -64,9 +64,12 @@ class Throttle {
   }
 }
 
+export type AttemptLog = (event: { tool: string; attempt: number; via: "rest" | "jsonrpc"; phase: "start" | "done"; status?: number | null; ms?: number; error?: string }) => void;
+
 export class RyoClient {
   private throttle: Throttle;
   private rpcId = 1;
+  onAttempt: AttemptLog | null = null;
   constructor(readonly config: RyoConfig = ryoConfigFromEnv(), private fetchImpl: typeof fetch = fetch) {
     this.throttle = new Throttle(Math.max(1, config.perMinute));
   }
@@ -101,6 +104,8 @@ export class RyoClient {
       attempts += 1;
       await this.throttle.wait();
       let retryAfterMs: number | null = null;
+      const t0 = Date.now();
+      this.onAttempt?.({ tool, attempt: attempts, via, phase: "start" });
       try {
         const response =
           via === "rest"
@@ -117,6 +122,7 @@ export class RyoClient {
           reset: response.headers.get("X-RateLimit-Reset"),
         };
         const text = await response.text();
+        this.onAttempt?.({ tool, attempt: attempts, via, phase: "done", status: response.status, ms: Date.now() - t0 });
         let body: any = null;
         try {
           body = JSON.parse(text);
@@ -144,7 +150,9 @@ export class RyoClient {
           return { tool, args, ok: !isError && envelope != null, envelope, isError, error: error ? redact(error, this.config) : null, httpStatus: response.status, traceId, attempts, via, rateLimit, calledAt, durationMs: Date.now() - started };
         }
       } catch (e) {
-        last = { ...last, ok: false, error: redact(e instanceof Error ? e.message : String(e), this.config), httpStatus: null };
+        const message = e instanceof Error ? (e.name === "TimeoutError" ? `timed out after ${this.config.timeoutMs} ms` : e.message) : String(e);
+        this.onAttempt?.({ tool, attempt: attempts, via, phase: "done", status: null, ms: Date.now() - t0, error: message });
+        last = { ...last, ok: false, error: redact(message, this.config), httpStatus: null };
       }
       if (attempts >= this.config.maxAttempts) break;
       const backoff = Math.min(30_000, 1000 * 2 ** (attempts - 1)) * (0.75 + Math.random() * 0.5);
