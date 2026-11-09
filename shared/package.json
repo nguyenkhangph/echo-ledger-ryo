@@ -12,7 +12,8 @@
     "./ledger": "./src/ledger.ts",
     "./audit": "./src/audit.ts",
     "./echo": "./src/echo.ts",
-    "./reasons": "./src/reasons.ts"
+    "./reasons": "./src/reasons.ts",
+    "./ryo": "./src/ryo/index.ts"
   },
   "scripts": {
     "generate:schema": "bun run scripts/generate-schema.ts",
