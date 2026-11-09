@@ -64,7 +64,10 @@ class Throttle {
   }
 }
 
-export type AttemptLog = (event: { tool: string; attempt: number; via: "rest" | "jsonrpc"; phase: "start" | "done"; status?: number | null; ms?: number; error?: string }) => void;
+export type AttemptLog = (event: { tool: string; attempt: number; via: "rest" | "jsonrpc"; phase: "start" | "done" | "wait"; status?: number | null; ms?: number; error?: string; detail?: string }) => void;
+
+/** Longest pause the client will honour for one Retry-After before giving up on that call. */
+export const MAX_RETRY_WAIT_MS = 65_000;
 
 export class RyoClient {
   private throttle: Throttle;
@@ -138,7 +141,16 @@ export class RyoClient {
         if (response.status === 429 || response.status === 503 || response.status >= 500) {
           const ra = response.headers.get("Retry-After");
           retryAfterMs = ra ? (Number.isFinite(Number(ra)) ? Number(ra) * 1000 : Math.max(0, Date.parse(ra) - Date.now())) : null;
-          last = { ok: false, envelope: null, isError: false, error: `HTTP ${response.status}`, httpStatus: response.status, traceId, rateLimit };
+          const code = body?.error?.code ?? body?.code ?? "";
+          const message = body?.error?.message ?? body?.message ?? text.slice(0, 200);
+          const detail = `Retry-After=${ra ?? "none"} limit=${rateLimit.limit ?? "?"} remaining=${rateLimit.remaining ?? "?"} reset=${rateLimit.reset ?? "?"} ${code} ${message}`.trim();
+          this.onAttempt?.({ tool, attempt: attempts, via, phase: "wait", status: response.status, detail: redact(detail, this.config) });
+          last = { ok: false, envelope: null, isError: false, error: redact(`HTTP ${response.status} ${code} ${message}`.trim(), this.config), httpStatus: response.status, traceId, rateLimit };
+          if (retryAfterMs != null && retryAfterMs > MAX_RETRY_WAIT_MS) {
+            // A long cool-down (quota window) is not worth blocking the agent on: report it and move on.
+            last = { ...last, error: `${last.error} (rate limited; server asks to wait ${Math.round(retryAfterMs / 1000)} s)` };
+            break;
+          }
         } else if (!response.ok) {
           // 400/401/403/404: retrying the same request cannot help.
           const message = body?.error?.message ?? body?.message ?? text.slice(0, 200);

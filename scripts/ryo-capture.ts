@@ -10,7 +10,9 @@ process.env.RYO_MAX_ATTEMPTS ||= "2";
 const client = new RyoClient();
 client.onAttempt = (e) =>
   console.log(
-    e.phase === "start"
+    e.phase === "wait"
+      ? `  ! ${e.tool} attempt ${e.attempt}: HTTP ${e.status} · ${e.detail}`
+      : e.phase === "start"
       ? `  … ${e.tool} attempt ${e.attempt} via ${e.via} (waiting up to ${client.config.timeoutMs / 1000}s)`
       : `  ← ${e.tool} attempt ${e.attempt}: ${e.status ?? "no response"} in ${((e.ms ?? 0) / 1000).toFixed(1)}s${e.error ? ` (${e.error})` : ""}`,
   );
