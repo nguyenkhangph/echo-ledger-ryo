@@ -8,19 +8,32 @@ import { StreamableHTTPClientTransport } from "@modelcontextprotocol/sdk/client/
  * in the repo:
  *   RYO_MCP_URL          https endpoint (streamable HTTP, falls back to SSE), or
  *   RYO_MCP_COMMAND      a local command for a stdio server, e.g. "npx -y @ryo/mcp"
- *   RYO_API_KEY          optional secret
+ *   RYO_API_KEY          the credential (secret)
  *   RYO_API_KEY_HEADER   header that carries it (default: Authorization, sent as "Bearer <key>")
+ *   RYO_KEY_ID           the key id, when the server wants it separately
+ *   RYO_KEY_ID_HEADER    header that carries the key id (default: X-Key-Id)
  */
-export type RyoConfig = { url?: string; command?: string; apiKey?: string; apiKeyHeader?: string };
+export type RyoConfig = { url?: string; command?: string; apiKey?: string; apiKeyHeader?: string; keyId?: string; keyIdHeader?: string };
 
 export function ryoConfigFromEnv(env: Record<string, string | undefined> = process.env): RyoConfig {
-  return { url: env.RYO_MCP_URL, command: env.RYO_MCP_COMMAND, apiKey: env.RYO_API_KEY, apiKeyHeader: env.RYO_API_KEY_HEADER };
+  return {
+    url: env.RYO_MCP_URL,
+    command: env.RYO_MCP_COMMAND,
+    apiKey: env.RYO_API_KEY,
+    apiKeyHeader: env.RYO_API_KEY_HEADER,
+    keyId: env.RYO_KEY_ID,
+    keyIdHeader: env.RYO_KEY_ID_HEADER,
+  };
 }
 
 function headers(config: RyoConfig): Record<string, string> {
-  if (!config.apiKey) return {};
-  const name = config.apiKeyHeader || "Authorization";
-  return { [name]: name.toLowerCase() === "authorization" ? `Bearer ${config.apiKey}` : config.apiKey };
+  const out: Record<string, string> = {};
+  if (config.apiKey) {
+    const name = config.apiKeyHeader || "Authorization";
+    out[name] = name.toLowerCase() === "authorization" ? `Bearer ${config.apiKey}` : config.apiKey;
+  }
+  if (config.keyId) out[config.keyIdHeader || "X-Key-Id"] = config.keyId;
+  return out;
 }
 
 export async function connectRyo(config: RyoConfig = ryoConfigFromEnv()): Promise<{ client: Client; transport: string }> {
@@ -49,5 +62,7 @@ export async function connectRyo(config: RyoConfig = ryoConfigFromEnv()): Promis
 
 /** Never print a secret: strip the key from any text before it is logged or saved. */
 export function redact(text: string, config: RyoConfig = ryoConfigFromEnv()): string {
-  return config.apiKey ? text.split(config.apiKey).join("[REDACTED]") : text;
+  let out = text;
+  for (const secret of [config.apiKey, config.keyId]) if (secret && secret.length >= 6) out = out.split(secret).join("[REDACTED]");
+  return out;
 }
