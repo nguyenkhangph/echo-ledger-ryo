@@ -1,6 +1,7 @@
 import type { LedgerPosition } from "@echo/shared/ledger";
 import { binanceSymbol, gapPct, klineUrl, useCandle } from "../data/corroboration";
 import { decodeEntities, sourcePostsFor } from "../data/pipeline";
+import { REPO_URL } from "../data/site";
 
 const clip = (t: string, n: number) => (t.length > n ? `${t.slice(0, n - 1)}…` : t);
 const fmt = (v: number) => v.toLocaleString("en-US", { maximumFractionDigits: v < 1 ? 6 : 2 });
@@ -82,7 +83,7 @@ export function Corroboration({ position }: { position: LedgerPosition }) {
         </li>
         <li className="corr__row corr__row--plain">
           <span className="corr__what">Agent, workflows, verifier</span>
-          <a className="corr__mono" href="https://github.com/nguyenkhangph/echo-ledger" target="_blank" rel="noreferrer">github.com/nguyenkhangph/echo-ledger ↗</a>
+          <a className="corr__mono" href={REPO_URL} target="_blank" rel="noreferrer">{REPO_URL.replace("https://", "")} ↗</a>
         </li>
       </ul>
     </div>

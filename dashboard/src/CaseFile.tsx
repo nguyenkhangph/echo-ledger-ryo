@@ -6,6 +6,7 @@ import { PriceCheck, SourcePosts } from "./components/Corroboration";
 import { SiteLayout } from "./components/SiteChrome";
 import { etherscanTx, LEDGER_ADDRESS, shortHash, useLedger } from "./data/ledger";
 import { watchlist } from "./data/pipeline";
+import { SITE_HOST } from "./data/site";
 
 const day = (iso: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" }).format(new Date(iso));
 const stamp = (iso: string) => new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit", hour12: false, timeZone: "UTC" }).format(new Date(iso)) + " UTC";
@@ -158,7 +159,7 @@ function Body({ snapshot }: { snapshot: LedgerSnapshot }) {
         </footer>
         <p className="cert__fine">
           Practice positions on a public test network; no capital was at risk. Not financial or legal advice. Anyone can regenerate this file from public data
-          with <span className="cert__mono">bun run verify</span> or by opening echoledger.fun/casefile.
+          with <span className="cert__mono">bun run verify</span> or by opening {SITE_HOST}/casefile.
         </p>
       </div>
       <div className="cert__actions no-print">

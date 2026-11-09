@@ -2,7 +2,9 @@
 
 **Filter the echo. Record the signal.**
 
-**[Live dashboard](https://www.echoledger.fun)** · **[Demo video (3:26)](https://youtu.be/UW116HZeuKU)** · **[Contract on Sepolia](https://sepolia.etherscan.io/address/0x88fd1895d9b4BD28Cf641281b9AA1eF787b8DAd0)** ([source verified on Sourcify](https://repo.sourcify.dev/11155111/0x88fd1895d9b4BD28Cf641281b9AA1eF787b8DAd0))
+> **Lineage.** This repository continues [Echo Ledger](https://github.com/nguyenkhangph/echo-ledger), submitted to the BLI Legal Tech Hackathon 2 (October 2026). The full history is kept so the work added for the RYO-CHAN hackathon is visible commit by commit.
+
+**[Live dashboard](https://echo-ledger-ryo.vercel.app)** · **[Demo video (3:26)](https://youtu.be/UW116HZeuKU)** · **[Contract on Sepolia](https://sepolia.etherscan.io/address/0x88fd1895d9b4BD28Cf641281b9AA1eF787b8DAd0)** ([source verified on Sourcify](https://repo.sourcify.dev/11155111/0x88fd1895d9b4BD28Cf641281b9AA1eF787b8DAd0))
 
 Echo Ledger is an AI agent that watches public crypto voices (KOLs), works out which of them are saying something *independently* and which are just repeating someone else, checks the claim against market data, argues it out in a bull/bear/judge debate, and then opens a **practice** position. Every decision produces a *reasoning card*, and the card's hash, the settlement and the resulting change in each source's trust score are written to Ethereum Sepolia by **Chainlink CRE** workflows.
 
@@ -16,12 +18,12 @@ The point is accountability: anyone can recompute a card's hash from its content
 
 ## Judge's 3-minute path
 
-1. **Open [echoledger.fun](https://www.echoledger.fun).** The four numbers under the headline (practice PnL, audit checks, decisions, trust updates) are read from Sepolia and re-derived in your browser.
+1. **Open [echo-ledger-ryo.vercel.app](https://echo-ledger-ryo.vercel.app).** The four numbers under the headline (practice PnL, audit checks, decisions, trust updates) are read from Sepolia and re-derived in your browser.
 2. **Echo Graph:** it opens on BTC, 26 Oct. A bot that counts reposts scores 0.67 and trades; Echo Ledger discounts the echo, scores 0.50 and holds back.
 3. **Chainlink CRE section:** three workflows (HTTP → record, Cron → settle, EVM log → reputation), with live report counts and the latest transaction of each.
 4. **Independent audit → Try to tamper:** turn a loss into a win or inflate a trust score in a private copy of the data and watch the checks fail.
 5. **§ certificate** on any position: a printable Certificate of Record with the grounds for the decision, the sources relied on and the chain of custody.
-6. **§ printable case file** ([echoledger.fun/casefile](https://www.echoledger.fun/casefile)): the whole record as one document for a lawyer, with third-party evidence outside the chain.
+6. **§ printable case file** ([echo-ledger-ryo.vercel.app/casefile](https://echo-ledger-ryo.vercel.app/casefile)): the whole record as one document for a lawyer, with third-party evidence outside the chain.
 7. **Compliance map:** each feature matched to EU AI Act Art. 12/13, MiCA Art. 91 and FTC §255.5, with evidence links.
 8. **Check it without us:** `bun install && bun run verify` reads the contract and re-derives everything.
 
@@ -72,7 +74,7 @@ Several of these happened for real during the live run; the [lessons](#lessons-f
 
 ## For lawyers: a record you can print and check elsewhere
 
-- **[Case File](https://www.echoledger.fun/casefile):** the whole record as one printable document: summary, index of decisions with their grounds, each source's track record, the audit result, the rules applied and a SHA-256 fingerprint of the data it was built from.
+- **[Case File](https://echo-ledger-ryo.vercel.app/casefile):** the whole record as one printable document: summary, index of decisions with their grounds, each source's track record, the audit result, the rules applied and a SHA-256 fingerprint of the data it was built from.
 - **Certificate of Record** (`/record/<positionId>`): one decision with its particulars, grounds, sources, chain of custody and verification seal.
 - **Evidence outside the chain:** each certificate and the case file compare every on-chain price with Binance's own public 1-minute candle for that minute (checked live in the browser, with the link to the exchange record), link the original public posts the agent relied on, and point to the verified contract source on Sourcify and the code on GitHub. None of these depend on Ethereum, Chainlink or us.
 

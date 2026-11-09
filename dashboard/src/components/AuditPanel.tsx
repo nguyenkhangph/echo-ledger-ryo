@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { auditForPosition, auditLedger, type AuditResult } from "@echo/shared/audit";
 import type { LedgerPosition, LedgerSnapshot } from "@echo/shared/ledger";
 import { etherscanTx, LEDGER_ADDRESS, shortHash } from "../data/ledger";
+import { REPO_URL } from "../data/site";
 
 export function useAudit(snapshot: LedgerSnapshot): AuditResult {
   return useMemo(() => auditLedger(snapshot), [snapshot]);
@@ -25,7 +26,7 @@ export async function buildProofPack(position: LedgerPosition, snapshot: LedgerS
     readAtBlock: snapshot.latestBlock,
     position,
     audit: auditForPosition(audit, position),
-    verifyWith: "bun run verify  (github.com/nguyenkhangph/echo-ledger)",
+    verifyWith: `bun run verify  (${REPO_URL.replace("https://", "")})`,
     transactions: {
       open: etherscanTx(position.openTx),
       ...(position.settleTx ? { settle: etherscanTx(position.settleTx) } : {}),
