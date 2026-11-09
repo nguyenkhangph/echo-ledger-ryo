@@ -108,3 +108,14 @@ describe("claims", () => {
     expect(checked[1]!.reason).toBe("says 140, E2.price is 150.25");
   });
 });
+
+describe("RYO envelope status", () => {
+  test("only status ok + data_mode live is live", () => {
+    expect(classifyStatus({ status: "ok", data_mode: "live" }).status).toBe("live");
+    expect(classifyStatus({ status: "ok", data_mode: "mixed" }).status).toBe("partial");
+    expect(classifyStatus({ status: "ok", data_mode: "simulated" }).status).toBe("simulated");
+    expect(classifyStatus({ status: "partial", data_mode: "live" }).status).toBe("partial");
+    expect(classifyStatus({ status: "unavailable", data_mode: "live" }).status).toBe("unavailable");
+    expect(classifyStatus({ status: "ok", data_mode: "unknown" }).status).toBe("partial");
+  });
+});

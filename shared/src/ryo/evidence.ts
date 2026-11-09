@@ -25,22 +25,28 @@ export type RyoEvidence = {
 const lower = (v: unknown) => (typeof v === "string" ? v.toLowerCase() : "");
 
 /**
- * Reads the status a payload declares about itself. Anything that says partial, unavailable, simulated, mock, demo,
- * stale or error is never treated as live data.
+ * Status of one RYO result, from the public envelope (RYO Builder MCP Guide): `status` is ok, partial or unavailable;
+ * `data_mode` is live, mixed, simulated or unknown. Only status ok with data_mode live counts as live evidence.
+ * Anything else is recorded as what it is and never used as a live number.
  */
 export function classifyStatus(payload: unknown, isError = false): { status: RyoStatus; reason: string | null } {
   if (isError) return { status: "unavailable", reason: "the tool returned an error" };
-  if (payload == null || (typeof payload === "string" && payload.trim() === "")) return { status: "unavailable", reason: "empty response" };
-  if (typeof payload !== "object") return { status: "live", reason: null };
+  if (payload == null || typeof payload !== "object") return { status: "unavailable", reason: "no result envelope" };
   const o = payload as Record<string, unknown>;
-  const meta = (o.meta ?? o.metadata ?? {}) as Record<string, unknown>;
-  const flags = [o.status, o.data_status, o.dataStatus, o.mode, o.source_mode, meta.status, meta.mode, meta.data_status].map(lower);
-  if (o.simulated === true || meta.simulated === true || flags.some((f) => /simulat|mock|demo|synthetic|fake/.test(f)))
-    return { status: "simulated", reason: "the payload says its data is simulated" };
-  if (o.unavailable === true || o.error != null || flags.some((f) => /unavailable|error|fail|down|offline/.test(f)))
-    return { status: "unavailable", reason: typeof o.error === "string" ? o.error : "the payload says the data is unavailable" };
-  if (o.partial === true || meta.partial === true || flags.some((f) => /partial|stale|degraded|incomplete/.test(f)))
-    return { status: "partial", reason: "the payload says its data is partial or stale" };
+  const st = lower(o.status);
+  const mode = lower(o.data_mode);
+  if (mode === "simulated") return { status: "simulated", reason: "data_mode is simulated" };
+  if (st === "unavailable") return { status: "unavailable", reason: "status is unavailable" };
+  if (st === "partial") return { status: "partial", reason: "status is partial: a primary section is incomplete" };
+  if (mode === "mixed") return { status: "partial", reason: "data_mode is mixed: not every section is live" };
+  if (mode === "unknown" || (mode === "" && "data_mode" in o)) return { status: "partial", reason: "data_mode is unknown" };
+  if (st === "ok" && mode === "live") return { status: "live", reason: null };
+  // Envelopes outside the published contract (tests, older servers): fall back to self-declared flags.
+  const meta = (o.meta ?? {}) as Record<string, unknown>;
+  const flags = [o.status, o.mode, meta.status, meta.mode].map(lower);
+  if (o.simulated === true || flags.some((f) => /simulat|mock|demo|synthetic/.test(f))) return { status: "simulated", reason: "the payload says its data is simulated" };
+  if (o.error != null || flags.some((f) => /unavailable|error|fail/.test(f))) return { status: "unavailable", reason: typeof o.error === "string" ? o.error : "the payload says the data is unavailable" };
+  if (o.partial === true || flags.some((f) => /partial|stale|degraded/.test(f))) return { status: "partial", reason: "the payload says its data is partial" };
   return { status: "live", reason: null };
 }
 
