@@ -6,6 +6,7 @@
     "test": "bun test",
     "verify": "bun run scripts/verify-ledger.ts",
     "ryo:capture": "bun run scripts/ryo-capture.ts",
+    "ryo:whoami": "bun run scripts/ryo-whoami.ts",
     "ryo:eval": "bun run scripts/ryo-eval.ts",
     "typecheck": "bun run --filter '*' typecheck",
     "dashboard:dev": "bun run --cwd dashboard dev",
