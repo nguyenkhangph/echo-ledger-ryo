@@ -1,0 +1,21 @@
+{
+  "tool": "analyze_token",
+  "args": {
+    "symbol": "SOL"
+  },
+  "ok": false,
+  "envelope": null,
+  "isError": false,
+  "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1872008 s)",
+  "httpStatus": 429,
+  "traceId": "6f565d8aac60444dac65bf44a055394b",
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "attempts": 1,
+  "via": "rest",
+  "calledAt": "2026-11-09T07:59:53.624Z",
+  "durationMs": 442
+}

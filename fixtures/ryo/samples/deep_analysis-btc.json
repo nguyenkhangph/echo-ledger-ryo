@@ -1,0 +1,22 @@
+{
+  "tool": "deep_analysis",
+  "args": {
+    "symbol": "BTC",
+    "include_perp": true
+  },
+  "ok": false,
+  "envelope": null,
+  "isError": false,
+  "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1872007 s)",
+  "httpStatus": 429,
+  "traceId": "4344dcb4b9024043ae0336842c80a1bd",
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "attempts": 1,
+  "via": "rest",
+  "calledAt": "2026-11-09T07:59:54.066Z",
+  "durationMs": 432
+}

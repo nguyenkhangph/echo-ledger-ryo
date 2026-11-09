@@ -1,0 +1,19 @@
+{
+  "tool": "market_overview",
+  "args": {},
+  "ok": false,
+  "envelope": null,
+  "isError": false,
+  "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1872008 s)",
+  "httpStatus": 429,
+  "traceId": "2279b5811e5340b8af7ea62af8dd73a0",
+  "rateLimit": {
+    "limit": null,
+    "remaining": null,
+    "reset": null
+  },
+  "attempts": 1,
+  "via": "rest",
+  "calledAt": "2026-11-09T07:59:52.730Z",
+  "durationMs": 448
+}
