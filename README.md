@@ -20,6 +20,8 @@ The point is accountability: anyone can recompute a card's hash from its content
 
 **Tracks:** Track 1 (Agents and strategy), Track 2 (Dashboards and interfaces) and Track 3 (New skills: `narrative_independence`, `stale_call`). **Pages for judges:** [`/ryo`](https://echo-ledger-ryo.vercel.app/ryo) (the RYO check) and [`/judge`](https://echo-ledger-ryo.vercel.app/judge) (each criterion with a link).
 
+> **Note for judges: why the RYO calls show 429.** Our RYO key was issued with its call allowance switched off: `whoami` reports `call_limit 200, used 0, remaining 200, allowed: false`. We did not use up any quota; every tool call was refused with `429 RATE_LIMITED "MCP call allowance exhausted"` from the first request, and we reported this to RYO. The real refusals are committed as evidence (`fixtures/ryo/samples/`, `fixtures/ryo/runs/`), and the agent decided nothing it could not back. The decision logic is exercised against RYO's published envelope by the tests and the 26-case eval; once the key is enabled, `bun run ryo:run` produces live decisions with no code change.
+
 **User and decision.** Someone who follows crypto KOLs and has to decide whether a narrative is worth acting on. The decision: is this independent agreement backed by the market, or one opinion echoed many times?
 
 **What is new in this round.** Echo Ledger already folded reposts into the voice they repeat. It now asks RYO-CHAN's research layer whether the independent voices are backed by the market, and decides only from RYO's structured `data`:
