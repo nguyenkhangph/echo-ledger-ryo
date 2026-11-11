@@ -16,7 +16,54 @@ The point is accountability: anyone can recompute a card's hash from its content
 
 ![How a decision becomes evidence](docs/img/architecture.png)
 
-## Judge's 3-minute path
+## RYO-CHAN Hackathon 2026 entry
+
+**Tracks:** Track 1 (Agents and strategy) and Track 2 (Dashboards and interfaces). **Pages for judges:** [`/ryo`](https://echo-ledger-ryo.vercel.app/ryo) (the RYO check) and [`/judge`](https://echo-ledger-ryo.vercel.app/judge) (each criterion with a link).
+
+**User and decision.** Someone who follows crypto KOLs and has to decide whether a narrative is worth acting on. The decision: is this independent agreement backed by the market, or one opinion echoed many times?
+
+**What is new in this round.** Echo Ledger already folded reposts into the voice they repeat. It now asks RYO-CHAN's research layer whether the independent voices are backed by the market, and decides only from RYO's structured `data`:
+
+| RYO tool | Called | Used for |
+|---|---|---|
+| `market_overview` | once per run | market risk regime; raises the independence bar from 0.60 to 0.67 when tense, vetoes when high |
+| `monitor_market_sentiment_shift` | once per run | reversal alarm: vetoes a call against a turning sentiment regime |
+| `scan_market` | once per run | RYO first: which tokens RYO ranks, and which KOLs named them independently or only echoed |
+| `deep_analysis` | per narrative with an independent voice | price, 24 h change, RYO's verdict (does it back the KOLs?), RSI(14) (is the call late?), ATR(14) (stop distance), listed risks |
+| `compare_tokens` | per narrative | the token against BTC and a fixed same-sector peer; weaker than its basket means no entry |
+| `analyze_token` | not needed | `deep_analysis` covers it; we spend the 200-call monthly allowance where it adds evidence |
+
+**Rules (all in code, [`shared/src/ryo/`](shared/src/ryo)):**
+- Every RYO response becomes numbered evidence (E1, E2, …) with a keccak256 of its payload. Every gate, claim and price level on a card cites its evidence id and the payload path, e.g. `E4 data.market.price`.
+- Only `status: ok` with `data_mode: live` counts as live. `partial`, `unavailable`, `mixed`, `simulated` and `unknown` are recorded as such and never used as numbers; a missing measurement is never turned into zero.
+- KOL words are claims: each voice is marked *corroborated*, *unconfirmed* (not a buy signal) or *contradicted* by RYO. A crowd calling up while RYO reads down is rejected in public.
+- A token RYO does not cover is *not analysable*; nothing is invented for it.
+- Practice levels are computed in code from RYO's live price: stop = 1.5 × ATR(14) clamped to 2–8%, target = 2R, size ≤ 5%. No language model writes a level. No real money.
+- Decisions are pure functions of the stored evidence: `bun run ryo:replay` (or the Replay button) recomputes each decision with the same hash, without calling RYO.
+
+**Coping with failure.** RYO calls back off with jitter on 429/503/network errors and honour `Retry-After`; invalid arguments are not retried; a client-side throttle stays under the key's per-minute limit; the key is redacted from every log and file. This was tested for real: our key was issued with `call_allowance.allowed: false` (0 of 200 used), so every tool call returned `429 RATE_LIMITED "MCP call allowance exhausted"`. The agent recorded those refusals as evidence and produced *Missing evidence* rather than numbers. See [`fixtures/ryo/`](fixtures/ryo).
+
+**Run it**
+
+```bash
+bun install
+cp .env.example .env                 # set RYO_MCP_KEY (and LLM_* for extraction); never commit .env
+bun run ryo:whoami                   # key, quota and catalog; spends no tool calls
+bun run --cwd agent ingest           # read public posts → fixtures/posts
+bun run --cwd agent extract          # LLM: one structured call per post → fixtures/extracted
+bun run --cwd agent converge         # fold echoes, score independence → fixtures/candidates
+bun run ryo:run                      # RYO stage → fixtures/ryo/runs/<run>.json
+bun run ryo:replay                   # same decisions, same hashes, no RYO call
+bun run dashboard:dev                # /ryo and /judge
+```
+
+Tests: `bun test` (agent, shared, RYO client and stage with a fake RYO server), `bun run ryo:eval` (21 cases: pure echo, echo-made majority, split sources, KOL vs RYO, high/medium market risk, late call, weaker than BTC or peer, risk flagged, outside the catalog, tool down, partial, simulated, overview down, sentiment reversal, a short, a fabricated number in the debate; reports accuracy and invented-number rate), `bun run verify` (re-derives the on-chain ledger).
+
+**Disclosures.** Code was written during the event window (from 18 August 2026); the Echo Ledger base was built in October 2026 for the BLI Legal Tech Hackathon 2 and is kept with its full history. Libraries: Bun, TypeScript, React, Vite, viem, zod, Foundry/forge-std, Chainlink CRE SDK. Market research comes only from RYO-CHAN; KOL posts are public posts (see *Data sources and content use*). Nothing on the RYO pages is placeholder or simulated: they render only runs recorded from the live RYO endpoint. One older practice position on the BLI ledger (SOL, 26 Oct) was recorded from a pipeline test card whose two sources, `alice-crypto` and `block-research`, are fictional test handles, not real KOLs; it is a real Sepolia transaction but not a real narrative, and is labelled here so it is not mistaken for one.
+
+---
+
+## BLI round: judge's 3-minute path
 
 1. **Open [echo-ledger-ryo.vercel.app](https://echo-ledger-ryo.vercel.app).** The four numbers under the headline (practice PnL, audit checks, decisions, trust updates) are read from Sepolia and re-derived in your browser.
 2. **Echo Graph:** it opens on BTC, 26 Oct. A bot that counts reposts scores 0.67 and trades; Echo Ledger discounts the echo, scores 0.50 and holds back.
@@ -40,7 +87,7 @@ The point is accountability: anyone can recompute a card's hash from its content
 
 ---
 
-## RYO-CHAN Autonomous Agents: how Echo Ledger meets the brief
+## BLI round: how Echo Ledger met the RYO-CHAN bounty brief
 
 The bounty asks for an autonomous agent that **combines many sources of information** and **handles failure** instead of breaking or guessing. Both are central to Echo Ledger, and each claim below points to the code that does it.
 
