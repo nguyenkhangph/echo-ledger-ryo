@@ -56,6 +56,17 @@ export type TradePlan = {
   priceEvidence: EvidenceId;
 };
 
+/** Plain-language reason for each failed gate, used in headlines. */
+const WHY: Record<string, string> = {
+  independence: "not enough independent agreement",
+  market: "RYO rates market risk high",
+  shift: "RYO's sentiment monitor is turning against the call",
+  agreement: "RYO's data does not back the direction",
+  safety: "RYO lists a severe risk",
+  timing: "the call comes late in the move",
+  basket: "the token does not beat its basket",
+};
+
 export type Decision = {
   token: string;
   verdict: Verdict;
@@ -178,7 +189,7 @@ export function decide(input: DecisionInput, options: DecisionOptions = {}): Dec
   gates.push(
     gate(
       "basket",
-      "Stronger than its basket",
+      side === "SHORT" ? "Weaker than its basket" : "Stronger than its basket",
       basketOk,
       facts.vsBtcPct.ok
         ? `vs BTC ${facts.vsBtcPct.value >= 0 ? "+" : ""}${facts.vsBtcPct.value.toFixed(2)} pts${facts.vsPeerPct.ok ? `, vs ${facts.peer ?? "peer"} ${facts.vsPeerPct.value >= 0 ? "+" : ""}${facts.vsPeerPct.value.toFixed(2)} pts` : ""}`
@@ -198,7 +209,7 @@ export function decide(input: DecisionInput, options: DecisionOptions = {}): Dec
     const contradiction = gates.find((g) => g.id === "agreement" && !g.passed && !opts.ignoreRyoVetoes);
     const headline = contradiction && side !== "NONE"
       ? `${base.token}: rejected in public. KOLs call ${side === "LONG" ? "up" : "down"}, RYO's live data does not support it.`
-      : `${base.token}: rejected. ${failed.map((g) => g.label.toLowerCase()).join(", ") || "no tradable direction"}.`;
+      : `${base.token}: rejected, ${failed.map((g) => WHY[g.id] ?? g.label.toLowerCase()).join("; ") || "no tradable direction"}.`;
     return finish({ ...base, verdict: "REJECT", headline, threshold, gates, missing: missingFacts });
   }
   const plan = tradePlan(side, facts.price, facts.change24hPct, scored.score, facts.atr);
@@ -220,7 +231,8 @@ export function counterfactuals(input: DecisionInput) {
   const handles = [...new Set(input.voices.map((v) => v.handle))];
   return {
     actual,
-    naive: decide(input, { countEchoes: true }),
+    // The naive bot counts every post and has no RYO check at all.
+    naive: decide(input, { countEchoes: true, ignoreRyoVetoes: true }),
     withoutRyoVetoes: decide(input, { ignoreRyoVetoes: true }),
     withoutEach: handles.map((h) => ({ handle: h, decision: decide(input, { dropHandle: h }) })),
   };
