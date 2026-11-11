@@ -5,6 +5,8 @@ import { CardNotFound, ReasoningCardDetail } from "./ReasoningCardDetail";
 import { Scorecard } from "./Scorecard";
 import { CertificatePage } from "./Certificate";
 import { CaseFilePage } from "./CaseFile";
+import { RyoPage } from "./RyoPage";
+import { JudgePage } from "./JudgePage";
 import { DecisionFunnel } from "./components/DecisionFunnel";
 import { EchoGraph } from "./components/EchoGraph";
 import { OnChainLedger } from "./components/OnChainLedger";
@@ -422,6 +424,8 @@ function App() {
   }
 
   if (typeof window !== "undefined" && /^\/casefile\/?$/.test(window.location.pathname)) return <CaseFilePage />;
+  if (typeof window !== "undefined" && /^\/ryo\/?$/.test(window.location.pathname)) return <RyoPage />;
+  if (typeof window !== "undefined" && /^\/judge\/?$/.test(window.location.pathname)) return <JudgePage />;
 
   const recordRoute = typeof window === "undefined" ? null : window.location.pathname.match(/^\/record\/(0x[0-9a-fA-F]{8,64})\/?$/);
   if (recordRoute) return <CertificatePage positionId={recordRoute[1]} />;

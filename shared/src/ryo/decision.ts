@@ -115,7 +115,7 @@ export function decide(input: DecisionInput, options: DecisionOptions = {}): Dec
   });
 
   const missingFacts: string[] = [];
-  const need = (label: string, f: Fact<unknown>) => {
+  const need = (_label: string, f: Fact<unknown>) => {
     if (!f.ok) missingFacts.push(f.reason);
   };
 

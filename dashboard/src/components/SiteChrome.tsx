@@ -1,11 +1,13 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { NetworkBackground } from "./NetworkBackground";
 
-type NavKey = "radar" | "scorecard" | "card";
+type NavKey = "radar" | "scorecard" | "card" | "ryo" | "judge";
 
 const NAV_ITEMS: ReadonlyArray<{ key: NavKey; href: string; label: string }> = [
   { key: "radar", href: "/", label: "Radar" },
+  { key: "ryo", href: "/ryo", label: "RYO check" },
   { key: "scorecard", href: "/scorecard", label: "Scorecard" },
+  { key: "judge", href: "/judge", label: "For judges" },
 ];
 
 /** Logo mark plus the text wordmark (the red dot echoes the mark's accent). */

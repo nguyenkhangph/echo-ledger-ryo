@@ -107,6 +107,20 @@ export async function runRyoStage(opts: { candidatesFile: string; outDir: string
   };
 
   const candidates = loadCandidates(opts.candidatesFile);
+  // Attach each source's posting time (for the propagation map) from the ingest log, when available.
+  const postsDir = join(opts.candidatesFile, "../../posts");
+  const postedAt = new Map<string, string>();
+  if (existsSync(postsDir))
+    for (const f of readdirSync(postsDir).filter((x) => x.endsWith(".jsonl")))
+      for (const line of readFileSync(join(postsDir, f), "utf8").split("\n"))
+        if (line.trim())
+          try {
+            const p = JSON.parse(line) as { id?: string; posted_at?: string };
+            if (p.id && p.posted_at) postedAt.set(p.id, p.posted_at);
+          } catch {
+            /* a corrupt line is skipped, not fatal */
+          }
+  for (const c of candidates) for (const s of c.sources) (s as CandidateSource & { posted_at?: string }).posted_at = postedAt.get(s.post_id);
   log(`RYO stage on ${candidates.length} narratives from ${opts.candidatesFile}`);
 
   const overview = await call("market_overview", {});
@@ -207,21 +221,7 @@ export async function runRyoStage(opts: { candidatesFile: string; outDir: string
   return run;
 }
 
-/** Recomputes every decision of a saved run from its stored evidence alone; returns the mismatches. */
-export function replayRun(run: RyoRun): Array<{ token: string; stored: string; replayed: string; same: boolean }> {
-  const book = EvidenceBook.from(run.evidence);
-  const byTool = (tool: string, pred: (e: RyoEvidence) => boolean = () => true) => run.evidence.find((e) => e.tool === tool && pred(e));
-  const market = marketFacts(byTool("market_overview"), byTool("monitor_market_sentiment_shift"));
-  return run.narratives.map((n) => {
-    const deep = byTool("deep_analysis", (e) => String(e.args.symbol).toUpperCase() === n.token);
-    const compare = byTool("compare_tokens", (e) => String(e.args.symbols).toUpperCase().startsWith(n.token === "BTC" ? "BTC, ETH" : `${n.token},`));
-    const hint = independentScore(n.voices).side === "bearish" ? "SHORT" : "LONG";
-    const facts = tokenFacts(n.token, deep, compare, n.token === "BTC" ? "ETH" : n.peer, hint);
-    const d = decide({ token: n.token, voices: n.voices, market, facts });
-    void book;
-    return { token: n.token, stored: n.decision.hash, replayed: d.hash, same: d.hash === n.decision.hash };
-  });
-}
+export { replayRun } from "@echo/shared/ryo";
 
 export const canonical = canonicalJson;
 export { existsSync };
