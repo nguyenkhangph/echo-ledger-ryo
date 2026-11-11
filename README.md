@@ -87,7 +87,22 @@ The RYO stage runs both skills on every narrative (stale_call on each original c
 
 **Finfluencer case.** `/ryo` shows two eval cases decided by the same rules as live runs: one account promotes a token and four repost it while RYO sees no direction (rejected), and a loud consensus with RYO evidence missing (not decided). Illustrative only; not legal advice and no finding about any real person.
 
-**Disclosures.** Code was written during the event window (from 18 August 2026); the Echo Ledger base was built in October 2026 for the BLI Legal Tech Hackathon 2 and is kept with its full history. Libraries: Bun, TypeScript, React, Vite, viem, zod, Foundry/forge-std, Chainlink CRE SDK. Market research comes only from RYO-CHAN; KOL posts are public posts (see *Data sources and content use*). Nothing on the RYO pages is placeholder or simulated: they render only runs recorded from the live RYO endpoint. One older practice position on the BLI ledger (SOL, 26 Oct) was recorded from a pipeline test card whose two sources, `alice-crypto` and `block-research`, are fictional test handles, not real KOLs; it is a real Sepolia transaction but not a real narrative, and is labelled here so it is not mistaken for one.
+**Disclosures.**
+
+*Timeline and lineage.* Code was written during the event window (from 18 August 2026); the Echo Ledger base was built in October 2026 for the BLI Legal Tech Hackathon 2 and is kept with its full history. Development used AI coding assistance (Claude).
+
+*Third-party code and resources.*
+- Starter template: `cre/` was scaffolded with Chainlink's `cre init` (custom-data-feed template) and then rewritten into the record, settle and reputation workflows.
+- Libraries: Bun, TypeScript, React and React DOM, Vite with `@vitejs/plugin-react`, viem, zod, zod-to-json-schema, `@chainlink/cre-sdk`, Foundry `forge-std` (vendored in `contracts/lib`).
+- Fonts: Space Grotesk, JetBrains Mono and Fraunces (Google Fonts).
+- Services: RYO-CHAN MCP (market research), an OpenAI-compatible LLM (post extraction only), public Sepolia RPC endpoints, Chainlink CRE, and CoinGecko, Binance and Coinbase public prices inside the BLI-round CRE workflows. KOL posts are public posts (see *Data sources and content use*).
+- Demo video: narration is AI-generated (Kokoro open-weight text-to-speech); every number shown in it comes from this repository's recorded data or test output.
+
+*Real data versus test data.*
+- Real: `fixtures/posts`, `fixtures/extracted`, `fixtures/candidates` (recorded from public sources), `fixtures/ryo/tools.json`, `fixtures/ryo/samples/` and `fixtures/ryo/runs/` (real RYO responses, all 429 refusals because the key is disabled), and the Sepolia ledger. The RYO pages render only runs recorded from the live RYO endpoint.
+- Synthetic, labelled as such: the 26-case eval (`shared/src/ryo/eval.ts`) builds hand-written RYO-shaped evidence to test the rules, and the finfluencer section on `/ryo` shows two of those cases as illustrative; unit tests use a fake RYO server with made-up values (`agent/src/ryo/stage.test.ts`) that are never written to `fixtures/`; the skill example above uses illustrative posts (`alpha`, `beta`, `gamma`).
+- One older practice position on the BLI ledger (SOL, 26 Oct) was recorded from a pipeline test card whose two sources, `alice-crypto` and `block-research`, are fictional test handles, not real KOLs; it is a real Sepolia transaction but not a real narrative, and is labelled on the dashboard so it is not mistaken for one.
+- No secrets are committed, including in the history: `.env` and `cre/.env` were never tracked; the only key-shaped value ever committed is the template placeholder `CRE_ETH_PRIVATE_KEY=000…001` from `cre init`, since removed.
 
 ---
 
