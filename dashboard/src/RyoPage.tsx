@@ -1,7 +1,14 @@
 import { useMemo, useState } from "react";
-import { replayRun, type Decision, type RyoEvidence, type RyoRun, type RyoRunNarrative } from "@echo/shared/ryo";
+import { decideWithout, FINFLUENCER_CASES, replayRun, runEval, sourceValidity, type Decision, type RyoEvidence, type RyoRun, type RyoRunNarrative, type RyoSettlement } from "@echo/shared/ryo";
 import { SiteLayout } from "./components/SiteChrome";
-import { latestRyoRun, ryoRuns } from "./data/ryo";
+import { latestRyoRun, ryoRuns, ryoSettlements } from "./data/ryo";
+
+/** Every evidence item a run can cite: its own calls, later rechecks, and settlement price reads. */
+const allEvidence = (run: RyoRun): RyoEvidence[] => [
+  ...run.evidence,
+  ...(run.rechecks ?? []).flatMap((r) => r.evidence),
+  ...ryoSettlements.filter((s) => s.runId === run.runId).flatMap((s) => s.evidence),
+];
 
 const t = (iso: string) => new Date(iso).toUTCString().slice(5, 22) + " UTC";
 const VERDICT: Record<Decision["verdict"], { label: string; tone: string }> = {
@@ -20,7 +27,7 @@ function EvidenceChip({ id, onOpen }: { id: string; onOpen: (id: string) => void
 }
 
 function EvidenceModal({ run, id, onClose }: { run: RyoRun; id: string; onClose: () => void }) {
-  const e = run.evidence.find((x) => x.id === id);
+  const e = allEvidence(run).find((x) => x.id === id);
   if (!e) return null;
   return (
     <div className="ryo-modal" role="dialog" aria-modal="true" aria-label={`Evidence ${id}`} onClick={onClose}>
@@ -73,6 +80,9 @@ function evidencePack(run: RyoRun, n: RyoRunNarrative) {
     card: n.card,
     card_hash: n.cardHash,
     decision: n.decision,
+    rechecks: (run.rechecks ?? []).filter((r) => r.token === n.token),
+    settlement: ryoSettlements.filter((s) => s.runId === run.runId).flatMap((s) => s.narratives.filter((x) => x.token === n.token)),
+    skills: { narrative_independence: n.independence ?? null, stale_call: n.stale ?? [] },
     note: "Practice decision on recorded public posts and RYO-CHAN research output. Not financial or legal advice.",
   };
 }
@@ -103,10 +113,14 @@ function Propagation({ n }: { n: RyoRunNarrative }) {
 }
 
 function Narrative({ run, n, open }: { run: RyoRun; n: RyoRunNarrative; open: (id: string) => void }) {
-  const [mode, setMode] = useState<"actual" | "naive" | "noveto" | `drop:${string}`>("actual");
+  const [mode, setMode] = useState<"actual" | "naive" | "noveto" | "nodeep" | "noquick" | `drop:${string}`>("actual");
   const cf = n.counterfactuals;
+  const tools = useMemo(() => ({ nodeep: decideWithout(run, n, ["deep_analysis"]), noquick: decideWithout(run, n, ["analyze_token"]) }), [run, n]);
+  const hasQuick = run.evidence.some((e) => e.tool === "analyze_token" && String(e.args.symbol).toUpperCase() === n.token);
   const alt =
-    mode === "naive" ? cf.naive : mode === "noveto" ? cf.withoutRyoVetoes : mode.startsWith("drop:") ? cf.withoutEach.find((x) => x.handle === mode.slice(5))?.decision ?? cf.actual : null;
+    mode === "naive" ? cf.naive : mode === "noveto" ? cf.withoutRyoVetoes : mode === "nodeep" ? tools.nodeep : mode === "noquick" ? tools.noquick : mode.startsWith("drop:") ? cf.withoutEach.find((x) => x.handle === mode.slice(5))?.decision ?? cf.actual : null;
+  const staleBy = new Map((n.stale ?? []).map((x) => [x.handle, x.envelope]));
+  const rechecks = (run.rechecks ?? []).filter((r) => r.token === n.token);
   const d = n.decision;
   const v = VERDICT[d.verdict];
   const handles = [...new Set(n.voices.map((x) => x.handle))];
@@ -129,6 +143,8 @@ function Narrative({ run, n, open }: { run: RyoRun; n: RyoRunNarrative; open: (i
         <span className="mono-font ryo-muted">What if…</span>
         <button type="button" className={`ryo-chip mono-font${mode === "naive" ? " is-on" : ""}`} onClick={() => setMode(mode === "naive" ? "actual" : "naive")}>echoes counted</button>
         <button type="button" className={`ryo-chip mono-font${mode === "noveto" ? " is-on" : ""}`} onClick={() => setMode(mode === "noveto" ? "actual" : "noveto")}>RYO vetoes ignored</button>
+        <button type="button" className={`ryo-chip mono-font${mode === "nodeep" ? " is-on" : ""}`} onClick={() => setMode(mode === "nodeep" ? "actual" : "nodeep")}>deep_analysis down</button>
+        {hasQuick && <button type="button" className={`ryo-chip mono-font${mode === "noquick" ? " is-on" : ""}`} onClick={() => setMode(mode === "noquick" ? "actual" : "noquick")}>analyze_token down</button>}
         {handles.map((h) => (
           <button key={h} type="button" className={`ryo-chip mono-font${mode === `drop:${h}` ? " is-on" : ""}`} onClick={() => setMode(mode === `drop:${h}` ? "actual" : `drop:${h}`)}>without {h}</button>
         ))}
@@ -137,8 +153,23 @@ function Narrative({ run, n, open }: { run: RyoRun; n: RyoRunNarrative; open: (i
         <p className="ryo-after mono-font">
           Before: <b>{VERDICT[d.verdict].label}</b> ({d.score.toFixed(2)}) → after: <b>{VERDICT[alt.verdict].label}</b> ({alt.score.toFixed(2)}).{" "}
           {alt.verdict === d.verdict ? "The outcome does not depend on this." : "This alone changes the outcome."}
+          {(mode === "nodeep" || mode === "noquick") && " Recomputed from the stored payloads with that tool removed."}
         </p>
       )}
+
+      <div className="ryo-recheck mono-font">
+        <span className="ryo-muted">Call deep_analysis again:</span>
+        {rechecks.length === 0 ? (
+          <span className="ryo-muted"> not re-checked yet · <code>bun run ryo:recheck --token {n.token}</code> calls deep_analysis and analyze_token now and records the before/after here</span>
+        ) : (
+          rechecks.map((r, i) => (
+            <span key={i}>
+              {" "}{t(r.at)}: <b>{VERDICT[r.before.verdict as Decision["verdict"]]?.label ?? r.before.verdict}</b> → <b>{VERDICT[r.after.verdict as Decision["verdict"]]?.label ?? r.after.verdict}</b>
+              {r.changed ? " (changed)" : " (same outcome)"} {r.evidence.map((e) => <EvidenceChip key={e.id} id={e.id} onOpen={open} />)}
+            </span>
+          ))
+        )}
+      </div>
 
       {d.plan && (
         <div className="ryo-plan mono-font">
@@ -166,9 +197,20 @@ function Narrative({ run, n, open }: { run: RyoRun; n: RyoRunNarrative; open: (i
         {d.voices.map((x, i) => (
           <span key={`${x.handle}-${i}`} className={`ryo-voice ryo-voice--${x.ryo}${x.echo ? " is-echo" : ""}`} title={x.note}>
             {x.handle} · {x.sentiment}{x.echo ? " · echo" : ""} · {x.ryo}
+            {!x.echo && staleBy.get(x.handle)?.data ? ` · ${staleBy.get(x.handle)!.data!.label}` : ""}
           </span>
         ))}
       </div>
+      {(n.stale?.length ?? 0) > 0 && (
+        <p className="mono-font ryo-muted ryo-skillnote">
+          stale_call: {n.stale!.map((x) => `${x.handle} ${x.envelope.data ? `${x.envelope.data.label} ${x.envelope.data.score}/100 (${x.envelope.data.age_h} h old)` : x.envelope.status}`).join(" · ")}
+        </p>
+      )}
+      {n.independence?.data && (
+        <p className="mono-font ryo-muted ryo-skillnote">
+          narrative_independence: {n.independence.summary.headline} {n.independence.summary.key_points[0]}
+        </p>
+      )}
 
       <Propagation n={n} />
 
@@ -207,6 +249,59 @@ function Replay({ run }: { run: RyoRun }) {
   );
 }
 
+function Validity({ settlements }: { settlements: RyoSettlement[] }) {
+  const rows = sourceValidity(settlements);
+  const pending = settlements.flatMap((s) => s.narratives.filter((n) => !n.settled));
+  return (
+    <div className="panel ryo-ev">
+      <h3>Source validity · right or wrong at the 24 h horizon, by RYO's price (not by followers)</h3>
+      {rows.length === 0 ? (
+        <p className="ryo-muted">
+          No settled calls yet. <code>bun run ryo:settle</code> reads RYO's analyze_token price 24 h after each run, scores every KOL call by direction (±0.25% is flat),
+          and moves trust +2.5 / −2.5, with −2.5 more for an echo.{pending.length ? ` Not settled: ${pending.map((n) => `${n.token} (${"reason" in n ? n.reason : ""})`).join(" · ")}.` : ""}
+        </p>
+      ) : (
+        <table className="mono-font">
+          <thead><tr><th>Source</th><th>Calls</th><th>Right</th><th>Wrong</th><th>Flat</th><th>Echo calls</th><th>Hit rate</th><th>Trust Δ</th><th>Tokens</th></tr></thead>
+          <tbody>
+            {rows.map((r) => (
+              <tr key={r.handle}>
+                <td>{r.handle}</td><td>{r.calls}</td><td className="ryo-ok">{r.right}</td><td className="ryo-bad">{r.wrong}</td><td>{r.flat}</td><td>{r.echoes}</td>
+                <td>{r.hit_rate === null ? "—" : `${Math.round(r.hit_rate * 100)}%`}</td>
+                <td className={r.trust_delta >= 0 ? "ryo-ok" : "ryo-bad"}>{r.trust_delta > 0 ? "+" : ""}{r.trust_delta}</td>
+                <td>{r.tokens.join(", ")}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </div>
+  );
+}
+
+function Finfluencer() {
+  const rows = useMemo(() => runEval().rows.filter((r) => FINFLUENCER_CASES.includes(r.id)), []);
+  return (
+    <div className="panel ryo-ev">
+      <h3>Finfluencer case · loud promotion is not evidence</h3>
+      <p className="ryo-muted">
+        Two cases from the eval set, decided by the same rules as live runs. One account promotes a token and others repost it; Echo Ledger counts the reposts as one
+        voice and asks RYO whether the market backs it. Illustrative only: this is not legal advice and makes no finding about any real person.
+      </p>
+      <ul className="ryo-gates">
+        {rows.map((r) => (
+          <li key={r.id} className="is-bad">
+            <span aria-hidden="true">✗</span>
+            <b>{r.title}</b>
+            <span className="ryo-muted">{VERDICT[r.got as Decision["verdict"]]?.label ?? r.got} · {r.headline.replace(/^TKN: /, "").replace(/^rejected in public\. /, "")}</span>
+          </li>
+        ))}
+      </ul>
+      <p className="mono-font ryo-muted">bun run ryo:eval · {runEval().correct}/{runEval().total} cases correct · 0 invented numbers</p>
+    </div>
+  );
+}
+
 function EvidenceTable({ run, open }: { run: RyoRun; open: (id: string) => void }) {
   return (
     <div className="panel ryo-ev">
@@ -214,7 +309,7 @@ function EvidenceTable({ run, open }: { run: RyoRun; open: (id: string) => void 
       <table className="mono-font">
         <thead><tr><th>Id</th><th>Tool</th><th>Arguments</th><th>Status</th><th>Detail</th><th>Payload</th></tr></thead>
         <tbody>
-          {run.evidence.map((e: RyoEvidence) => {
+          {allEvidence(run).map((e: RyoEvidence) => {
             const call = run.calls.find((c) => c.evidence === e.id);
             return (
               <tr key={e.id}>
@@ -290,10 +385,12 @@ export function RyoPage() {
             {run.skipped.length > 0 && (
               <p className="mono-font ryo-muted">Not sent to RYO: {run.skipped.map((s) => `${s.token} (${s.reason})`).join(" · ")}</p>
             )}
+            <Validity settlements={ryoSettlements} />
             <EvidenceTable run={run} open={setOpenId} />
             {openId && <EvidenceModal run={run} id={openId} onClose={() => setOpenId(null)} />}
           </>
         )}
+        <Finfluencer />
       </div>
     </SiteLayout>
   );

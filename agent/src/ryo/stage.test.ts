@@ -68,14 +68,15 @@ describe("RYO stage", () => {
     expect(both.narratives[0]!.decision.verdict).toBe("INSUFFICIENT_EVIDENCE");
   });
 
-  test("deep_analysis down: analyze_token supplies the price, and the evidence id says so", async () => {
+  test("deep_analysis down: analyze_token still reads the market, but with no risk list nothing opens", async () => {
     const { dir, file } = candidates();
     const down = await runRyoStage({ candidatesFile: file, outDir: dir, client: new RyoClient(cfg, fakeRyo({ down: ["deep_analysis"] })), log: quiet });
-    const d = down.narratives[0]!.decision;
+    const n = down.narratives[0]!;
     const quick = down.evidence.find((e) => e.tool === "analyze_token")!;
-    expect(d.verdict).toBe("OPEN");
-    expect(d.plan!.priceEvidence).toBe(quick.id);
-    expect(d.plan!.entry).toBe(150.3);
+    expect(n.decision.verdict).toBe("INSUFFICIENT_EVIDENCE");
+    expect(n.decision.plan).toBeNull();
+    expect(n.decision.missing.join(" ")).toContain("safety");
+    expect(n.claims.some((c) => c.evidence.includes(quick.id) && /150.3/.test(c.text))).toBe(true);
   });
 
   test("the two RYO tools disagree: rejected", async () => {

@@ -189,8 +189,9 @@ export function decide(input: DecisionInput, options: DecisionOptions = {}): Dec
     ].filter(Boolean);
     gates.push(gate("crosscheck", "deep_analysis and analyze_token agree", dirOk && priceOk, parts.join(" · "), [cx.deepDirection, cx.quickDirection, cx.deepPrice, cx.quickPrice]));
   }
-  if (facts.safety.ok || facts.safety.evidence)
-    gates.push(gate("safety", "Token safety check", facts.safety.ok && facts.safety.value !== "fail", facts.safety.ok ? `RYO safety: ${facts.safety.value}` : facts.safety.reason, [facts.safety]));
+  // No risk list means safety was not verified: the agent waits rather than opening blind.
+  need("safety", facts.safety);
+  gates.push(gate("safety", "Token safety check", facts.safety.ok && facts.safety.value !== "fail", facts.safety.ok ? `RYO safety: ${facts.safety.value}` : `not verified · ${facts.safety.reason}`, [facts.safety]));
   gates.push(
     gate(
       "timing",
@@ -218,7 +219,7 @@ export function decide(input: DecisionInput, options: DecisionOptions = {}): Dec
   const failed = counted.filter((g) => !g.passed);
   const priceKnown = facts.price.ok;
 
-  if (!priceKnown || !market.risk.ok || !facts.direction.ok) {
+  if (!priceKnown || !market.risk.ok || !facts.direction.ok || !facts.safety.ok) {
     return finish({ ...base, verdict: "INSUFFICIENT_EVIDENCE", headline: `${base.token}: not decided. Live RYO data is missing: ${missingFacts.join("; ")}.`, threshold, gates, missing: missingFacts });
   }
   if (failed.length > 0 || side === "NONE") {

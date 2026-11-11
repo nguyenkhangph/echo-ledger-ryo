@@ -18,7 +18,7 @@ The point is accountability: anyone can recompute a card's hash from its content
 
 ## RYO-CHAN Hackathon 2026 entry
 
-**Tracks:** Track 1 (Agents and strategy) and Track 2 (Dashboards and interfaces). **Pages for judges:** [`/ryo`](https://echo-ledger-ryo.vercel.app/ryo) (the RYO check) and [`/judge`](https://echo-ledger-ryo.vercel.app/judge) (each criterion with a link).
+**Tracks:** Track 1 (Agents and strategy), Track 2 (Dashboards and interfaces) and Track 3 (New skills: `narrative_independence`, `stale_call`). **Pages for judges:** [`/ryo`](https://echo-ledger-ryo.vercel.app/ryo) (the RYO check) and [`/judge`](https://echo-ledger-ryo.vercel.app/judge) (each criterion with a link).
 
 **User and decision.** Someone who follows crypto KOLs and has to decide whether a narrative is worth acting on. The decision: is this independent agreement backed by the market, or one opinion echoed many times?
 
@@ -29,9 +29,9 @@ The point is accountability: anyone can recompute a card's hash from its content
 | `market_overview` | once per run | market risk regime; raises the independence bar from 0.60 to 0.67 when tense, vetoes when high |
 | `monitor_market_sentiment_shift` | once per run | reversal alarm: vetoes a call against a turning sentiment regime |
 | `scan_market` | once per run | RYO first: which tokens RYO ranks, and which KOLs named them independently or only echoed |
-| `deep_analysis` | per narrative with an independent voice | price, 24 h change, RYO's verdict (does it back the KOLs?), RSI(14) (is the call late?), ATR(14) (stop distance), listed risks |
+| `deep_analysis` | per narrative with an independent voice | price, 24 h change, RYO's verdict (does it back the KOLs?), RSI(14) (is the call late?), ATR(14) (stop distance), listed risks (safety: a severe risk vetoes; no risk list means safety not verified, so nothing opens) |
 | `compare_tokens` | per narrative | the token against BTC and a fixed same-sector peer; weaker than its basket means no entry |
-| `analyze_token` | not needed | `deep_analysis` covers it; we spend the 200-call monthly allowance where it adds evidence |
+| `analyze_token` | per narrative; again at the 24 h horizon | second reading of the same token: must agree with `deep_analysis` on direction and on price within 1% or the call is rejected; fallback for price/direction/RSI/ATR when `deep_analysis` is down; the price at the horizon for settlement |
 
 **Rules (all in code, [`shared/src/ryo/`](shared/src/ryo)):**
 - Every RYO response becomes numbered evidence (E1, E2, …) with a keccak256 of its payload. Every gate, claim and price level on a card cites its evidence id and the payload path, e.g. `E4 data.market.price`.
@@ -39,6 +39,7 @@ The point is accountability: anyone can recompute a card's hash from its content
 - KOL words are claims: each voice is marked *corroborated*, *unconfirmed* (not a buy signal) or *contradicted* by RYO. A crowd calling up while RYO reads down is rejected in public.
 - A token RYO does not cover is *not analysable*; nothing is invented for it.
 - Practice levels are computed in code from RYO's live price: stop = 1.5 × ATR(14) clamped to 2–8%, target = 2R, size ≤ 5%. No language model writes a level. No real money.
+- After 24 h, `bun run ryo:settle` reads RYO's price again and scores each KOL call right or wrong by direction (±0.25% is flat): trust +2.5 / −2.5, and −2.5 more for an echo. The *source validity* table on `/ryo` ranks sources by outcome, never by followers.
 - Decisions are pure functions of the stored evidence: `bun run ryo:replay` (or the Replay button) recomputes each decision with the same hash, without calling RYO.
 
 **Coping with failure.** RYO calls back off with jitter on 429/503/network errors and honour `Retry-After`; invalid arguments are not retried; a client-side throttle stays under the key's per-minute limit; the key is redacted from every log and file. This was tested for real: our key was issued with `call_allowance.allowed: false` (0 of 200 used), so every tool call returned `429 RATE_LIMITED "MCP call allowance exhausted"`. The agent recorded those refusals as evidence and produced *Missing evidence* rather than numbers. See [`fixtures/ryo/`](fixtures/ryo).
@@ -54,10 +55,35 @@ bun run --cwd agent extract          # LLM: one structured call per post → fix
 bun run --cwd agent converge         # fold echoes, score independence → fixtures/candidates
 bun run ryo:run                      # RYO stage → fixtures/ryo/runs/<run>.json
 bun run ryo:replay                   # same decisions, same hashes, no RYO call
+bun run ryo:recheck --token SOL      # call deep_analysis + analyze_token again, record before/after on the card
+bun run ryo:settle                   # after 24 h: RYO price at the horizon, right/wrong per KOL, trust moves
+bun run skills:serve                 # Track 3 skills on http://localhost:8790
 bun run dashboard:dev                # /ryo and /judge
 ```
 
-Tests: `bun test` (agent, shared, RYO client and stage with a fake RYO server), `bun run ryo:eval` (21 cases: pure echo, echo-made majority, split sources, KOL vs RYO, high/medium market risk, late call, weaker than BTC or peer, risk flagged, outside the catalog, tool down, partial, simulated, overview down, sentiment reversal, a short, a fabricated number in the debate; reports accuracy and invented-number rate), `bun run verify` (re-derives the on-chain ledger).
+Tests: `bun test` (agent, shared, RYO client and stage with a fake RYO server), `bun run ryo:eval` (26 cases: pure echo, echo-made majority, split sources, KOL vs RYO, high/medium market risk, late call, weaker than BTC or peer, risk flagged, outside the catalog, tool down, partial, simulated, overview down, sentiment reversal, a short, the two RYO tools agreeing / disagreeing / quoting prices 3% apart, two finfluencer cases, a fabricated number in the debate; reports accuracy and invented-number rate), `bun run verify` (re-derives the on-chain ledger).
+
+### Track 3: two new skills in RYO's tool format
+
+RYO measures the market. Nothing in RYO measures **whether the people talking about a token are independent of each other**, or **how stale a call already is**. Echo Ledger adds both as research tools that follow the RYO Builder MCP Guide's public response contract exactly: every result is the envelope `schema_version, tool, status (ok | partial | unavailable), data_mode, as_of, request, data, summary, availability, warnings`, logic lives in `data`, and a missing measurement is `null`, never `0`. Code: [`shared/src/ryo/skills/`](shared/src/ryo/skills).
+
+| Skill | Input | Returns in `data` | Degrades to |
+|---|---|---|---|
+| `narrative_independence` | `symbol`, `posts[]` (id, handle, sentiment, posted_at, echo_of / is_echo, text), optional `market_risk` | independent vs naive agreement and whether each passes the bar (0.60, or 0.67 when `market_risk` is medium), echo ratio, originators, echo clusters (declared, near-duplicate text, same account) with lag, pivotal voices, timeline | `partial` when posts lack a sentiment (excluded and listed) or a timestamp; `unavailable` with no posts |
+| `stale_call` | `symbol`, `side` (long \| short), `posted_at` | 0–100 score and `fresh / aging / stale / invalidated` from three published components: age (0 at 2 h → 100 at 48 h, weight 0.40), move already made in the call's direction vs 1.5 × ATR% (0.35), RSI(14) in the call's direction (0.25); the RYO evidence paths used | `partial`, age only, when RYO's `analyze_token` is not live; `unavailable` on invalid arguments |
+
+Served like RYO's own tools (`bun run skills:serve`): `GET /tools` (definitions with `inputSchema`), `POST /tools/{name}/call` → `{"result": envelope}`, and MCP JSON-RPC at `POST /mcp` (`initialize`, `tools/list`, `tools/call` with the envelope as text content). `narrative_independence` needs no key; `stale_call` uses the server's own `RYO_MCP_KEY` for `analyze_token`.
+
+```bash
+curl -s localhost:8790/tools/narrative_independence/call -d '{"symbol":"SOL","market_risk":"low","posts":[
+  {"id":"1","handle":"alpha","sentiment":"bullish","posted_at":"2026-11-10T00:00:00Z","text":"SOL breaking out above 150"},
+  {"id":"2","handle":"beta","sentiment":"bullish","posted_at":"2026-11-10T01:00:00Z","echo_of":"1"},
+  {"id":"3","handle":"gamma","sentiment":"bearish","posted_at":"2026-11-10T02:00:00Z"}]}' | jq .result.data.independent
+```
+
+The RYO stage runs both skills on every narrative (stale_call on each original call, from the same RYO evidence, so no extra calls) and shows them under the voices on each card.
+
+**Finfluencer case.** `/ryo` shows two eval cases decided by the same rules as live runs: one account promotes a token and four repost it while RYO sees no direction (rejected), and a loud consensus with RYO evidence missing (not decided). Illustrative only; not legal advice and no finding about any real person.
 
 **Disclosures.** Code was written during the event window (from 18 August 2026); the Echo Ledger base was built in October 2026 for the BLI Legal Tech Hackathon 2 and is kept with its full history. Libraries: Bun, TypeScript, React, Vite, viem, zod, Foundry/forge-std, Chainlink CRE SDK. Market research comes only from RYO-CHAN; KOL posts are public posts (see *Data sources and content use*). Nothing on the RYO pages is placeholder or simulated: they render only runs recorded from the live RYO endpoint. One older practice position on the BLI ledger (SOL, 26 Oct) was recorded from a pipeline test card whose two sources, `alice-crypto` and `block-research`, are fictional test handles, not real KOLs; it is a real Sepolia transaction but not a real narrative, and is labelled here so it is not mistaken for one.
 

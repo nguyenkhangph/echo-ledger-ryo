@@ -1263,3 +1263,6 @@ p.empty-row { margin: 0; }
 .judge-list p { margin: 4px 0 0; color: rgba(245, 245, 245, 0.82); font-size: 13px; line-height: 1.6; }
 .judge-list a { color: var(--ec-win); }
 @media (max-width: 720px) { .ryo-cols { grid-template-columns: 1fr; } .ryo-gates li { grid-template-columns: 18px 1fr; } .ryo-gates li > span:nth-child(3), .ryo-gates li > span:nth-child(4) { grid-column: 2; } .ryo-prop li { grid-template-columns: 56px 1fr; } .ryo-prop li > span:last-child { grid-column: 2; } }
+.ryo-recheck { margin: 0; font-size: 12px; line-height: 1.7; }
+.ryo-recheck code, .ryo-ev code { font-size: 11px; }
+.ryo-skillnote { margin: 4px 0 0; font-size: 11px; line-height: 1.6; }
