@@ -201,6 +201,11 @@ function PositionRow({ position, snapshot, audit }: { position: LedgerPosition; 
           <ProofPackButton position={position} snapshot={snapshot} audit={audit} />
         </span>
       </div>
+      {position.sources.some((src) => src.label === "alice-crypto" || src.label === "block-research") && (
+        <p className="ledger-row__reason mono-font">
+          <span>Pipeline test</span> Recorded from a test card whose sources (alice-crypto, block-research) are fictional handles, not real KOLs. The transaction is real; the narrative is not.
+        </p>
+      )}
       {reasonFor(position) && (
         <p className="ledger-row__reason mono-font">
           <span>Grounds</span> {reasonFor(position)!.text} <code>{position.reasonCode}</code>
