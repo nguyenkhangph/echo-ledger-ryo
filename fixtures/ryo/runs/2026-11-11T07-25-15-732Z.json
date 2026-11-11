@@ -1,0 +1,4271 @@
+{
+  "kind": "echo-ledger/ryo-run@1",
+  "runId": "2026-11-11T07-25-15-732Z",
+  "startedAt": "2026-11-11T07:25:15.732Z",
+  "finishedAt": "2026-11-11T07:27:24.775Z",
+  "endpoint": "https://app-ryochan.com/api/mcp",
+  "candidatesFile": "D:\\Projects\\echo-ledger-ryo\\fixtures\\candidates\\2026-10-29.jsonl",
+  "evidence": [
+    {
+      "id": "E1",
+      "tool": "market_overview",
+      "args": {},
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:25:16.119Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701283 s)",
+        "http_status": 429,
+        "trace_id": "812625d9e76c4ed6960c0563fef2a7e6"
+      },
+      "payloadHash": "0x93ec18ac6686d4196da6bdcfcdc4eb520168151eb1631ea9e7ea791b920a1f66"
+    },
+    {
+      "id": "E2",
+      "tool": "monitor_market_sentiment_shift",
+      "args": {},
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:25:17.949Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701283 s)",
+        "http_status": 429,
+        "trace_id": "3e275f62857840c59665edcff3493c5a"
+      },
+      "payloadHash": "0x0bd6cd91ccd85c39b5e98c88b42b0527bb8f4d3f3946e6a199ec93e06e84677b"
+    },
+    {
+      "id": "E3",
+      "tool": "scan_market",
+      "args": {
+        "top_n": 10
+      },
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:25:18.381Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701282 s)",
+        "http_status": 429,
+        "trace_id": "720a827f001e4f6cb2c53d385b95ed2c"
+      },
+      "payloadHash": "0x27b877349d128ba3c6acee3a056a6b0759fd0ef8db1dbe117a3488762037a04c"
+    },
+    {
+      "id": "E4",
+      "tool": "deep_analysis",
+      "args": {
+        "symbol": "BTC",
+        "include_perp": false
+      },
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:25:18.813Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701282 s)",
+        "http_status": 429,
+        "trace_id": "82e348f9624944f0a31d660479d108e0"
+      },
+      "payloadHash": "0x1024021b2aa380b0aa7f4d0054399388d3dba5e117bb483c74a61b3f143bbb6b"
+    },
+    {
+      "id": "E5",
+      "tool": "analyze_token",
+      "args": {
+        "symbol": "BTC"
+      },
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:25:19.260Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701281 s)",
+        "http_status": 429,
+        "trace_id": "1441bc8ae2ed4068ab49ec3191f7fc05"
+      },
+      "payloadHash": "0x54c878e2df9cce8712df8b3efb40a0e93d2b6bd80c1796c9c2aaa259df5906fb"
+    },
+    {
+      "id": "E6",
+      "tool": "compare_tokens",
+      "args": {
+        "symbols": "BTC, ETH, SOL",
+        "intent": "swing"
+      },
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:25:19.694Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701281 s)",
+        "http_status": 429,
+        "trace_id": "aaf086ebe8da4d34bbf14bb1771ae7e8"
+      },
+      "payloadHash": "0xe82cbec4b323c1cd3f0705928adeeff45ef18d230b178e526f7a7aa38fccd56f"
+    },
+    {
+      "id": "E7",
+      "tool": "deep_analysis",
+      "args": {
+        "symbol": "BNB",
+        "include_perp": false
+      },
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:25:20.145Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701220 s)",
+        "http_status": 429,
+        "trace_id": "096deb6234a94c2b98d072befc549081"
+      },
+      "payloadHash": "0x3a43d3bcb008ce40617590dbabfcb0ae007c5269c3fcfc4f26c53a12460efb9d"
+    },
+    {
+      "id": "E8",
+      "tool": "analyze_token",
+      "args": {
+        "symbol": "BNB"
+      },
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:26:20.908Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701220 s)",
+        "http_status": 429,
+        "trace_id": "ae104d6ae58943259cc7e7d111c9c312"
+      },
+      "payloadHash": "0x7ee1275ddb6065943ca2fedf0ec419ff24a1c09259101bbf997259b0fd8072c5"
+    },
+    {
+      "id": "E9",
+      "tool": "compare_tokens",
+      "args": {
+        "symbols": "BNB, BTC, SOL",
+        "intent": "swing"
+      },
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:26:21.335Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701219 s)",
+        "http_status": 429,
+        "trace_id": "c5fb7e70d61d48ca9defa429d9f0e5dd"
+      },
+      "payloadHash": "0x71dc36129e61b28a38abd65faf3b53c2d3862e659bddbc75f9c0bf0565b7f9ae"
+    },
+    {
+      "id": "E10",
+      "tool": "deep_analysis",
+      "args": {
+        "symbol": "ETH",
+        "include_perp": false
+      },
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:26:21.750Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701219 s)",
+        "http_status": 429,
+        "trace_id": "68dc9afa9990456db0b6be3b16377f6e"
+      },
+      "payloadHash": "0x9e55187ba4658c8d2029647a2a2fa332968874b9d0c5c918f51805dbdebc5af5"
+    },
+    {
+      "id": "E11",
+      "tool": "analyze_token",
+      "args": {
+        "symbol": "ETH"
+      },
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:26:22.177Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701218 s)",
+        "http_status": 429,
+        "trace_id": "b9b1e2e4d51347dabc82866be9a15637"
+      },
+      "payloadHash": "0x3169992635911886fb5b128a06c595b4e56cc5c55c9be0baf2123fd19ef9ad44"
+    },
+    {
+      "id": "E12",
+      "tool": "compare_tokens",
+      "args": {
+        "symbols": "ETH, BTC, SOL",
+        "intent": "swing"
+      },
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:26:22.598Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701218 s)",
+        "http_status": 429,
+        "trace_id": "65565480d73b4261b3b1a6c7320e7b8c"
+      },
+      "payloadHash": "0x4b947e5f91fddb5cf9df655b21a8ed46d16e5b5bf025da7c9bc5e532beb29833"
+    },
+    {
+      "id": "E13",
+      "tool": "deep_analysis",
+      "args": {
+        "symbol": "INITIA",
+        "include_perp": false
+      },
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:26:23.035Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701157 s)",
+        "http_status": 429,
+        "trace_id": "7322bbab10bc42ff8357ca87f3e4d20a"
+      },
+      "payloadHash": "0xd7c9250944c5bfc90372c055b1231ca852f0ef30c37a287647cc6fd31fa6ee28"
+    },
+    {
+      "id": "E14",
+      "tool": "analyze_token",
+      "args": {
+        "symbol": "INITIA"
+      },
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:27:23.876Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701157 s)",
+        "http_status": 429,
+        "trace_id": "33d120edc55f405b96c05e5e07ab8b67"
+      },
+      "payloadHash": "0x012f6927badf93877fbfa2ff2cfc4ea04b623526dc63f480c11d88fcf7fd7cc0"
+    },
+    {
+      "id": "E15",
+      "tool": "compare_tokens",
+      "args": {
+        "symbols": "INITIA, BTC, ETH",
+        "intent": "swing"
+      },
+      "status": "unavailable",
+      "statusReason": "the tool returned an error",
+      "fetchedAt": "2026-11-11T07:27:24.303Z",
+      "payload": {
+        "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701156 s)",
+        "http_status": 429,
+        "trace_id": "ece09cbae6cf40afbad0cc5682a8f141"
+      },
+      "payloadHash": "0x6ea63995834fecf68c87f0b4a60eacc42138e9ae57031e24fc03493794ace9a4"
+    }
+  ],
+  "calls": [
+    {
+      "tool": "market_overview",
+      "args": {},
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701283 s)",
+      "httpStatus": 429,
+      "traceId": "812625d9e76c4ed6960c0563fef2a7e6",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 1,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:25:16.119Z",
+      "durationMs": 1819,
+      "evidence": "E1"
+    },
+    {
+      "tool": "monitor_market_sentiment_shift",
+      "args": {},
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701283 s)",
+      "httpStatus": 429,
+      "traceId": "3e275f62857840c59665edcff3493c5a",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 1,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:25:17.949Z",
+      "durationMs": 427,
+      "evidence": "E2"
+    },
+    {
+      "tool": "scan_market",
+      "args": {
+        "top_n": 10
+      },
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701282 s)",
+      "httpStatus": 429,
+      "traceId": "720a827f001e4f6cb2c53d385b95ed2c",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 1,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:25:18.381Z",
+      "durationMs": 407,
+      "evidence": "E3"
+    },
+    {
+      "tool": "deep_analysis",
+      "args": {
+        "symbol": "BTC",
+        "include_perp": false
+      },
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701282 s)",
+      "httpStatus": 429,
+      "traceId": "82e348f9624944f0a31d660479d108e0",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 1,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:25:18.813Z",
+      "durationMs": 447,
+      "evidence": "E4"
+    },
+    {
+      "tool": "analyze_token",
+      "args": {
+        "symbol": "BTC"
+      },
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701281 s)",
+      "httpStatus": 429,
+      "traceId": "1441bc8ae2ed4068ab49ec3191f7fc05",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 1,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:25:19.260Z",
+      "durationMs": 427,
+      "evidence": "E5"
+    },
+    {
+      "tool": "compare_tokens",
+      "args": {
+        "symbols": "BTC, ETH, SOL",
+        "intent": "swing"
+      },
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701281 s)",
+      "httpStatus": 429,
+      "traceId": "aaf086ebe8da4d34bbf14bb1771ae7e8",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 1,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:25:19.694Z",
+      "durationMs": 411,
+      "evidence": "E6"
+    },
+    {
+      "tool": "deep_analysis",
+      "args": {
+        "symbol": "BNB",
+        "include_perp": false
+      },
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701220 s)",
+      "httpStatus": 429,
+      "traceId": "096deb6234a94c2b98d072befc549081",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 2,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:25:20.145Z",
+      "durationMs": 60762,
+      "evidence": "E7"
+    },
+    {
+      "tool": "analyze_token",
+      "args": {
+        "symbol": "BNB"
+      },
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701220 s)",
+      "httpStatus": 429,
+      "traceId": "ae104d6ae58943259cc7e7d111c9c312",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 1,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:26:20.908Z",
+      "durationMs": 427,
+      "evidence": "E8"
+    },
+    {
+      "tool": "compare_tokens",
+      "args": {
+        "symbols": "BNB, BTC, SOL",
+        "intent": "swing"
+      },
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701219 s)",
+      "httpStatus": 429,
+      "traceId": "c5fb7e70d61d48ca9defa429d9f0e5dd",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 1,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:26:21.335Z",
+      "durationMs": 407,
+      "evidence": "E9"
+    },
+    {
+      "tool": "deep_analysis",
+      "args": {
+        "symbol": "ETH",
+        "include_perp": false
+      },
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701219 s)",
+      "httpStatus": 429,
+      "traceId": "68dc9afa9990456db0b6be3b16377f6e",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 1,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:26:21.750Z",
+      "durationMs": 427,
+      "evidence": "E10"
+    },
+    {
+      "tool": "analyze_token",
+      "args": {
+        "symbol": "ETH"
+      },
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701218 s)",
+      "httpStatus": 429,
+      "traceId": "b9b1e2e4d51347dabc82866be9a15637",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 1,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:26:22.177Z",
+      "durationMs": 421,
+      "evidence": "E11"
+    },
+    {
+      "tool": "compare_tokens",
+      "args": {
+        "symbols": "ETH, BTC, SOL",
+        "intent": "swing"
+      },
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701218 s)",
+      "httpStatus": 429,
+      "traceId": "65565480d73b4261b3b1a6c7320e7b8c",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 1,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:26:22.598Z",
+      "durationMs": 422,
+      "evidence": "E12"
+    },
+    {
+      "tool": "deep_analysis",
+      "args": {
+        "symbol": "INITIA",
+        "include_perp": false
+      },
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701157 s)",
+      "httpStatus": 429,
+      "traceId": "7322bbab10bc42ff8357ca87f3e4d20a",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 2,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:26:23.035Z",
+      "durationMs": 60837,
+      "evidence": "E13"
+    },
+    {
+      "tool": "analyze_token",
+      "args": {
+        "symbol": "INITIA"
+      },
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701157 s)",
+      "httpStatus": 429,
+      "traceId": "33d120edc55f405b96c05e5e07ab8b67",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 1,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:27:23.876Z",
+      "durationMs": 426,
+      "evidence": "E14"
+    },
+    {
+      "tool": "compare_tokens",
+      "args": {
+        "symbols": "INITIA, BTC, ETH",
+        "intent": "swing"
+      },
+      "ok": false,
+      "isError": false,
+      "error": "HTTP 429 RATE_LIMITED MCP call allowance exhausted. (rate limited; server asks to wait 1701156 s)",
+      "httpStatus": 429,
+      "traceId": "ece09cbae6cf40afbad0cc5682a8f141",
+      "rateLimit": {
+        "limit": null,
+        "remaining": null,
+        "reset": null
+      },
+      "attempts": 1,
+      "via": "rest",
+      "calledAt": "2026-11-11T07:27:24.303Z",
+      "durationMs": 450,
+      "evidence": "E15"
+    }
+  ],
+  "scan": {
+    "evidence": "E3",
+    "symbols": [],
+    "mentions": []
+  },
+  "narratives": [
+    {
+      "token": "BTC",
+      "voices": [
+        {
+          "handle": "cryptoquant_official",
+          "sentiment": "bullish",
+          "conviction": 0.5,
+          "is_echo": false
+        },
+        {
+          "handle": "glassnode",
+          "sentiment": "bearish",
+          "conviction": 0.7,
+          "is_echo": false
+        },
+        {
+          "handle": "cointelegraph",
+          "sentiment": "bullish",
+          "conviction": 0.7,
+          "is_echo": false
+        }
+      ],
+      "sources": [
+        {
+          "post_id": "telegram:cryptoquant_official/3862",
+          "handle": "cryptoquant_official",
+          "sentiment": "bullish",
+          "conviction": 0.5,
+          "is_echo": false,
+          "echo_of": null,
+          "reasoning_summary": "The author views Bitcoin's renewed rise in realized cap as a positive sign that could mark the early stage of a healthier market structure similar to 2023, provided it gets follow-through.",
+          "posted_at": "2026-10-28T08:24:15.000Z"
+        },
+        {
+          "post_id": "telegram:glassnode/2057",
+          "handle": "glassnode",
+          "sentiment": "bearish",
+          "conviction": 0.7,
+          "is_echo": false,
+          "echo_of": null,
+          "reasoning_summary": "$85K has repeatedly turned Bitcoin back, with only five closes above it since January and never more than three in a row, making it a tough level to break.",
+          "posted_at": "2026-10-28T13:00:54.000Z"
+        },
+        {
+          "post_id": "telegram:cointelegraph/72910",
+          "handle": "cointelegraph",
+          "sentiment": "bullish",
+          "conviction": 0.7,
+          "is_echo": false,
+          "echo_of": null,
+          "reasoning_summary": "Bitwise projects BTC will reach $1.6 million by 2036, driven by rising institutional demand, limited supply, and growing concerns over fiat currency debasement.",
+          "posted_at": "2026-10-28T15:25:01.000Z"
+        }
+      ],
+      "peer": "ETH",
+      "decision": {
+        "token": "BTC",
+        "side": "NONE",
+        "score": 0.6666666666666666,
+        "independent": 3,
+        "agreeing": 2,
+        "voices": [
+          {
+            "handle": "cryptoquant_official",
+            "sentiment": "bullish",
+            "echo": false,
+            "ryo": "unconfirmed",
+            "note": "not confirmed by RYO; not a buy signal"
+          },
+          {
+            "handle": "glassnode",
+            "sentiment": "bearish",
+            "echo": false,
+            "ryo": "unconfirmed",
+            "note": "not confirmed by RYO; not a buy signal"
+          },
+          {
+            "handle": "cointelegraph",
+            "sentiment": "bullish",
+            "echo": false,
+            "ryo": "unconfirmed",
+            "note": "not confirmed by RYO; not a buy signal"
+          }
+        ],
+        "plan": null,
+        "options": {
+          "countEchoes": false,
+          "dropHandle": null,
+          "ignoreRyoVetoes": false
+        },
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "headline": "BTC: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error); 24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error); direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+        "threshold": 0.6,
+        "gates": [
+          {
+            "id": "independence",
+            "label": "Independent agreement",
+            "passed": true,
+            "ryoVeto": false,
+            "detail": "2 of 3 independent voices agree (0.67); needs ≥ 0.60 and ≥ 2 voices",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "market",
+            "label": "Market risk acceptable",
+            "passed": true,
+            "ryoVeto": true,
+            "detail": "market overview missing",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "agreement",
+            "label": "RYO supports the KOL direction",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "RYO direction missing",
+            "evidence": [
+              "E4"
+            ]
+          },
+          {
+            "id": "safety",
+            "label": "Token safety check",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "not verified · safety: no risk section in deep_analysis",
+            "evidence": []
+          },
+          {
+            "id": "timing",
+            "label": "Call is not late to the move",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "RSI(14): E4 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E5 is unavailable (the tool returned an error)",
+            "evidence": [
+              "E4"
+            ]
+          },
+          {
+            "id": "basket",
+            "label": "Stronger than its basket",
+            "passed": true,
+            "ryoVeto": true,
+            "detail": "vs BTC +0.00 pts",
+            "evidence": [
+              "E6"
+            ]
+          }
+        ],
+        "missing": [
+          "market risk: E1 is unavailable (the tool returned an error)",
+          "price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error)",
+          "24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error)",
+          "direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error)",
+          "safety: no risk section in deep_analysis"
+        ],
+        "hash": "0xf186a5030285ffe222188296f9fea92241cc9a5b20cb4074721b707eb60fc322"
+      },
+      "counterfactuals": {
+        "actual": {
+          "token": "BTC",
+          "side": "NONE",
+          "score": 0.6666666666666666,
+          "independent": 3,
+          "agreeing": 2,
+          "voices": [
+            {
+              "handle": "cryptoquant_official",
+              "sentiment": "bullish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            },
+            {
+              "handle": "glassnode",
+              "sentiment": "bearish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            },
+            {
+              "handle": "cointelegraph",
+              "sentiment": "bullish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            }
+          ],
+          "plan": null,
+          "options": {
+            "countEchoes": false,
+            "dropHandle": null,
+            "ignoreRyoVetoes": false
+          },
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "headline": "BTC: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error); 24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error); direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+          "threshold": 0.6,
+          "gates": [
+            {
+              "id": "independence",
+              "label": "Independent agreement",
+              "passed": true,
+              "ryoVeto": false,
+              "detail": "2 of 3 independent voices agree (0.67); needs ≥ 0.60 and ≥ 2 voices",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "market",
+              "label": "Market risk acceptable",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "market overview missing",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "agreement",
+              "label": "RYO supports the KOL direction",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RYO direction missing",
+              "evidence": [
+                "E4"
+              ]
+            },
+            {
+              "id": "safety",
+              "label": "Token safety check",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "not verified · safety: no risk section in deep_analysis",
+              "evidence": []
+            },
+            {
+              "id": "timing",
+              "label": "Call is not late to the move",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RSI(14): E4 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E5 is unavailable (the tool returned an error)",
+              "evidence": [
+                "E4"
+              ]
+            },
+            {
+              "id": "basket",
+              "label": "Stronger than its basket",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "vs BTC +0.00 pts",
+              "evidence": [
+                "E6"
+              ]
+            }
+          ],
+          "missing": [
+            "market risk: E1 is unavailable (the tool returned an error)",
+            "price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error)",
+            "24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error)",
+            "direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error)",
+            "safety: no risk section in deep_analysis"
+          ],
+          "hash": "0xf186a5030285ffe222188296f9fea92241cc9a5b20cb4074721b707eb60fc322"
+        },
+        "naive": {
+          "token": "BTC",
+          "side": "NONE",
+          "score": 0.6666666666666666,
+          "independent": 3,
+          "agreeing": 2,
+          "voices": [
+            {
+              "handle": "cryptoquant_official",
+              "sentiment": "bullish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            },
+            {
+              "handle": "glassnode",
+              "sentiment": "bearish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            },
+            {
+              "handle": "cointelegraph",
+              "sentiment": "bullish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            }
+          ],
+          "plan": null,
+          "options": {
+            "countEchoes": true,
+            "dropHandle": null,
+            "ignoreRyoVetoes": true
+          },
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "headline": "BTC: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error); 24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error); direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+          "threshold": 0.6,
+          "gates": [
+            {
+              "id": "independence",
+              "label": "Agreement (counting every post)",
+              "passed": true,
+              "ryoVeto": false,
+              "detail": "2 of 3 posts agree (0.67); needs ≥ 0.60 and ≥ 2 voices",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "market",
+              "label": "Market risk acceptable",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "market overview missing",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "agreement",
+              "label": "RYO supports the KOL direction",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RYO direction missing",
+              "evidence": [
+                "E4"
+              ]
+            },
+            {
+              "id": "safety",
+              "label": "Token safety check",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "not verified · safety: no risk section in deep_analysis",
+              "evidence": []
+            },
+            {
+              "id": "timing",
+              "label": "Call is not late to the move",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RSI(14): E4 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E5 is unavailable (the tool returned an error)",
+              "evidence": [
+                "E4"
+              ]
+            },
+            {
+              "id": "basket",
+              "label": "Stronger than its basket",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "vs BTC +0.00 pts",
+              "evidence": [
+                "E6"
+              ]
+            }
+          ],
+          "missing": [
+            "market risk: E1 is unavailable (the tool returned an error)",
+            "price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error)",
+            "24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error)",
+            "direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error)",
+            "safety: no risk section in deep_analysis"
+          ],
+          "hash": "0xdd47114e94177c2c97667bf583948b6ffe55f5de576df46371bfb20b6e12913f"
+        },
+        "withoutRyoVetoes": {
+          "token": "BTC",
+          "side": "NONE",
+          "score": 0.6666666666666666,
+          "independent": 3,
+          "agreeing": 2,
+          "voices": [
+            {
+              "handle": "cryptoquant_official",
+              "sentiment": "bullish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            },
+            {
+              "handle": "glassnode",
+              "sentiment": "bearish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            },
+            {
+              "handle": "cointelegraph",
+              "sentiment": "bullish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            }
+          ],
+          "plan": null,
+          "options": {
+            "countEchoes": false,
+            "dropHandle": null,
+            "ignoreRyoVetoes": true
+          },
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "headline": "BTC: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error); 24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error); direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+          "threshold": 0.6,
+          "gates": [
+            {
+              "id": "independence",
+              "label": "Independent agreement",
+              "passed": true,
+              "ryoVeto": false,
+              "detail": "2 of 3 independent voices agree (0.67); needs ≥ 0.60 and ≥ 2 voices",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "market",
+              "label": "Market risk acceptable",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "market overview missing",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "agreement",
+              "label": "RYO supports the KOL direction",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RYO direction missing",
+              "evidence": [
+                "E4"
+              ]
+            },
+            {
+              "id": "safety",
+              "label": "Token safety check",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "not verified · safety: no risk section in deep_analysis",
+              "evidence": []
+            },
+            {
+              "id": "timing",
+              "label": "Call is not late to the move",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RSI(14): E4 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E5 is unavailable (the tool returned an error)",
+              "evidence": [
+                "E4"
+              ]
+            },
+            {
+              "id": "basket",
+              "label": "Stronger than its basket",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "vs BTC +0.00 pts",
+              "evidence": [
+                "E6"
+              ]
+            }
+          ],
+          "missing": [
+            "market risk: E1 is unavailable (the tool returned an error)",
+            "price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error)",
+            "24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error)",
+            "direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error)",
+            "safety: no risk section in deep_analysis"
+          ],
+          "hash": "0xfd24462c8c278d9346600697151a7f87f26c4fbd379885fff7d07f1b28b4a758"
+        },
+        "withoutEach": [
+          {
+            "handle": "cryptoquant_official",
+            "decision": {
+              "token": "BTC",
+              "side": "NONE",
+              "score": 0.5,
+              "independent": 2,
+              "agreeing": 1,
+              "voices": [
+                {
+                  "handle": "glassnode",
+                  "sentiment": "bearish",
+                  "echo": false,
+                  "ryo": "unconfirmed",
+                  "note": "not confirmed by RYO; not a buy signal"
+                },
+                {
+                  "handle": "cointelegraph",
+                  "sentiment": "bullish",
+                  "echo": false,
+                  "ryo": "unconfirmed",
+                  "note": "not confirmed by RYO; not a buy signal"
+                }
+              ],
+              "plan": null,
+              "options": {
+                "countEchoes": false,
+                "dropHandle": "cryptoquant_official",
+                "ignoreRyoVetoes": false
+              },
+              "verdict": "INSUFFICIENT_EVIDENCE",
+              "headline": "BTC: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error); 24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error); direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+              "threshold": 0.6,
+              "gates": [
+                {
+                  "id": "independence",
+                  "label": "Independent agreement",
+                  "passed": false,
+                  "ryoVeto": false,
+                  "detail": "1 of 2 independent voices agree (0.50); needs ≥ 0.60 and ≥ 2 voices",
+                  "evidence": [
+                    "E1"
+                  ]
+                },
+                {
+                  "id": "market",
+                  "label": "Market risk acceptable",
+                  "passed": true,
+                  "ryoVeto": true,
+                  "detail": "market overview missing",
+                  "evidence": [
+                    "E1"
+                  ]
+                },
+                {
+                  "id": "agreement",
+                  "label": "RYO supports the KOL direction",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "RYO direction missing",
+                  "evidence": [
+                    "E4"
+                  ]
+                },
+                {
+                  "id": "safety",
+                  "label": "Token safety check",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "not verified · safety: no risk section in deep_analysis",
+                  "evidence": []
+                },
+                {
+                  "id": "timing",
+                  "label": "Call is not late to the move",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "RSI(14): E4 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E5 is unavailable (the tool returned an error)",
+                  "evidence": [
+                    "E4"
+                  ]
+                },
+                {
+                  "id": "basket",
+                  "label": "Stronger than its basket",
+                  "passed": true,
+                  "ryoVeto": true,
+                  "detail": "vs BTC +0.00 pts",
+                  "evidence": [
+                    "E6"
+                  ]
+                }
+              ],
+              "missing": [
+                "market risk: E1 is unavailable (the tool returned an error)",
+                "price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error)",
+                "24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error)",
+                "direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error)",
+                "safety: no risk section in deep_analysis"
+              ],
+              "hash": "0xb0cbac7347ad0fe76d93519ee425c48e1d607d04a1b169ea80a7b8645654f741"
+            }
+          },
+          {
+            "handle": "glassnode",
+            "decision": {
+              "token": "BTC",
+              "side": "NONE",
+              "score": 1,
+              "independent": 2,
+              "agreeing": 2,
+              "voices": [
+                {
+                  "handle": "cryptoquant_official",
+                  "sentiment": "bullish",
+                  "echo": false,
+                  "ryo": "unconfirmed",
+                  "note": "not confirmed by RYO; not a buy signal"
+                },
+                {
+                  "handle": "cointelegraph",
+                  "sentiment": "bullish",
+                  "echo": false,
+                  "ryo": "unconfirmed",
+                  "note": "not confirmed by RYO; not a buy signal"
+                }
+              ],
+              "plan": null,
+              "options": {
+                "countEchoes": false,
+                "dropHandle": "glassnode",
+                "ignoreRyoVetoes": false
+              },
+              "verdict": "INSUFFICIENT_EVIDENCE",
+              "headline": "BTC: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error); 24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error); direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+              "threshold": 0.6,
+              "gates": [
+                {
+                  "id": "independence",
+                  "label": "Independent agreement",
+                  "passed": true,
+                  "ryoVeto": false,
+                  "detail": "2 of 2 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+                  "evidence": [
+                    "E1"
+                  ]
+                },
+                {
+                  "id": "market",
+                  "label": "Market risk acceptable",
+                  "passed": true,
+                  "ryoVeto": true,
+                  "detail": "market overview missing",
+                  "evidence": [
+                    "E1"
+                  ]
+                },
+                {
+                  "id": "agreement",
+                  "label": "RYO supports the KOL direction",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "RYO direction missing",
+                  "evidence": [
+                    "E4"
+                  ]
+                },
+                {
+                  "id": "safety",
+                  "label": "Token safety check",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "not verified · safety: no risk section in deep_analysis",
+                  "evidence": []
+                },
+                {
+                  "id": "timing",
+                  "label": "Call is not late to the move",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "RSI(14): E4 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E5 is unavailable (the tool returned an error)",
+                  "evidence": [
+                    "E4"
+                  ]
+                },
+                {
+                  "id": "basket",
+                  "label": "Stronger than its basket",
+                  "passed": true,
+                  "ryoVeto": true,
+                  "detail": "vs BTC +0.00 pts",
+                  "evidence": [
+                    "E6"
+                  ]
+                }
+              ],
+              "missing": [
+                "market risk: E1 is unavailable (the tool returned an error)",
+                "price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error)",
+                "24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error)",
+                "direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error)",
+                "safety: no risk section in deep_analysis"
+              ],
+              "hash": "0xce4c9e6af675487b906eeec08ae0de5801c14c2d7c8a0f1ae63a55dda53a0e27"
+            }
+          },
+          {
+            "handle": "cointelegraph",
+            "decision": {
+              "token": "BTC",
+              "side": "NONE",
+              "score": 0.5,
+              "independent": 2,
+              "agreeing": 1,
+              "voices": [
+                {
+                  "handle": "cryptoquant_official",
+                  "sentiment": "bullish",
+                  "echo": false,
+                  "ryo": "unconfirmed",
+                  "note": "not confirmed by RYO; not a buy signal"
+                },
+                {
+                  "handle": "glassnode",
+                  "sentiment": "bearish",
+                  "echo": false,
+                  "ryo": "unconfirmed",
+                  "note": "not confirmed by RYO; not a buy signal"
+                }
+              ],
+              "plan": null,
+              "options": {
+                "countEchoes": false,
+                "dropHandle": "cointelegraph",
+                "ignoreRyoVetoes": false
+              },
+              "verdict": "INSUFFICIENT_EVIDENCE",
+              "headline": "BTC: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error); 24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error); direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+              "threshold": 0.6,
+              "gates": [
+                {
+                  "id": "independence",
+                  "label": "Independent agreement",
+                  "passed": false,
+                  "ryoVeto": false,
+                  "detail": "1 of 2 independent voices agree (0.50); needs ≥ 0.60 and ≥ 2 voices",
+                  "evidence": [
+                    "E1"
+                  ]
+                },
+                {
+                  "id": "market",
+                  "label": "Market risk acceptable",
+                  "passed": true,
+                  "ryoVeto": true,
+                  "detail": "market overview missing",
+                  "evidence": [
+                    "E1"
+                  ]
+                },
+                {
+                  "id": "agreement",
+                  "label": "RYO supports the KOL direction",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "RYO direction missing",
+                  "evidence": [
+                    "E4"
+                  ]
+                },
+                {
+                  "id": "safety",
+                  "label": "Token safety check",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "not verified · safety: no risk section in deep_analysis",
+                  "evidence": []
+                },
+                {
+                  "id": "timing",
+                  "label": "Call is not late to the move",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "RSI(14): E4 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E5 is unavailable (the tool returned an error)",
+                  "evidence": [
+                    "E4"
+                  ]
+                },
+                {
+                  "id": "basket",
+                  "label": "Weaker than its basket",
+                  "passed": true,
+                  "ryoVeto": true,
+                  "detail": "vs BTC +0.00 pts",
+                  "evidence": [
+                    "E6"
+                  ]
+                }
+              ],
+              "missing": [
+                "market risk: E1 is unavailable (the tool returned an error)",
+                "price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error)",
+                "24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error)",
+                "direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error)",
+                "safety: no risk section in deep_analysis"
+              ],
+              "hash": "0xe0c88a8411bb5af52f1e90f8dcb441cd5d59bb5e496a5d1a706417a2d14ff2b3"
+            }
+          }
+        ]
+      },
+      "claims": [
+        {
+          "by": "bull",
+          "text": "Independent agreement: 2 of 3 independent voices agree (0.67); needs ≥ 0.60 and ≥ 2 voices",
+          "evidence": [
+            "E1"
+          ],
+          "kept": false,
+          "reason": "E1 is unavailable, not live data"
+        },
+        {
+          "by": "bull",
+          "text": "Market risk acceptable: market overview missing",
+          "evidence": [
+            "E1"
+          ],
+          "kept": false,
+          "reason": "E1 is unavailable, not live data"
+        },
+        {
+          "by": "bear",
+          "text": "RYO supports the KOL direction: RYO direction missing",
+          "evidence": [
+            "E4"
+          ],
+          "kept": false,
+          "reason": "E4 is unavailable, not live data"
+        },
+        {
+          "by": "bear",
+          "text": "Token safety check: not verified · safety: no risk section in deep_analysis",
+          "evidence": [],
+          "kept": false,
+          "reason": "cites no RYO evidence"
+        },
+        {
+          "by": "bear",
+          "text": "Call is not late to the move: RSI(14): E4 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E5 is unavailable (the tool returned an error)",
+          "evidence": [
+            "E4"
+          ],
+          "kept": false,
+          "reason": "E4 is unavailable, not live data"
+        },
+        {
+          "by": "bull",
+          "text": "Stronger than its basket: vs BTC +0.00 pts",
+          "evidence": [
+            "E6"
+          ],
+          "kept": false,
+          "reason": "E6 is unavailable, not live data"
+        }
+      ],
+      "card": {
+        "kind": "echo-ledger/ryo-card@1",
+        "token": "BTC",
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "side": "NONE",
+        "headline": "BTC: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E4 is unavailable (the tool returned an error); fallback price (analyze_token): E5 is unavailable (the tool returned an error); 24h change: E4 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E5 is unavailable (the tool returned an error); direction: E4 is unavailable (the tool returned an error); fallback direction (analyze_token): E5 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+        "plan": null,
+        "convergence": {
+          "score": 0.6666666666666666,
+          "threshold": 0.6,
+          "independent": 3,
+          "agreeing": 2
+        },
+        "sources": [
+          {
+            "kol": "cryptoquant_official",
+            "post": "telegram:cryptoquant_official/3862",
+            "sentiment": "bullish",
+            "echo": false,
+            "echo_of": null
+          },
+          {
+            "kol": "glassnode",
+            "post": "telegram:glassnode/2057",
+            "sentiment": "bearish",
+            "echo": false,
+            "echo_of": null
+          },
+          {
+            "kol": "cointelegraph",
+            "post": "telegram:cointelegraph/72910",
+            "sentiment": "bullish",
+            "echo": false,
+            "echo_of": null
+          }
+        ],
+        "voices": [
+          {
+            "handle": "cryptoquant_official",
+            "sentiment": "bullish",
+            "echo": false,
+            "ryo": "unconfirmed",
+            "note": "not confirmed by RYO; not a buy signal"
+          },
+          {
+            "handle": "glassnode",
+            "sentiment": "bearish",
+            "echo": false,
+            "ryo": "unconfirmed",
+            "note": "not confirmed by RYO; not a buy signal"
+          },
+          {
+            "handle": "cointelegraph",
+            "sentiment": "bullish",
+            "echo": false,
+            "ryo": "unconfirmed",
+            "note": "not confirmed by RYO; not a buy signal"
+          }
+        ],
+        "gates": [
+          {
+            "id": "independence",
+            "passed": true,
+            "detail": "2 of 3 independent voices agree (0.67); needs ≥ 0.60 and ≥ 2 voices",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "market",
+            "passed": true,
+            "detail": "market overview missing",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "agreement",
+            "passed": false,
+            "detail": "RYO direction missing",
+            "evidence": [
+              "E4"
+            ]
+          },
+          {
+            "id": "safety",
+            "passed": false,
+            "detail": "not verified · safety: no risk section in deep_analysis",
+            "evidence": []
+          },
+          {
+            "id": "timing",
+            "passed": false,
+            "detail": "RSI(14): E4 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E5 is unavailable (the tool returned an error)",
+            "evidence": [
+              "E4"
+            ]
+          },
+          {
+            "id": "basket",
+            "passed": true,
+            "detail": "vs BTC +0.00 pts",
+            "evidence": [
+              "E6"
+            ]
+          }
+        ],
+        "claims": [],
+        "removed_claims": [
+          {
+            "text": "Independent agreement: 2 of 3 independent voices agree (0.67); needs ≥ 0.60 and ≥ 2 voices",
+            "reason": "E1 is unavailable, not live data"
+          },
+          {
+            "text": "Market risk acceptable: market overview missing",
+            "reason": "E1 is unavailable, not live data"
+          },
+          {
+            "text": "RYO supports the KOL direction: RYO direction missing",
+            "reason": "E4 is unavailable, not live data"
+          },
+          {
+            "text": "Token safety check: not verified · safety: no risk section in deep_analysis",
+            "reason": "cites no RYO evidence"
+          },
+          {
+            "text": "Call is not late to the move: RSI(14): E4 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E5 is unavailable (the tool returned an error)",
+            "reason": "E4 is unavailable, not live data"
+          },
+          {
+            "text": "Stronger than its basket: vs BTC +0.00 pts",
+            "reason": "E6 is unavailable, not live data"
+          }
+        ],
+        "stale_calls": [
+          {
+            "kol": "cryptoquant_official",
+            "label": "stale",
+            "score": 100,
+            "status": "partial"
+          },
+          {
+            "kol": "glassnode",
+            "label": "stale",
+            "score": 100,
+            "status": "partial"
+          },
+          {
+            "kol": "cointelegraph",
+            "label": "stale",
+            "score": 100,
+            "status": "partial"
+          }
+        ],
+        "ryo_evidence": [
+          {
+            "id": "E1",
+            "tool": "market_overview",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:25:16.119Z",
+            "payload_hash": "0x93ec18ac6686d4196da6bdcfcdc4eb520168151eb1631ea9e7ea791b920a1f66"
+          },
+          {
+            "id": "E2",
+            "tool": "monitor_market_sentiment_shift",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:25:17.949Z",
+            "payload_hash": "0x0bd6cd91ccd85c39b5e98c88b42b0527bb8f4d3f3946e6a199ec93e06e84677b"
+          },
+          {
+            "id": "E4",
+            "tool": "deep_analysis",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:25:18.813Z",
+            "payload_hash": "0x1024021b2aa380b0aa7f4d0054399388d3dba5e117bb483c74a61b3f143bbb6b"
+          },
+          {
+            "id": "E5",
+            "tool": "analyze_token",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:25:19.260Z",
+            "payload_hash": "0x54c878e2df9cce8712df8b3efb40a0e93d2b6bd80c1796c9c2aaa259df5906fb"
+          },
+          {
+            "id": "E6",
+            "tool": "compare_tokens",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:25:19.694Z",
+            "payload_hash": "0xe82cbec4b323c1cd3f0705928adeeff45ef18d230b178e526f7a7aa38fccd56f"
+          }
+        ],
+        "decision_hash": "0xf186a5030285ffe222188296f9fea92241cc9a5b20cb4074721b707eb60fc322",
+        "practice_only": true
+      },
+      "cardHash": "0xae2a5123273eeb06d43bc1ed9c88b800fa30c2d3667528538a0f4f30b7e3b704",
+      "stale": [
+        {
+          "handle": "cryptoquant_official",
+          "post_id": "telegram:cryptoquant_official/3862",
+          "envelope": {
+            "schema_version": "1.0",
+            "tool": "stale_call",
+            "status": "partial",
+            "data_mode": "unknown",
+            "as_of": "2026-11-11T07:25:19.260Z",
+            "request": {
+              "symbol": "BTC",
+              "side": "long",
+              "posted_at": "2026-10-28T08:24:15.000Z"
+            },
+            "data": {
+              "symbol": "BTC",
+              "side": "long",
+              "age_h": 335,
+              "components": {
+                "age": 100,
+                "move": null,
+                "phase": null
+              },
+              "inputs": {
+                "change_24h_pct": null,
+                "atr_pct": null,
+                "rsi_14": null,
+                "ryo_evidence": "E5",
+                "ryo_paths": []
+              },
+              "score": 100,
+              "label": "stale",
+              "reasons": [
+                "posted 335 h before RYO's reading",
+                "24 h move not available from RYO",
+                "RSI(14) not available from RYO"
+              ]
+            },
+            "summary": {
+              "headline": "BTC long call is stale (100/100).",
+              "key_points": [
+                "posted 335 h before RYO's reading",
+                "24 h move not available from RYO",
+                "RSI(14) not available from RYO"
+              ]
+            },
+            "availability": {
+              "age": "available",
+              "market_state": "unavailable"
+            },
+            "warnings": [
+              "RYO evidence E5 is unavailable: score uses 1 of 3 components"
+            ]
+          }
+        },
+        {
+          "handle": "glassnode",
+          "post_id": "telegram:glassnode/2057",
+          "envelope": {
+            "schema_version": "1.0",
+            "tool": "stale_call",
+            "status": "partial",
+            "data_mode": "unknown",
+            "as_of": "2026-11-11T07:25:19.260Z",
+            "request": {
+              "symbol": "BTC",
+              "side": "short",
+              "posted_at": "2026-10-28T13:00:54.000Z"
+            },
+            "data": {
+              "symbol": "BTC",
+              "side": "short",
+              "age_h": 330.4,
+              "components": {
+                "age": 100,
+                "move": null,
+                "phase": null
+              },
+              "inputs": {
+                "change_24h_pct": null,
+                "atr_pct": null,
+                "rsi_14": null,
+                "ryo_evidence": "E5",
+                "ryo_paths": []
+              },
+              "score": 100,
+              "label": "stale",
+              "reasons": [
+                "posted 330.4 h before RYO's reading",
+                "24 h move not available from RYO",
+                "RSI(14) not available from RYO"
+              ]
+            },
+            "summary": {
+              "headline": "BTC short call is stale (100/100).",
+              "key_points": [
+                "posted 330.4 h before RYO's reading",
+                "24 h move not available from RYO",
+                "RSI(14) not available from RYO"
+              ]
+            },
+            "availability": {
+              "age": "available",
+              "market_state": "unavailable"
+            },
+            "warnings": [
+              "RYO evidence E5 is unavailable: score uses 1 of 3 components"
+            ]
+          }
+        },
+        {
+          "handle": "cointelegraph",
+          "post_id": "telegram:cointelegraph/72910",
+          "envelope": {
+            "schema_version": "1.0",
+            "tool": "stale_call",
+            "status": "partial",
+            "data_mode": "unknown",
+            "as_of": "2026-11-11T07:25:19.260Z",
+            "request": {
+              "symbol": "BTC",
+              "side": "long",
+              "posted_at": "2026-10-28T15:25:01.000Z"
+            },
+            "data": {
+              "symbol": "BTC",
+              "side": "long",
+              "age_h": 328,
+              "components": {
+                "age": 100,
+                "move": null,
+                "phase": null
+              },
+              "inputs": {
+                "change_24h_pct": null,
+                "atr_pct": null,
+                "rsi_14": null,
+                "ryo_evidence": "E5",
+                "ryo_paths": []
+              },
+              "score": 100,
+              "label": "stale",
+              "reasons": [
+                "posted 328 h before RYO's reading",
+                "24 h move not available from RYO",
+                "RSI(14) not available from RYO"
+              ]
+            },
+            "summary": {
+              "headline": "BTC long call is stale (100/100).",
+              "key_points": [
+                "posted 328 h before RYO's reading",
+                "24 h move not available from RYO",
+                "RSI(14) not available from RYO"
+              ]
+            },
+            "availability": {
+              "age": "available",
+              "market_state": "unavailable"
+            },
+            "warnings": [
+              "RYO evidence E5 is unavailable: score uses 1 of 3 components"
+            ]
+          }
+        }
+      ],
+      "independence": {
+        "schema_version": "1.0",
+        "tool": "narrative_independence",
+        "status": "ok",
+        "data_mode": "live",
+        "as_of": "2026-11-11T07:25:16.119Z",
+        "request": {
+          "symbol": "BTC",
+          "posts": 3,
+          "market_risk": null
+        },
+        "data": {
+          "symbol": "BTC",
+          "threshold": 0.6,
+          "threshold_reason": "base",
+          "independent": {
+            "score": 0.6667,
+            "voices": 3,
+            "agreeing": 2,
+            "side": "bullish",
+            "passes": true
+          },
+          "naive": {
+            "score": 0.6667,
+            "posts": 3,
+            "agreeing": 2,
+            "side": "bullish",
+            "passes": true
+          },
+          "echo_ratio": 0,
+          "originators": [
+            "cryptoquant_official",
+            "glassnode",
+            "cointelegraph"
+          ],
+          "clusters": [],
+          "pivotal_voices": [
+            "cryptoquant_official",
+            "cointelegraph"
+          ],
+          "excluded": [],
+          "timeline": [
+            {
+              "post": "telegram:cryptoquant_official/3862",
+              "handle": "cryptoquant_official",
+              "posted_at": "2026-10-28T08:24:15.000Z",
+              "role": "first"
+            },
+            {
+              "post": "telegram:glassnode/2057",
+              "handle": "glassnode",
+              "posted_at": "2026-10-28T13:00:54.000Z",
+              "role": "independent"
+            },
+            {
+              "post": "telegram:cointelegraph/72910",
+              "handle": "cointelegraph",
+              "posted_at": "2026-10-28T15:25:01.000Z",
+              "role": "independent"
+            }
+          ]
+        },
+        "summary": {
+          "headline": "BTC: 3 independent voice(s) behind 3 post(s); independent agreement 0.67 passes the 0.60 bar.",
+          "key_points": [
+            "Naive count 0.67 over 3 posts.",
+            "0% of posts repeat another voice.",
+            "Pivotal: removing cryptoquant_official, cointelegraph alone would flip it."
+          ]
+        },
+        "availability": {
+          "independence": "available",
+          "timeline": "available"
+        },
+        "warnings": [
+          "no market_risk given: base threshold 0.60 used"
+        ]
+      }
+    },
+    {
+      "token": "BNB",
+      "voices": [
+        {
+          "handle": "BitcoinBullets",
+          "sentiment": "neutral",
+          "conviction": 0.3,
+          "is_echo": false
+        }
+      ],
+      "sources": [
+        {
+          "post_id": "telegram:BitcoinBullets/17356",
+          "handle": "BitcoinBullets",
+          "sentiment": "neutral",
+          "conviction": 0.3,
+          "is_echo": false,
+          "echo_of": null,
+          "reasoning_summary": "BNB is grinding higher with higher lows above a rising trendline; the bull case clears 760 toward 780 and 800, while the bear case rejects and loses 740 toward 725.",
+          "posted_at": "2026-10-29T02:58:26.000Z"
+        }
+      ],
+      "peer": "SOL",
+      "decision": {
+        "token": "BNB",
+        "side": "NONE",
+        "score": 1,
+        "independent": 1,
+        "agreeing": 1,
+        "voices": [
+          {
+            "handle": "BitcoinBullets",
+            "sentiment": "neutral",
+            "echo": false,
+            "ryo": "unconfirmed",
+            "note": "not confirmed by RYO; not a buy signal"
+          }
+        ],
+        "plan": null,
+        "options": {
+          "countEchoes": false,
+          "dropHandle": null,
+          "ignoreRyoVetoes": false
+        },
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "headline": "BNB: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E7 is unavailable (the tool returned an error); fallback price (analyze_token): E8 is unavailable (the tool returned an error); 24h change: E7 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E8 is unavailable (the tool returned an error); direction: E7 is unavailable (the tool returned an error); fallback direction (analyze_token): E8 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+        "threshold": 0.6,
+        "gates": [
+          {
+            "id": "independence",
+            "label": "Independent agreement",
+            "passed": false,
+            "ryoVeto": false,
+            "detail": "1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "market",
+            "label": "Market risk acceptable",
+            "passed": true,
+            "ryoVeto": true,
+            "detail": "market overview missing",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "agreement",
+            "label": "RYO supports the KOL direction",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "RYO direction missing",
+            "evidence": [
+              "E7"
+            ]
+          },
+          {
+            "id": "safety",
+            "label": "Token safety check",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "not verified · safety: no risk section in deep_analysis",
+            "evidence": []
+          },
+          {
+            "id": "timing",
+            "label": "Call is not late to the move",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "RSI(14): E7 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E8 is unavailable (the tool returned an error)",
+            "evidence": [
+              "E7"
+            ]
+          },
+          {
+            "id": "basket",
+            "label": "Stronger than its basket",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "vs BTC: E9 has no comparable score for BNB and BTC",
+            "evidence": [
+              "E9"
+            ]
+          }
+        ],
+        "missing": [
+          "market risk: E1 is unavailable (the tool returned an error)",
+          "price: E7 is unavailable (the tool returned an error); fallback price (analyze_token): E8 is unavailable (the tool returned an error)",
+          "24h change: E7 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E8 is unavailable (the tool returned an error)",
+          "direction: E7 is unavailable (the tool returned an error); fallback direction (analyze_token): E8 is unavailable (the tool returned an error)",
+          "safety: no risk section in deep_analysis"
+        ],
+        "hash": "0x88456a78048c6f7d0e0b90169f8c248d499c20ffda39d12b01a0382e3855f5dd"
+      },
+      "counterfactuals": {
+        "actual": {
+          "token": "BNB",
+          "side": "NONE",
+          "score": 1,
+          "independent": 1,
+          "agreeing": 1,
+          "voices": [
+            {
+              "handle": "BitcoinBullets",
+              "sentiment": "neutral",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            }
+          ],
+          "plan": null,
+          "options": {
+            "countEchoes": false,
+            "dropHandle": null,
+            "ignoreRyoVetoes": false
+          },
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "headline": "BNB: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E7 is unavailable (the tool returned an error); fallback price (analyze_token): E8 is unavailable (the tool returned an error); 24h change: E7 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E8 is unavailable (the tool returned an error); direction: E7 is unavailable (the tool returned an error); fallback direction (analyze_token): E8 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+          "threshold": 0.6,
+          "gates": [
+            {
+              "id": "independence",
+              "label": "Independent agreement",
+              "passed": false,
+              "ryoVeto": false,
+              "detail": "1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "market",
+              "label": "Market risk acceptable",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "market overview missing",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "agreement",
+              "label": "RYO supports the KOL direction",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RYO direction missing",
+              "evidence": [
+                "E7"
+              ]
+            },
+            {
+              "id": "safety",
+              "label": "Token safety check",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "not verified · safety: no risk section in deep_analysis",
+              "evidence": []
+            },
+            {
+              "id": "timing",
+              "label": "Call is not late to the move",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RSI(14): E7 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E8 is unavailable (the tool returned an error)",
+              "evidence": [
+                "E7"
+              ]
+            },
+            {
+              "id": "basket",
+              "label": "Stronger than its basket",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "vs BTC: E9 has no comparable score for BNB and BTC",
+              "evidence": [
+                "E9"
+              ]
+            }
+          ],
+          "missing": [
+            "market risk: E1 is unavailable (the tool returned an error)",
+            "price: E7 is unavailable (the tool returned an error); fallback price (analyze_token): E8 is unavailable (the tool returned an error)",
+            "24h change: E7 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E8 is unavailable (the tool returned an error)",
+            "direction: E7 is unavailable (the tool returned an error); fallback direction (analyze_token): E8 is unavailable (the tool returned an error)",
+            "safety: no risk section in deep_analysis"
+          ],
+          "hash": "0x88456a78048c6f7d0e0b90169f8c248d499c20ffda39d12b01a0382e3855f5dd"
+        },
+        "naive": {
+          "token": "BNB",
+          "side": "NONE",
+          "score": 1,
+          "independent": 1,
+          "agreeing": 1,
+          "voices": [
+            {
+              "handle": "BitcoinBullets",
+              "sentiment": "neutral",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            }
+          ],
+          "plan": null,
+          "options": {
+            "countEchoes": true,
+            "dropHandle": null,
+            "ignoreRyoVetoes": true
+          },
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "headline": "BNB: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E7 is unavailable (the tool returned an error); fallback price (analyze_token): E8 is unavailable (the tool returned an error); 24h change: E7 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E8 is unavailable (the tool returned an error); direction: E7 is unavailable (the tool returned an error); fallback direction (analyze_token): E8 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+          "threshold": 0.6,
+          "gates": [
+            {
+              "id": "independence",
+              "label": "Agreement (counting every post)",
+              "passed": false,
+              "ryoVeto": false,
+              "detail": "1 of 1 posts agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "market",
+              "label": "Market risk acceptable",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "market overview missing",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "agreement",
+              "label": "RYO supports the KOL direction",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RYO direction missing",
+              "evidence": [
+                "E7"
+              ]
+            },
+            {
+              "id": "safety",
+              "label": "Token safety check",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "not verified · safety: no risk section in deep_analysis",
+              "evidence": []
+            },
+            {
+              "id": "timing",
+              "label": "Call is not late to the move",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RSI(14): E7 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E8 is unavailable (the tool returned an error)",
+              "evidence": [
+                "E7"
+              ]
+            },
+            {
+              "id": "basket",
+              "label": "Stronger than its basket",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "vs BTC: E9 has no comparable score for BNB and BTC",
+              "evidence": [
+                "E9"
+              ]
+            }
+          ],
+          "missing": [
+            "market risk: E1 is unavailable (the tool returned an error)",
+            "price: E7 is unavailable (the tool returned an error); fallback price (analyze_token): E8 is unavailable (the tool returned an error)",
+            "24h change: E7 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E8 is unavailable (the tool returned an error)",
+            "direction: E7 is unavailable (the tool returned an error); fallback direction (analyze_token): E8 is unavailable (the tool returned an error)",
+            "safety: no risk section in deep_analysis"
+          ],
+          "hash": "0xb24543dfa2fff646d1c76226e3ffbd11df9da4dff799c8064c5756c38673b739"
+        },
+        "withoutRyoVetoes": {
+          "token": "BNB",
+          "side": "NONE",
+          "score": 1,
+          "independent": 1,
+          "agreeing": 1,
+          "voices": [
+            {
+              "handle": "BitcoinBullets",
+              "sentiment": "neutral",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            }
+          ],
+          "plan": null,
+          "options": {
+            "countEchoes": false,
+            "dropHandle": null,
+            "ignoreRyoVetoes": true
+          },
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "headline": "BNB: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E7 is unavailable (the tool returned an error); fallback price (analyze_token): E8 is unavailable (the tool returned an error); 24h change: E7 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E8 is unavailable (the tool returned an error); direction: E7 is unavailable (the tool returned an error); fallback direction (analyze_token): E8 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+          "threshold": 0.6,
+          "gates": [
+            {
+              "id": "independence",
+              "label": "Independent agreement",
+              "passed": false,
+              "ryoVeto": false,
+              "detail": "1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "market",
+              "label": "Market risk acceptable",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "market overview missing",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "agreement",
+              "label": "RYO supports the KOL direction",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RYO direction missing",
+              "evidence": [
+                "E7"
+              ]
+            },
+            {
+              "id": "safety",
+              "label": "Token safety check",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "not verified · safety: no risk section in deep_analysis",
+              "evidence": []
+            },
+            {
+              "id": "timing",
+              "label": "Call is not late to the move",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RSI(14): E7 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E8 is unavailable (the tool returned an error)",
+              "evidence": [
+                "E7"
+              ]
+            },
+            {
+              "id": "basket",
+              "label": "Stronger than its basket",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "vs BTC: E9 has no comparable score for BNB and BTC",
+              "evidence": [
+                "E9"
+              ]
+            }
+          ],
+          "missing": [
+            "market risk: E1 is unavailable (the tool returned an error)",
+            "price: E7 is unavailable (the tool returned an error); fallback price (analyze_token): E8 is unavailable (the tool returned an error)",
+            "24h change: E7 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E8 is unavailable (the tool returned an error)",
+            "direction: E7 is unavailable (the tool returned an error); fallback direction (analyze_token): E8 is unavailable (the tool returned an error)",
+            "safety: no risk section in deep_analysis"
+          ],
+          "hash": "0x99e650c07f5a2af97929dfb924c93f38f3332e9ec285131273cce8259919da26"
+        },
+        "withoutEach": [
+          {
+            "handle": "BitcoinBullets",
+            "decision": {
+              "token": "BNB",
+              "side": "NONE",
+              "score": 0,
+              "independent": 0,
+              "agreeing": 0,
+              "voices": [],
+              "plan": null,
+              "options": {
+                "countEchoes": false,
+                "dropHandle": "BitcoinBullets",
+                "ignoreRyoVetoes": false
+              },
+              "verdict": "INSUFFICIENT_EVIDENCE",
+              "headline": "BNB: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E7 is unavailable (the tool returned an error); fallback price (analyze_token): E8 is unavailable (the tool returned an error); 24h change: E7 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E8 is unavailable (the tool returned an error); direction: E7 is unavailable (the tool returned an error); fallback direction (analyze_token): E8 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+              "threshold": 0.6,
+              "gates": [
+                {
+                  "id": "independence",
+                  "label": "Independent agreement",
+                  "passed": false,
+                  "ryoVeto": false,
+                  "detail": "0 of 0 independent voices agree (0.00); needs ≥ 0.60 and ≥ 2 voices",
+                  "evidence": [
+                    "E1"
+                  ]
+                },
+                {
+                  "id": "market",
+                  "label": "Market risk acceptable",
+                  "passed": true,
+                  "ryoVeto": true,
+                  "detail": "market overview missing",
+                  "evidence": [
+                    "E1"
+                  ]
+                },
+                {
+                  "id": "agreement",
+                  "label": "RYO supports the KOL direction",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "RYO direction missing",
+                  "evidence": [
+                    "E7"
+                  ]
+                },
+                {
+                  "id": "safety",
+                  "label": "Token safety check",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "not verified · safety: no risk section in deep_analysis",
+                  "evidence": []
+                },
+                {
+                  "id": "timing",
+                  "label": "Call is not late to the move",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "RSI(14): E7 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E8 is unavailable (the tool returned an error)",
+                  "evidence": [
+                    "E7"
+                  ]
+                },
+                {
+                  "id": "basket",
+                  "label": "Stronger than its basket",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "vs BTC: E9 has no comparable score for BNB and BTC",
+                  "evidence": [
+                    "E9"
+                  ]
+                }
+              ],
+              "missing": [
+                "market risk: E1 is unavailable (the tool returned an error)",
+                "price: E7 is unavailable (the tool returned an error); fallback price (analyze_token): E8 is unavailable (the tool returned an error)",
+                "24h change: E7 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E8 is unavailable (the tool returned an error)",
+                "direction: E7 is unavailable (the tool returned an error); fallback direction (analyze_token): E8 is unavailable (the tool returned an error)",
+                "safety: no risk section in deep_analysis"
+              ],
+              "hash": "0x410409727dbb1c929da7b14569042ffa6ac7a2c7d11a49793a2d062c7cac683c"
+            }
+          }
+        ]
+      },
+      "claims": [
+        {
+          "by": "bear",
+          "text": "Independent agreement: 1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+          "evidence": [
+            "E1"
+          ],
+          "kept": false,
+          "reason": "E1 is unavailable, not live data"
+        },
+        {
+          "by": "bull",
+          "text": "Market risk acceptable: market overview missing",
+          "evidence": [
+            "E1"
+          ],
+          "kept": false,
+          "reason": "E1 is unavailable, not live data"
+        },
+        {
+          "by": "bear",
+          "text": "RYO supports the KOL direction: RYO direction missing",
+          "evidence": [
+            "E7"
+          ],
+          "kept": false,
+          "reason": "E7 is unavailable, not live data"
+        },
+        {
+          "by": "bear",
+          "text": "Token safety check: not verified · safety: no risk section in deep_analysis",
+          "evidence": [],
+          "kept": false,
+          "reason": "cites no RYO evidence"
+        },
+        {
+          "by": "bear",
+          "text": "Call is not late to the move: RSI(14): E7 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E8 is unavailable (the tool returned an error)",
+          "evidence": [
+            "E7"
+          ],
+          "kept": false,
+          "reason": "E7 is unavailable, not live data"
+        },
+        {
+          "by": "bear",
+          "text": "Stronger than its basket: vs BTC: E9 has no comparable score for BNB and BTC",
+          "evidence": [
+            "E9"
+          ],
+          "kept": false,
+          "reason": "E9 is unavailable, not live data"
+        }
+      ],
+      "card": {
+        "kind": "echo-ledger/ryo-card@1",
+        "token": "BNB",
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "side": "NONE",
+        "headline": "BNB: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E7 is unavailable (the tool returned an error); fallback price (analyze_token): E8 is unavailable (the tool returned an error); 24h change: E7 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E8 is unavailable (the tool returned an error); direction: E7 is unavailable (the tool returned an error); fallback direction (analyze_token): E8 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+        "plan": null,
+        "convergence": {
+          "score": 1,
+          "threshold": 0.6,
+          "independent": 1,
+          "agreeing": 1
+        },
+        "sources": [
+          {
+            "kol": "BitcoinBullets",
+            "post": "telegram:BitcoinBullets/17356",
+            "sentiment": "neutral",
+            "echo": false,
+            "echo_of": null
+          }
+        ],
+        "voices": [
+          {
+            "handle": "BitcoinBullets",
+            "sentiment": "neutral",
+            "echo": false,
+            "ryo": "unconfirmed",
+            "note": "not confirmed by RYO; not a buy signal"
+          }
+        ],
+        "gates": [
+          {
+            "id": "independence",
+            "passed": false,
+            "detail": "1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "market",
+            "passed": true,
+            "detail": "market overview missing",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "agreement",
+            "passed": false,
+            "detail": "RYO direction missing",
+            "evidence": [
+              "E7"
+            ]
+          },
+          {
+            "id": "safety",
+            "passed": false,
+            "detail": "not verified · safety: no risk section in deep_analysis",
+            "evidence": []
+          },
+          {
+            "id": "timing",
+            "passed": false,
+            "detail": "RSI(14): E7 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E8 is unavailable (the tool returned an error)",
+            "evidence": [
+              "E7"
+            ]
+          },
+          {
+            "id": "basket",
+            "passed": false,
+            "detail": "vs BTC: E9 has no comparable score for BNB and BTC",
+            "evidence": [
+              "E9"
+            ]
+          }
+        ],
+        "claims": [],
+        "removed_claims": [
+          {
+            "text": "Independent agreement: 1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+            "reason": "E1 is unavailable, not live data"
+          },
+          {
+            "text": "Market risk acceptable: market overview missing",
+            "reason": "E1 is unavailable, not live data"
+          },
+          {
+            "text": "RYO supports the KOL direction: RYO direction missing",
+            "reason": "E7 is unavailable, not live data"
+          },
+          {
+            "text": "Token safety check: not verified · safety: no risk section in deep_analysis",
+            "reason": "cites no RYO evidence"
+          },
+          {
+            "text": "Call is not late to the move: RSI(14): E7 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E8 is unavailable (the tool returned an error)",
+            "reason": "E7 is unavailable, not live data"
+          },
+          {
+            "text": "Stronger than its basket: vs BTC: E9 has no comparable score for BNB and BTC",
+            "reason": "E9 is unavailable, not live data"
+          }
+        ],
+        "stale_calls": [],
+        "ryo_evidence": [
+          {
+            "id": "E1",
+            "tool": "market_overview",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:25:16.119Z",
+            "payload_hash": "0x93ec18ac6686d4196da6bdcfcdc4eb520168151eb1631ea9e7ea791b920a1f66"
+          },
+          {
+            "id": "E2",
+            "tool": "monitor_market_sentiment_shift",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:25:17.949Z",
+            "payload_hash": "0x0bd6cd91ccd85c39b5e98c88b42b0527bb8f4d3f3946e6a199ec93e06e84677b"
+          },
+          {
+            "id": "E7",
+            "tool": "deep_analysis",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:25:20.145Z",
+            "payload_hash": "0x3a43d3bcb008ce40617590dbabfcb0ae007c5269c3fcfc4f26c53a12460efb9d"
+          },
+          {
+            "id": "E8",
+            "tool": "analyze_token",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:26:20.908Z",
+            "payload_hash": "0x7ee1275ddb6065943ca2fedf0ec419ff24a1c09259101bbf997259b0fd8072c5"
+          },
+          {
+            "id": "E9",
+            "tool": "compare_tokens",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:26:21.335Z",
+            "payload_hash": "0x71dc36129e61b28a38abd65faf3b53c2d3862e659bddbc75f9c0bf0565b7f9ae"
+          }
+        ],
+        "decision_hash": "0x88456a78048c6f7d0e0b90169f8c248d499c20ffda39d12b01a0382e3855f5dd",
+        "practice_only": true
+      },
+      "cardHash": "0x38db68733f8d17806364e64642d9375cfee4388d845fb33205ea71348e65d5b6",
+      "stale": [],
+      "independence": {
+        "schema_version": "1.0",
+        "tool": "narrative_independence",
+        "status": "ok",
+        "data_mode": "live",
+        "as_of": "2026-11-11T07:25:16.119Z",
+        "request": {
+          "symbol": "BNB",
+          "posts": 1,
+          "market_risk": null
+        },
+        "data": {
+          "symbol": "BNB",
+          "threshold": 0.6,
+          "threshold_reason": "base",
+          "independent": {
+            "score": 1,
+            "voices": 1,
+            "agreeing": 1,
+            "side": "neutral",
+            "passes": false
+          },
+          "naive": {
+            "score": 1,
+            "posts": 1,
+            "agreeing": 1,
+            "side": "neutral",
+            "passes": false
+          },
+          "echo_ratio": 0,
+          "originators": [
+            "BitcoinBullets"
+          ],
+          "clusters": [],
+          "pivotal_voices": [],
+          "excluded": [],
+          "timeline": [
+            {
+              "post": "telegram:BitcoinBullets/17356",
+              "handle": "BitcoinBullets",
+              "posted_at": "2026-10-29T02:58:26.000Z",
+              "role": "first"
+            }
+          ]
+        },
+        "summary": {
+          "headline": "BNB: 1 independent voice(s) behind 1 post(s); independent agreement 1.00 does not pass the 0.60 bar.",
+          "key_points": [
+            "Naive count 1.00 over 1 posts.",
+            "0% of posts repeat another voice.",
+            "No single voice decides the result."
+          ]
+        },
+        "availability": {
+          "independence": "available",
+          "timeline": "available"
+        },
+        "warnings": [
+          "no market_risk given: base threshold 0.60 used"
+        ]
+      }
+    },
+    {
+      "token": "ETH",
+      "voices": [
+        {
+          "handle": "lookonchainchannel",
+          "sentiment": "bearish",
+          "conviction": 0.65,
+          "is_echo": false
+        }
+      ],
+      "sources": [
+        {
+          "post_id": "telegram:lookonchainchannel/10821",
+          "handle": "lookonchainchannel",
+          "sentiment": "bearish",
+          "conviction": 0.65,
+          "is_echo": false,
+          "echo_of": null,
+          "reasoning_summary": "An Ethereum OG wallet inactive for three years deposited all 2,119 ETH (~$4.99M) to Coinbase seven hours ago, which the author frames as OGs waking up and dumping ETH, implying near-term selling pressure.",
+          "posted_at": "2026-10-29T01:57:27.000Z"
+        }
+      ],
+      "peer": "SOL",
+      "decision": {
+        "token": "ETH",
+        "side": "NONE",
+        "score": 1,
+        "independent": 1,
+        "agreeing": 1,
+        "voices": [
+          {
+            "handle": "lookonchainchannel",
+            "sentiment": "bearish",
+            "echo": false,
+            "ryo": "unconfirmed",
+            "note": "not confirmed by RYO; not a buy signal"
+          }
+        ],
+        "plan": null,
+        "options": {
+          "countEchoes": false,
+          "dropHandle": null,
+          "ignoreRyoVetoes": false
+        },
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "headline": "ETH: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E10 is unavailable (the tool returned an error); fallback price (analyze_token): E11 is unavailable (the tool returned an error); 24h change: E10 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E11 is unavailable (the tool returned an error); direction: E10 is unavailable (the tool returned an error); fallback direction (analyze_token): E11 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+        "threshold": 0.6,
+        "gates": [
+          {
+            "id": "independence",
+            "label": "Independent agreement",
+            "passed": false,
+            "ryoVeto": false,
+            "detail": "1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "market",
+            "label": "Market risk acceptable",
+            "passed": true,
+            "ryoVeto": true,
+            "detail": "market overview missing",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "agreement",
+            "label": "RYO supports the KOL direction",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "RYO direction missing",
+            "evidence": [
+              "E10"
+            ]
+          },
+          {
+            "id": "safety",
+            "label": "Token safety check",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "not verified · safety: no risk section in deep_analysis",
+            "evidence": []
+          },
+          {
+            "id": "timing",
+            "label": "Call is not late to the move",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "RSI(14): E10 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E11 is unavailable (the tool returned an error)",
+            "evidence": [
+              "E10"
+            ]
+          },
+          {
+            "id": "basket",
+            "label": "Weaker than its basket",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "vs BTC: E12 has no comparable score for ETH and BTC",
+            "evidence": [
+              "E12"
+            ]
+          }
+        ],
+        "missing": [
+          "market risk: E1 is unavailable (the tool returned an error)",
+          "price: E10 is unavailable (the tool returned an error); fallback price (analyze_token): E11 is unavailable (the tool returned an error)",
+          "24h change: E10 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E11 is unavailable (the tool returned an error)",
+          "direction: E10 is unavailable (the tool returned an error); fallback direction (analyze_token): E11 is unavailable (the tool returned an error)",
+          "safety: no risk section in deep_analysis"
+        ],
+        "hash": "0xb1f9960469533ec7545c1ed809b4680d84097e7de4661272bf312854d75a0d8a"
+      },
+      "counterfactuals": {
+        "actual": {
+          "token": "ETH",
+          "side": "NONE",
+          "score": 1,
+          "independent": 1,
+          "agreeing": 1,
+          "voices": [
+            {
+              "handle": "lookonchainchannel",
+              "sentiment": "bearish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            }
+          ],
+          "plan": null,
+          "options": {
+            "countEchoes": false,
+            "dropHandle": null,
+            "ignoreRyoVetoes": false
+          },
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "headline": "ETH: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E10 is unavailable (the tool returned an error); fallback price (analyze_token): E11 is unavailable (the tool returned an error); 24h change: E10 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E11 is unavailable (the tool returned an error); direction: E10 is unavailable (the tool returned an error); fallback direction (analyze_token): E11 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+          "threshold": 0.6,
+          "gates": [
+            {
+              "id": "independence",
+              "label": "Independent agreement",
+              "passed": false,
+              "ryoVeto": false,
+              "detail": "1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "market",
+              "label": "Market risk acceptable",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "market overview missing",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "agreement",
+              "label": "RYO supports the KOL direction",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RYO direction missing",
+              "evidence": [
+                "E10"
+              ]
+            },
+            {
+              "id": "safety",
+              "label": "Token safety check",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "not verified · safety: no risk section in deep_analysis",
+              "evidence": []
+            },
+            {
+              "id": "timing",
+              "label": "Call is not late to the move",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RSI(14): E10 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E11 is unavailable (the tool returned an error)",
+              "evidence": [
+                "E10"
+              ]
+            },
+            {
+              "id": "basket",
+              "label": "Weaker than its basket",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "vs BTC: E12 has no comparable score for ETH and BTC",
+              "evidence": [
+                "E12"
+              ]
+            }
+          ],
+          "missing": [
+            "market risk: E1 is unavailable (the tool returned an error)",
+            "price: E10 is unavailable (the tool returned an error); fallback price (analyze_token): E11 is unavailable (the tool returned an error)",
+            "24h change: E10 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E11 is unavailable (the tool returned an error)",
+            "direction: E10 is unavailable (the tool returned an error); fallback direction (analyze_token): E11 is unavailable (the tool returned an error)",
+            "safety: no risk section in deep_analysis"
+          ],
+          "hash": "0xb1f9960469533ec7545c1ed809b4680d84097e7de4661272bf312854d75a0d8a"
+        },
+        "naive": {
+          "token": "ETH",
+          "side": "NONE",
+          "score": 1,
+          "independent": 1,
+          "agreeing": 1,
+          "voices": [
+            {
+              "handle": "lookonchainchannel",
+              "sentiment": "bearish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            }
+          ],
+          "plan": null,
+          "options": {
+            "countEchoes": true,
+            "dropHandle": null,
+            "ignoreRyoVetoes": true
+          },
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "headline": "ETH: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E10 is unavailable (the tool returned an error); fallback price (analyze_token): E11 is unavailable (the tool returned an error); 24h change: E10 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E11 is unavailable (the tool returned an error); direction: E10 is unavailable (the tool returned an error); fallback direction (analyze_token): E11 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+          "threshold": 0.6,
+          "gates": [
+            {
+              "id": "independence",
+              "label": "Agreement (counting every post)",
+              "passed": false,
+              "ryoVeto": false,
+              "detail": "1 of 1 posts agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "market",
+              "label": "Market risk acceptable",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "market overview missing",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "agreement",
+              "label": "RYO supports the KOL direction",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RYO direction missing",
+              "evidence": [
+                "E10"
+              ]
+            },
+            {
+              "id": "safety",
+              "label": "Token safety check",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "not verified · safety: no risk section in deep_analysis",
+              "evidence": []
+            },
+            {
+              "id": "timing",
+              "label": "Call is not late to the move",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RSI(14): E10 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E11 is unavailable (the tool returned an error)",
+              "evidence": [
+                "E10"
+              ]
+            },
+            {
+              "id": "basket",
+              "label": "Weaker than its basket",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "vs BTC: E12 has no comparable score for ETH and BTC",
+              "evidence": [
+                "E12"
+              ]
+            }
+          ],
+          "missing": [
+            "market risk: E1 is unavailable (the tool returned an error)",
+            "price: E10 is unavailable (the tool returned an error); fallback price (analyze_token): E11 is unavailable (the tool returned an error)",
+            "24h change: E10 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E11 is unavailable (the tool returned an error)",
+            "direction: E10 is unavailable (the tool returned an error); fallback direction (analyze_token): E11 is unavailable (the tool returned an error)",
+            "safety: no risk section in deep_analysis"
+          ],
+          "hash": "0x510677cd08cee4a58667966a60348ab518523bd5d5c5ddb29477e21446b975eb"
+        },
+        "withoutRyoVetoes": {
+          "token": "ETH",
+          "side": "NONE",
+          "score": 1,
+          "independent": 1,
+          "agreeing": 1,
+          "voices": [
+            {
+              "handle": "lookonchainchannel",
+              "sentiment": "bearish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            }
+          ],
+          "plan": null,
+          "options": {
+            "countEchoes": false,
+            "dropHandle": null,
+            "ignoreRyoVetoes": true
+          },
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "headline": "ETH: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E10 is unavailable (the tool returned an error); fallback price (analyze_token): E11 is unavailable (the tool returned an error); 24h change: E10 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E11 is unavailable (the tool returned an error); direction: E10 is unavailable (the tool returned an error); fallback direction (analyze_token): E11 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+          "threshold": 0.6,
+          "gates": [
+            {
+              "id": "independence",
+              "label": "Independent agreement",
+              "passed": false,
+              "ryoVeto": false,
+              "detail": "1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "market",
+              "label": "Market risk acceptable",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "market overview missing",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "agreement",
+              "label": "RYO supports the KOL direction",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RYO direction missing",
+              "evidence": [
+                "E10"
+              ]
+            },
+            {
+              "id": "safety",
+              "label": "Token safety check",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "not verified · safety: no risk section in deep_analysis",
+              "evidence": []
+            },
+            {
+              "id": "timing",
+              "label": "Call is not late to the move",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RSI(14): E10 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E11 is unavailable (the tool returned an error)",
+              "evidence": [
+                "E10"
+              ]
+            },
+            {
+              "id": "basket",
+              "label": "Weaker than its basket",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "vs BTC: E12 has no comparable score for ETH and BTC",
+              "evidence": [
+                "E12"
+              ]
+            }
+          ],
+          "missing": [
+            "market risk: E1 is unavailable (the tool returned an error)",
+            "price: E10 is unavailable (the tool returned an error); fallback price (analyze_token): E11 is unavailable (the tool returned an error)",
+            "24h change: E10 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E11 is unavailable (the tool returned an error)",
+            "direction: E10 is unavailable (the tool returned an error); fallback direction (analyze_token): E11 is unavailable (the tool returned an error)",
+            "safety: no risk section in deep_analysis"
+          ],
+          "hash": "0x5016f52bbee03fab78e8dade4eee0acc589bc12df608aa8dd385bad338c83c9a"
+        },
+        "withoutEach": [
+          {
+            "handle": "lookonchainchannel",
+            "decision": {
+              "token": "ETH",
+              "side": "NONE",
+              "score": 0,
+              "independent": 0,
+              "agreeing": 0,
+              "voices": [],
+              "plan": null,
+              "options": {
+                "countEchoes": false,
+                "dropHandle": "lookonchainchannel",
+                "ignoreRyoVetoes": false
+              },
+              "verdict": "INSUFFICIENT_EVIDENCE",
+              "headline": "ETH: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E10 is unavailable (the tool returned an error); fallback price (analyze_token): E11 is unavailable (the tool returned an error); 24h change: E10 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E11 is unavailable (the tool returned an error); direction: E10 is unavailable (the tool returned an error); fallback direction (analyze_token): E11 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+              "threshold": 0.6,
+              "gates": [
+                {
+                  "id": "independence",
+                  "label": "Independent agreement",
+                  "passed": false,
+                  "ryoVeto": false,
+                  "detail": "0 of 0 independent voices agree (0.00); needs ≥ 0.60 and ≥ 2 voices",
+                  "evidence": [
+                    "E1"
+                  ]
+                },
+                {
+                  "id": "market",
+                  "label": "Market risk acceptable",
+                  "passed": true,
+                  "ryoVeto": true,
+                  "detail": "market overview missing",
+                  "evidence": [
+                    "E1"
+                  ]
+                },
+                {
+                  "id": "agreement",
+                  "label": "RYO supports the KOL direction",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "RYO direction missing",
+                  "evidence": [
+                    "E10"
+                  ]
+                },
+                {
+                  "id": "safety",
+                  "label": "Token safety check",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "not verified · safety: no risk section in deep_analysis",
+                  "evidence": []
+                },
+                {
+                  "id": "timing",
+                  "label": "Call is not late to the move",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "RSI(14): E10 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E11 is unavailable (the tool returned an error)",
+                  "evidence": [
+                    "E10"
+                  ]
+                },
+                {
+                  "id": "basket",
+                  "label": "Stronger than its basket",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "vs BTC: E12 has no comparable score for ETH and BTC",
+                  "evidence": [
+                    "E12"
+                  ]
+                }
+              ],
+              "missing": [
+                "market risk: E1 is unavailable (the tool returned an error)",
+                "price: E10 is unavailable (the tool returned an error); fallback price (analyze_token): E11 is unavailable (the tool returned an error)",
+                "24h change: E10 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E11 is unavailable (the tool returned an error)",
+                "direction: E10 is unavailable (the tool returned an error); fallback direction (analyze_token): E11 is unavailable (the tool returned an error)",
+                "safety: no risk section in deep_analysis"
+              ],
+              "hash": "0xe704b29dfad64fadc1c2cfd46e9b4b24f00b357cf94063d475eb8270f67a3011"
+            }
+          }
+        ]
+      },
+      "claims": [
+        {
+          "by": "bear",
+          "text": "Independent agreement: 1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+          "evidence": [
+            "E1"
+          ],
+          "kept": false,
+          "reason": "E1 is unavailable, not live data"
+        },
+        {
+          "by": "bull",
+          "text": "Market risk acceptable: market overview missing",
+          "evidence": [
+            "E1"
+          ],
+          "kept": false,
+          "reason": "E1 is unavailable, not live data"
+        },
+        {
+          "by": "bear",
+          "text": "RYO supports the KOL direction: RYO direction missing",
+          "evidence": [
+            "E10"
+          ],
+          "kept": false,
+          "reason": "E10 is unavailable, not live data"
+        },
+        {
+          "by": "bear",
+          "text": "Token safety check: not verified · safety: no risk section in deep_analysis",
+          "evidence": [],
+          "kept": false,
+          "reason": "cites no RYO evidence"
+        },
+        {
+          "by": "bear",
+          "text": "Call is not late to the move: RSI(14): E10 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E11 is unavailable (the tool returned an error)",
+          "evidence": [
+            "E10"
+          ],
+          "kept": false,
+          "reason": "E10 is unavailable, not live data"
+        },
+        {
+          "by": "bear",
+          "text": "Weaker than its basket: vs BTC: E12 has no comparable score for ETH and BTC",
+          "evidence": [
+            "E12"
+          ],
+          "kept": false,
+          "reason": "E12 is unavailable, not live data"
+        }
+      ],
+      "card": {
+        "kind": "echo-ledger/ryo-card@1",
+        "token": "ETH",
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "side": "NONE",
+        "headline": "ETH: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E10 is unavailable (the tool returned an error); fallback price (analyze_token): E11 is unavailable (the tool returned an error); 24h change: E10 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E11 is unavailable (the tool returned an error); direction: E10 is unavailable (the tool returned an error); fallback direction (analyze_token): E11 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+        "plan": null,
+        "convergence": {
+          "score": 1,
+          "threshold": 0.6,
+          "independent": 1,
+          "agreeing": 1
+        },
+        "sources": [
+          {
+            "kol": "lookonchainchannel",
+            "post": "telegram:lookonchainchannel/10821",
+            "sentiment": "bearish",
+            "echo": false,
+            "echo_of": null
+          }
+        ],
+        "voices": [
+          {
+            "handle": "lookonchainchannel",
+            "sentiment": "bearish",
+            "echo": false,
+            "ryo": "unconfirmed",
+            "note": "not confirmed by RYO; not a buy signal"
+          }
+        ],
+        "gates": [
+          {
+            "id": "independence",
+            "passed": false,
+            "detail": "1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "market",
+            "passed": true,
+            "detail": "market overview missing",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "agreement",
+            "passed": false,
+            "detail": "RYO direction missing",
+            "evidence": [
+              "E10"
+            ]
+          },
+          {
+            "id": "safety",
+            "passed": false,
+            "detail": "not verified · safety: no risk section in deep_analysis",
+            "evidence": []
+          },
+          {
+            "id": "timing",
+            "passed": false,
+            "detail": "RSI(14): E10 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E11 is unavailable (the tool returned an error)",
+            "evidence": [
+              "E10"
+            ]
+          },
+          {
+            "id": "basket",
+            "passed": false,
+            "detail": "vs BTC: E12 has no comparable score for ETH and BTC",
+            "evidence": [
+              "E12"
+            ]
+          }
+        ],
+        "claims": [],
+        "removed_claims": [
+          {
+            "text": "Independent agreement: 1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+            "reason": "E1 is unavailable, not live data"
+          },
+          {
+            "text": "Market risk acceptable: market overview missing",
+            "reason": "E1 is unavailable, not live data"
+          },
+          {
+            "text": "RYO supports the KOL direction: RYO direction missing",
+            "reason": "E10 is unavailable, not live data"
+          },
+          {
+            "text": "Token safety check: not verified · safety: no risk section in deep_analysis",
+            "reason": "cites no RYO evidence"
+          },
+          {
+            "text": "Call is not late to the move: RSI(14): E10 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E11 is unavailable (the tool returned an error)",
+            "reason": "E10 is unavailable, not live data"
+          },
+          {
+            "text": "Weaker than its basket: vs BTC: E12 has no comparable score for ETH and BTC",
+            "reason": "E12 is unavailable, not live data"
+          }
+        ],
+        "stale_calls": [
+          {
+            "kol": "lookonchainchannel",
+            "label": "stale",
+            "score": 100,
+            "status": "partial"
+          }
+        ],
+        "ryo_evidence": [
+          {
+            "id": "E1",
+            "tool": "market_overview",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:25:16.119Z",
+            "payload_hash": "0x93ec18ac6686d4196da6bdcfcdc4eb520168151eb1631ea9e7ea791b920a1f66"
+          },
+          {
+            "id": "E2",
+            "tool": "monitor_market_sentiment_shift",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:25:17.949Z",
+            "payload_hash": "0x0bd6cd91ccd85c39b5e98c88b42b0527bb8f4d3f3946e6a199ec93e06e84677b"
+          },
+          {
+            "id": "E10",
+            "tool": "deep_analysis",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:26:21.750Z",
+            "payload_hash": "0x9e55187ba4658c8d2029647a2a2fa332968874b9d0c5c918f51805dbdebc5af5"
+          },
+          {
+            "id": "E11",
+            "tool": "analyze_token",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:26:22.177Z",
+            "payload_hash": "0x3169992635911886fb5b128a06c595b4e56cc5c55c9be0baf2123fd19ef9ad44"
+          },
+          {
+            "id": "E12",
+            "tool": "compare_tokens",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:26:22.598Z",
+            "payload_hash": "0x4b947e5f91fddb5cf9df655b21a8ed46d16e5b5bf025da7c9bc5e532beb29833"
+          }
+        ],
+        "decision_hash": "0xb1f9960469533ec7545c1ed809b4680d84097e7de4661272bf312854d75a0d8a",
+        "practice_only": true
+      },
+      "cardHash": "0x761ca1d3bb6d5f3837a706ff5d6f4b14ac84070a65fb5eda191eb9b1ec0a8e73",
+      "stale": [
+        {
+          "handle": "lookonchainchannel",
+          "post_id": "telegram:lookonchainchannel/10821",
+          "envelope": {
+            "schema_version": "1.0",
+            "tool": "stale_call",
+            "status": "partial",
+            "data_mode": "unknown",
+            "as_of": "2026-11-11T07:26:22.177Z",
+            "request": {
+              "symbol": "ETH",
+              "side": "short",
+              "posted_at": "2026-10-29T01:57:27.000Z"
+            },
+            "data": {
+              "symbol": "ETH",
+              "side": "short",
+              "age_h": 317.5,
+              "components": {
+                "age": 100,
+                "move": null,
+                "phase": null
+              },
+              "inputs": {
+                "change_24h_pct": null,
+                "atr_pct": null,
+                "rsi_14": null,
+                "ryo_evidence": "E11",
+                "ryo_paths": []
+              },
+              "score": 100,
+              "label": "stale",
+              "reasons": [
+                "posted 317.5 h before RYO's reading",
+                "24 h move not available from RYO",
+                "RSI(14) not available from RYO"
+              ]
+            },
+            "summary": {
+              "headline": "ETH short call is stale (100/100).",
+              "key_points": [
+                "posted 317.5 h before RYO's reading",
+                "24 h move not available from RYO",
+                "RSI(14) not available from RYO"
+              ]
+            },
+            "availability": {
+              "age": "available",
+              "market_state": "unavailable"
+            },
+            "warnings": [
+              "RYO evidence E11 is unavailable: score uses 1 of 3 components"
+            ]
+          }
+        }
+      ],
+      "independence": {
+        "schema_version": "1.0",
+        "tool": "narrative_independence",
+        "status": "ok",
+        "data_mode": "live",
+        "as_of": "2026-11-11T07:25:16.119Z",
+        "request": {
+          "symbol": "ETH",
+          "posts": 1,
+          "market_risk": null
+        },
+        "data": {
+          "symbol": "ETH",
+          "threshold": 0.6,
+          "threshold_reason": "base",
+          "independent": {
+            "score": 1,
+            "voices": 1,
+            "agreeing": 1,
+            "side": "bearish",
+            "passes": false
+          },
+          "naive": {
+            "score": 1,
+            "posts": 1,
+            "agreeing": 1,
+            "side": "bearish",
+            "passes": false
+          },
+          "echo_ratio": 0,
+          "originators": [
+            "lookonchainchannel"
+          ],
+          "clusters": [],
+          "pivotal_voices": [],
+          "excluded": [],
+          "timeline": [
+            {
+              "post": "telegram:lookonchainchannel/10821",
+              "handle": "lookonchainchannel",
+              "posted_at": "2026-10-29T01:57:27.000Z",
+              "role": "first"
+            }
+          ]
+        },
+        "summary": {
+          "headline": "ETH: 1 independent voice(s) behind 1 post(s); independent agreement 1.00 does not pass the 0.60 bar.",
+          "key_points": [
+            "Naive count 1.00 over 1 posts.",
+            "0% of posts repeat another voice.",
+            "No single voice decides the result."
+          ]
+        },
+        "availability": {
+          "independence": "available",
+          "timeline": "available"
+        },
+        "warnings": [
+          "no market_risk given: base threshold 0.60 used"
+        ]
+      }
+    },
+    {
+      "token": "INITIA",
+      "voices": [
+        {
+          "handle": "DaanCryptoTG",
+          "sentiment": "bearish",
+          "conviction": 0.65,
+          "is_echo": false
+        }
+      ],
+      "sources": [
+        {
+          "post_id": "telegram:DaanCryptoTG/9734",
+          "handle": "DaanCryptoTG",
+          "sentiment": "bearish",
+          "conviction": 0.65,
+          "is_echo": false,
+          "echo_of": null,
+          "reasoning_summary": "The author sees INITIA as a short opportunity once the paused chain resumes, arguing the +60% drift since the hack is artificial because spot selling is disabled while negative funding reflects pre-hedging, and expects a slow reaction to resumption similar to Humanity (H) after its hack.",
+          "posted_at": "2026-10-28T12:32:20.000Z"
+        }
+      ],
+      "peer": "ETH",
+      "decision": {
+        "token": "INITIA",
+        "side": "NONE",
+        "score": 1,
+        "independent": 1,
+        "agreeing": 1,
+        "voices": [
+          {
+            "handle": "DaanCryptoTG",
+            "sentiment": "bearish",
+            "echo": false,
+            "ryo": "unconfirmed",
+            "note": "not confirmed by RYO; not a buy signal"
+          }
+        ],
+        "plan": null,
+        "options": {
+          "countEchoes": false,
+          "dropHandle": null,
+          "ignoreRyoVetoes": false
+        },
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "headline": "INITIA: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E13 is unavailable (the tool returned an error); fallback price (analyze_token): E14 is unavailable (the tool returned an error); 24h change: E13 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E14 is unavailable (the tool returned an error); direction: E13 is unavailable (the tool returned an error); fallback direction (analyze_token): E14 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+        "threshold": 0.6,
+        "gates": [
+          {
+            "id": "independence",
+            "label": "Independent agreement",
+            "passed": false,
+            "ryoVeto": false,
+            "detail": "1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "market",
+            "label": "Market risk acceptable",
+            "passed": true,
+            "ryoVeto": true,
+            "detail": "market overview missing",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "agreement",
+            "label": "RYO supports the KOL direction",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "RYO direction missing",
+            "evidence": [
+              "E13"
+            ]
+          },
+          {
+            "id": "safety",
+            "label": "Token safety check",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "not verified · safety: no risk section in deep_analysis",
+            "evidence": []
+          },
+          {
+            "id": "timing",
+            "label": "Call is not late to the move",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "RSI(14): E13 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E14 is unavailable (the tool returned an error)",
+            "evidence": [
+              "E13"
+            ]
+          },
+          {
+            "id": "basket",
+            "label": "Weaker than its basket",
+            "passed": false,
+            "ryoVeto": true,
+            "detail": "vs BTC: E15 has no comparable score for INITIA and BTC",
+            "evidence": [
+              "E15"
+            ]
+          }
+        ],
+        "missing": [
+          "market risk: E1 is unavailable (the tool returned an error)",
+          "price: E13 is unavailable (the tool returned an error); fallback price (analyze_token): E14 is unavailable (the tool returned an error)",
+          "24h change: E13 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E14 is unavailable (the tool returned an error)",
+          "direction: E13 is unavailable (the tool returned an error); fallback direction (analyze_token): E14 is unavailable (the tool returned an error)",
+          "safety: no risk section in deep_analysis"
+        ],
+        "hash": "0x09ed0837b368723258a8f00b099794e1cc285b7f07e800e89f950a67fcbe5311"
+      },
+      "counterfactuals": {
+        "actual": {
+          "token": "INITIA",
+          "side": "NONE",
+          "score": 1,
+          "independent": 1,
+          "agreeing": 1,
+          "voices": [
+            {
+              "handle": "DaanCryptoTG",
+              "sentiment": "bearish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            }
+          ],
+          "plan": null,
+          "options": {
+            "countEchoes": false,
+            "dropHandle": null,
+            "ignoreRyoVetoes": false
+          },
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "headline": "INITIA: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E13 is unavailable (the tool returned an error); fallback price (analyze_token): E14 is unavailable (the tool returned an error); 24h change: E13 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E14 is unavailable (the tool returned an error); direction: E13 is unavailable (the tool returned an error); fallback direction (analyze_token): E14 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+          "threshold": 0.6,
+          "gates": [
+            {
+              "id": "independence",
+              "label": "Independent agreement",
+              "passed": false,
+              "ryoVeto": false,
+              "detail": "1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "market",
+              "label": "Market risk acceptable",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "market overview missing",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "agreement",
+              "label": "RYO supports the KOL direction",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RYO direction missing",
+              "evidence": [
+                "E13"
+              ]
+            },
+            {
+              "id": "safety",
+              "label": "Token safety check",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "not verified · safety: no risk section in deep_analysis",
+              "evidence": []
+            },
+            {
+              "id": "timing",
+              "label": "Call is not late to the move",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RSI(14): E13 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E14 is unavailable (the tool returned an error)",
+              "evidence": [
+                "E13"
+              ]
+            },
+            {
+              "id": "basket",
+              "label": "Weaker than its basket",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "vs BTC: E15 has no comparable score for INITIA and BTC",
+              "evidence": [
+                "E15"
+              ]
+            }
+          ],
+          "missing": [
+            "market risk: E1 is unavailable (the tool returned an error)",
+            "price: E13 is unavailable (the tool returned an error); fallback price (analyze_token): E14 is unavailable (the tool returned an error)",
+            "24h change: E13 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E14 is unavailable (the tool returned an error)",
+            "direction: E13 is unavailable (the tool returned an error); fallback direction (analyze_token): E14 is unavailable (the tool returned an error)",
+            "safety: no risk section in deep_analysis"
+          ],
+          "hash": "0x09ed0837b368723258a8f00b099794e1cc285b7f07e800e89f950a67fcbe5311"
+        },
+        "naive": {
+          "token": "INITIA",
+          "side": "NONE",
+          "score": 1,
+          "independent": 1,
+          "agreeing": 1,
+          "voices": [
+            {
+              "handle": "DaanCryptoTG",
+              "sentiment": "bearish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            }
+          ],
+          "plan": null,
+          "options": {
+            "countEchoes": true,
+            "dropHandle": null,
+            "ignoreRyoVetoes": true
+          },
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "headline": "INITIA: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E13 is unavailable (the tool returned an error); fallback price (analyze_token): E14 is unavailable (the tool returned an error); 24h change: E13 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E14 is unavailable (the tool returned an error); direction: E13 is unavailable (the tool returned an error); fallback direction (analyze_token): E14 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+          "threshold": 0.6,
+          "gates": [
+            {
+              "id": "independence",
+              "label": "Agreement (counting every post)",
+              "passed": false,
+              "ryoVeto": false,
+              "detail": "1 of 1 posts agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "market",
+              "label": "Market risk acceptable",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "market overview missing",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "agreement",
+              "label": "RYO supports the KOL direction",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RYO direction missing",
+              "evidence": [
+                "E13"
+              ]
+            },
+            {
+              "id": "safety",
+              "label": "Token safety check",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "not verified · safety: no risk section in deep_analysis",
+              "evidence": []
+            },
+            {
+              "id": "timing",
+              "label": "Call is not late to the move",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RSI(14): E13 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E14 is unavailable (the tool returned an error)",
+              "evidence": [
+                "E13"
+              ]
+            },
+            {
+              "id": "basket",
+              "label": "Weaker than its basket",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "vs BTC: E15 has no comparable score for INITIA and BTC",
+              "evidence": [
+                "E15"
+              ]
+            }
+          ],
+          "missing": [
+            "market risk: E1 is unavailable (the tool returned an error)",
+            "price: E13 is unavailable (the tool returned an error); fallback price (analyze_token): E14 is unavailable (the tool returned an error)",
+            "24h change: E13 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E14 is unavailable (the tool returned an error)",
+            "direction: E13 is unavailable (the tool returned an error); fallback direction (analyze_token): E14 is unavailable (the tool returned an error)",
+            "safety: no risk section in deep_analysis"
+          ],
+          "hash": "0x0b4d1d7de85efe8ca3d30fe040c81e6b7040b6d37ae229121c9aff80a003f3f8"
+        },
+        "withoutRyoVetoes": {
+          "token": "INITIA",
+          "side": "NONE",
+          "score": 1,
+          "independent": 1,
+          "agreeing": 1,
+          "voices": [
+            {
+              "handle": "DaanCryptoTG",
+              "sentiment": "bearish",
+              "echo": false,
+              "ryo": "unconfirmed",
+              "note": "not confirmed by RYO; not a buy signal"
+            }
+          ],
+          "plan": null,
+          "options": {
+            "countEchoes": false,
+            "dropHandle": null,
+            "ignoreRyoVetoes": true
+          },
+          "verdict": "INSUFFICIENT_EVIDENCE",
+          "headline": "INITIA: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E13 is unavailable (the tool returned an error); fallback price (analyze_token): E14 is unavailable (the tool returned an error); 24h change: E13 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E14 is unavailable (the tool returned an error); direction: E13 is unavailable (the tool returned an error); fallback direction (analyze_token): E14 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+          "threshold": 0.6,
+          "gates": [
+            {
+              "id": "independence",
+              "label": "Independent agreement",
+              "passed": false,
+              "ryoVeto": false,
+              "detail": "1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "market",
+              "label": "Market risk acceptable",
+              "passed": true,
+              "ryoVeto": true,
+              "detail": "market overview missing",
+              "evidence": [
+                "E1"
+              ]
+            },
+            {
+              "id": "agreement",
+              "label": "RYO supports the KOL direction",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RYO direction missing",
+              "evidence": [
+                "E13"
+              ]
+            },
+            {
+              "id": "safety",
+              "label": "Token safety check",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "not verified · safety: no risk section in deep_analysis",
+              "evidence": []
+            },
+            {
+              "id": "timing",
+              "label": "Call is not late to the move",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "RSI(14): E13 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E14 is unavailable (the tool returned an error)",
+              "evidence": [
+                "E13"
+              ]
+            },
+            {
+              "id": "basket",
+              "label": "Weaker than its basket",
+              "passed": false,
+              "ryoVeto": true,
+              "detail": "vs BTC: E15 has no comparable score for INITIA and BTC",
+              "evidence": [
+                "E15"
+              ]
+            }
+          ],
+          "missing": [
+            "market risk: E1 is unavailable (the tool returned an error)",
+            "price: E13 is unavailable (the tool returned an error); fallback price (analyze_token): E14 is unavailable (the tool returned an error)",
+            "24h change: E13 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E14 is unavailable (the tool returned an error)",
+            "direction: E13 is unavailable (the tool returned an error); fallback direction (analyze_token): E14 is unavailable (the tool returned an error)",
+            "safety: no risk section in deep_analysis"
+          ],
+          "hash": "0x35030d482e68ca297f31e974fbc70974f001b2592eae4539c4efa3cd392469da"
+        },
+        "withoutEach": [
+          {
+            "handle": "DaanCryptoTG",
+            "decision": {
+              "token": "INITIA",
+              "side": "NONE",
+              "score": 0,
+              "independent": 0,
+              "agreeing": 0,
+              "voices": [],
+              "plan": null,
+              "options": {
+                "countEchoes": false,
+                "dropHandle": "DaanCryptoTG",
+                "ignoreRyoVetoes": false
+              },
+              "verdict": "INSUFFICIENT_EVIDENCE",
+              "headline": "INITIA: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E13 is unavailable (the tool returned an error); fallback price (analyze_token): E14 is unavailable (the tool returned an error); 24h change: E13 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E14 is unavailable (the tool returned an error); direction: E13 is unavailable (the tool returned an error); fallback direction (analyze_token): E14 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+              "threshold": 0.6,
+              "gates": [
+                {
+                  "id": "independence",
+                  "label": "Independent agreement",
+                  "passed": false,
+                  "ryoVeto": false,
+                  "detail": "0 of 0 independent voices agree (0.00); needs ≥ 0.60 and ≥ 2 voices",
+                  "evidence": [
+                    "E1"
+                  ]
+                },
+                {
+                  "id": "market",
+                  "label": "Market risk acceptable",
+                  "passed": true,
+                  "ryoVeto": true,
+                  "detail": "market overview missing",
+                  "evidence": [
+                    "E1"
+                  ]
+                },
+                {
+                  "id": "agreement",
+                  "label": "RYO supports the KOL direction",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "RYO direction missing",
+                  "evidence": [
+                    "E13"
+                  ]
+                },
+                {
+                  "id": "safety",
+                  "label": "Token safety check",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "not verified · safety: no risk section in deep_analysis",
+                  "evidence": []
+                },
+                {
+                  "id": "timing",
+                  "label": "Call is not late to the move",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "RSI(14): E13 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E14 is unavailable (the tool returned an error)",
+                  "evidence": [
+                    "E13"
+                  ]
+                },
+                {
+                  "id": "basket",
+                  "label": "Stronger than its basket",
+                  "passed": false,
+                  "ryoVeto": true,
+                  "detail": "vs BTC: E15 has no comparable score for INITIA and BTC",
+                  "evidence": [
+                    "E15"
+                  ]
+                }
+              ],
+              "missing": [
+                "market risk: E1 is unavailable (the tool returned an error)",
+                "price: E13 is unavailable (the tool returned an error); fallback price (analyze_token): E14 is unavailable (the tool returned an error)",
+                "24h change: E13 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E14 is unavailable (the tool returned an error)",
+                "direction: E13 is unavailable (the tool returned an error); fallback direction (analyze_token): E14 is unavailable (the tool returned an error)",
+                "safety: no risk section in deep_analysis"
+              ],
+              "hash": "0x46910d27c8667a25aeae788f1da901c6ffb5beaa867dbabdfc1ea7ef14e227f8"
+            }
+          }
+        ]
+      },
+      "claims": [
+        {
+          "by": "bear",
+          "text": "Independent agreement: 1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+          "evidence": [
+            "E1"
+          ],
+          "kept": false,
+          "reason": "E1 is unavailable, not live data"
+        },
+        {
+          "by": "bull",
+          "text": "Market risk acceptable: market overview missing",
+          "evidence": [
+            "E1"
+          ],
+          "kept": false,
+          "reason": "E1 is unavailable, not live data"
+        },
+        {
+          "by": "bear",
+          "text": "RYO supports the KOL direction: RYO direction missing",
+          "evidence": [
+            "E13"
+          ],
+          "kept": false,
+          "reason": "E13 is unavailable, not live data"
+        },
+        {
+          "by": "bear",
+          "text": "Token safety check: not verified · safety: no risk section in deep_analysis",
+          "evidence": [],
+          "kept": false,
+          "reason": "cites no RYO evidence"
+        },
+        {
+          "by": "bear",
+          "text": "Call is not late to the move: RSI(14): E13 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E14 is unavailable (the tool returned an error)",
+          "evidence": [
+            "E13"
+          ],
+          "kept": false,
+          "reason": "E13 is unavailable, not live data"
+        },
+        {
+          "by": "bear",
+          "text": "Weaker than its basket: vs BTC: E15 has no comparable score for INITIA and BTC",
+          "evidence": [
+            "E15"
+          ],
+          "kept": false,
+          "reason": "E15 is unavailable, not live data"
+        }
+      ],
+      "card": {
+        "kind": "echo-ledger/ryo-card@1",
+        "token": "INITIA",
+        "verdict": "INSUFFICIENT_EVIDENCE",
+        "side": "NONE",
+        "headline": "INITIA: not decided. Live RYO data is missing: market risk: E1 is unavailable (the tool returned an error); price: E13 is unavailable (the tool returned an error); fallback price (analyze_token): E14 is unavailable (the tool returned an error); 24h change: E13 is unavailable (the tool returned an error); fallback 24h change (analyze_token): E14 is unavailable (the tool returned an error); direction: E13 is unavailable (the tool returned an error); fallback direction (analyze_token): E14 is unavailable (the tool returned an error); safety: no risk section in deep_analysis.",
+        "plan": null,
+        "convergence": {
+          "score": 1,
+          "threshold": 0.6,
+          "independent": 1,
+          "agreeing": 1
+        },
+        "sources": [
+          {
+            "kol": "DaanCryptoTG",
+            "post": "telegram:DaanCryptoTG/9734",
+            "sentiment": "bearish",
+            "echo": false,
+            "echo_of": null
+          }
+        ],
+        "voices": [
+          {
+            "handle": "DaanCryptoTG",
+            "sentiment": "bearish",
+            "echo": false,
+            "ryo": "unconfirmed",
+            "note": "not confirmed by RYO; not a buy signal"
+          }
+        ],
+        "gates": [
+          {
+            "id": "independence",
+            "passed": false,
+            "detail": "1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "market",
+            "passed": true,
+            "detail": "market overview missing",
+            "evidence": [
+              "E1"
+            ]
+          },
+          {
+            "id": "agreement",
+            "passed": false,
+            "detail": "RYO direction missing",
+            "evidence": [
+              "E13"
+            ]
+          },
+          {
+            "id": "safety",
+            "passed": false,
+            "detail": "not verified · safety: no risk section in deep_analysis",
+            "evidence": []
+          },
+          {
+            "id": "timing",
+            "passed": false,
+            "detail": "RSI(14): E13 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E14 is unavailable (the tool returned an error)",
+            "evidence": [
+              "E13"
+            ]
+          },
+          {
+            "id": "basket",
+            "passed": false,
+            "detail": "vs BTC: E15 has no comparable score for INITIA and BTC",
+            "evidence": [
+              "E15"
+            ]
+          }
+        ],
+        "claims": [],
+        "removed_claims": [
+          {
+            "text": "Independent agreement: 1 of 1 independent voices agree (1.00); needs ≥ 0.60 and ≥ 2 voices",
+            "reason": "E1 is unavailable, not live data"
+          },
+          {
+            "text": "Market risk acceptable: market overview missing",
+            "reason": "E1 is unavailable, not live data"
+          },
+          {
+            "text": "RYO supports the KOL direction: RYO direction missing",
+            "reason": "E13 is unavailable, not live data"
+          },
+          {
+            "text": "Token safety check: not verified · safety: no risk section in deep_analysis",
+            "reason": "cites no RYO evidence"
+          },
+          {
+            "text": "Call is not late to the move: RSI(14): E13 is unavailable (the tool returned an error); fallback RSI(14) (analyze_token): E14 is unavailable (the tool returned an error)",
+            "reason": "E13 is unavailable, not live data"
+          },
+          {
+            "text": "Weaker than its basket: vs BTC: E15 has no comparable score for INITIA and BTC",
+            "reason": "E15 is unavailable, not live data"
+          }
+        ],
+        "stale_calls": [
+          {
+            "kol": "DaanCryptoTG",
+            "label": "stale",
+            "score": 100,
+            "status": "partial"
+          }
+        ],
+        "ryo_evidence": [
+          {
+            "id": "E1",
+            "tool": "market_overview",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:25:16.119Z",
+            "payload_hash": "0x93ec18ac6686d4196da6bdcfcdc4eb520168151eb1631ea9e7ea791b920a1f66"
+          },
+          {
+            "id": "E2",
+            "tool": "monitor_market_sentiment_shift",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:25:17.949Z",
+            "payload_hash": "0x0bd6cd91ccd85c39b5e98c88b42b0527bb8f4d3f3946e6a199ec93e06e84677b"
+          },
+          {
+            "id": "E13",
+            "tool": "deep_analysis",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:26:23.035Z",
+            "payload_hash": "0xd7c9250944c5bfc90372c055b1231ca852f0ef30c37a287647cc6fd31fa6ee28"
+          },
+          {
+            "id": "E14",
+            "tool": "analyze_token",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:27:23.876Z",
+            "payload_hash": "0x012f6927badf93877fbfa2ff2cfc4ea04b623526dc63f480c11d88fcf7fd7cc0"
+          },
+          {
+            "id": "E15",
+            "tool": "compare_tokens",
+            "status": "unavailable",
+            "fetched_at": "2026-11-11T07:27:24.303Z",
+            "payload_hash": "0x6ea63995834fecf68c87f0b4a60eacc42138e9ae57031e24fc03493794ace9a4"
+          }
+        ],
+        "decision_hash": "0x09ed0837b368723258a8f00b099794e1cc285b7f07e800e89f950a67fcbe5311",
+        "practice_only": true
+      },
+      "cardHash": "0xe5ca853c8522d6acd4a7f16844536745a5794b5bd2fc5a882564683d31656656",
+      "stale": [
+        {
+          "handle": "DaanCryptoTG",
+          "post_id": "telegram:DaanCryptoTG/9734",
+          "envelope": {
+            "schema_version": "1.0",
+            "tool": "stale_call",
+            "status": "partial",
+            "data_mode": "unknown",
+            "as_of": "2026-11-11T07:27:23.876Z",
+            "request": {
+              "symbol": "INITIA",
+              "side": "short",
+              "posted_at": "2026-10-28T12:32:20.000Z"
+            },
+            "data": {
+              "symbol": "INITIA",
+              "side": "short",
+              "age_h": 330.9,
+              "components": {
+                "age": 100,
+                "move": null,
+                "phase": null
+              },
+              "inputs": {
+                "change_24h_pct": null,
+                "atr_pct": null,
+                "rsi_14": null,
+                "ryo_evidence": "E14",
+                "ryo_paths": []
+              },
+              "score": 100,
+              "label": "stale",
+              "reasons": [
+                "posted 330.9 h before RYO's reading",
+                "24 h move not available from RYO",
+                "RSI(14) not available from RYO"
+              ]
+            },
+            "summary": {
+              "headline": "INITIA short call is stale (100/100).",
+              "key_points": [
+                "posted 330.9 h before RYO's reading",
+                "24 h move not available from RYO",
+                "RSI(14) not available from RYO"
+              ]
+            },
+            "availability": {
+              "age": "available",
+              "market_state": "unavailable"
+            },
+            "warnings": [
+              "RYO evidence E14 is unavailable: score uses 1 of 3 components"
+            ]
+          }
+        }
+      ],
+      "independence": {
+        "schema_version": "1.0",
+        "tool": "narrative_independence",
+        "status": "ok",
+        "data_mode": "live",
+        "as_of": "2026-11-11T07:25:16.119Z",
+        "request": {
+          "symbol": "INITIA",
+          "posts": 1,
+          "market_risk": null
+        },
+        "data": {
+          "symbol": "INITIA",
+          "threshold": 0.6,
+          "threshold_reason": "base",
+          "independent": {
+            "score": 1,
+            "voices": 1,
+            "agreeing": 1,
+            "side": "bearish",
+            "passes": false
+          },
+          "naive": {
+            "score": 1,
+            "posts": 1,
+            "agreeing": 1,
+            "side": "bearish",
+            "passes": false
+          },
+          "echo_ratio": 0,
+          "originators": [
+            "DaanCryptoTG"
+          ],
+          "clusters": [],
+          "pivotal_voices": [],
+          "excluded": [],
+          "timeline": [
+            {
+              "post": "telegram:DaanCryptoTG/9734",
+              "handle": "DaanCryptoTG",
+              "posted_at": "2026-10-28T12:32:20.000Z",
+              "role": "first"
+            }
+          ]
+        },
+        "summary": {
+          "headline": "INITIA: 1 independent voice(s) behind 1 post(s); independent agreement 1.00 does not pass the 0.60 bar.",
+          "key_points": [
+            "Naive count 1.00 over 1 posts.",
+            "0% of posts repeat another voice.",
+            "No single voice decides the result."
+          ]
+        },
+        "availability": {
+          "independence": "available",
+          "timeline": "available"
+        },
+        "warnings": [
+          "no market_risk given: base threshold 0.60 used"
+        ]
+      }
+    }
+  ],
+  "skipped": [
+    {
+      "token": "XMR",
+      "reason": "outside this run's call budget"
+    },
+    {
+      "token": "AAVE",
+      "reason": "only echoes: no independent voice, RYO not called"
+    }
+  ],
+  "quota": {
+    "calls": 15,
+    "failed": 15,
+    "rateLimitRemaining": null
+  },
+  "digest": "0x8d5345c9e099f9339f73a8f5055ba541f9078998c0111a9465383a4bc789525d"
+}
