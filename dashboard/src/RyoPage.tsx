@@ -119,6 +119,7 @@ function Narrative({ run, n, open }: { run: RyoRun; n: RyoRunNarrative; open: (i
   const hasQuick = run.evidence.some((e) => e.tool === "analyze_token" && String(e.args.symbol).toUpperCase() === n.token);
   const alt =
     mode === "naive" ? cf.naive : mode === "noveto" ? cf.withoutRyoVetoes : mode === "nodeep" ? tools.nodeep : mode === "noquick" ? tools.noquick : mode.startsWith("drop:") ? cf.withoutEach.find((x) => x.handle === mode.slice(5))?.decision ?? cf.actual : null;
+  const liveIds = new Set(allEvidence(run).filter((e) => e.status === "live").map((e) => e.id as string));
   const staleBy = new Map((n.stale ?? []).map((x) => [x.handle, x.envelope]));
   const rechecks = (run.rechecks ?? []).filter((r) => r.token === n.token);
   const d = n.decision;
@@ -129,7 +130,7 @@ function Narrative({ run, n, open }: { run: RyoRun; n: RyoRunNarrative; open: (i
       <header className="ryo-card__head">
         <div>
           <span className="mono-font ryo-muted">{n.token} · {n.voices.filter((x) => !x.is_echo).length} independent · {n.voices.filter((x) => x.is_echo).length} echo</span>
-          <h3>{d.headline}</h3>
+          <h3>{d.verdict === "INSUFFICIENT_EVIDENCE" ? `${d.token}: not decided. ${d.missing.length} pieces of live RYO data are missing (listed below), so nothing is estimated.` : d.headline}</h3>
         </div>
         <span className={`ryo-pill ryo-pill--${v.tone} mono-font`}>{v.label}</span>
       </header>
@@ -182,14 +183,18 @@ function Narrative({ run, n, open }: { run: RyoRun; n: RyoRunNarrative; open: (i
       )}
 
       <ul className="ryo-gates">
-        {d.gates.map((g) => (
-          <li key={g.id} className={g.passed ? "is-ok" : "is-bad"}>
-            <span aria-hidden="true">{g.passed ? "✓" : "✗"}</span>
+        {d.gates.map((g) => {
+          // A gate that "passes" only because its RYO evidence is missing is shown as not verified, not as a pass.
+          const unverified = g.passed && g.ryoVeto && g.evidence.length > 0 && g.evidence.every((id) => liveIds.has(id) === false);
+          return (
+          <li key={g.id} className={unverified ? "is-unverified" : g.passed ? "is-ok" : "is-bad"}>
+            <span aria-hidden="true">{unverified ? "?" : g.passed ? "✓" : "✗"}</span>
             <b>{g.label}</b>
             <span className="ryo-muted">{g.detail}</span>
             <span>{g.evidence.map((id) => <EvidenceChip key={id} id={id} onOpen={open} />)}</span>
           </li>
-        ))}
+          );
+        })}
       </ul>
       {d.missing.length > 0 && <p className="ryo-missing mono-font">Missing, not guessed: {d.missing.join(" · ")}</p>}
 

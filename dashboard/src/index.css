@@ -1266,3 +1266,4 @@ p.empty-row { margin: 0; }
 .ryo-recheck { margin: 0; font-size: 12px; line-height: 1.7; }
 .ryo-recheck code, .ryo-ev code { font-size: 11px; }
 .ryo-skillnote { margin: 4px 0 0; font-size: 11px; line-height: 1.6; }
+.ryo-gates li.is-unverified > span:first-child, .ryo-gates li.is-unverified b { color: var(--amber); }
