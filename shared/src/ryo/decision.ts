@@ -83,10 +83,11 @@ function gate(id: string, label: string, passed: boolean, detail: string, facts:
 }
 
 /** Practice levels from RYO's live price: stop scales with the 24 h move inside 2–8%, target at 2R. */
-export function tradePlan(side: "LONG" | "SHORT", price: Fact<number>, change24h: Fact<number>, score: number): TradePlan | null {
+export function tradePlan(side: "LONG" | "SHORT", price: Fact<number>, change24h: Fact<number>, score: number, atr?: Fact<number>): TradePlan | null {
   if (!price.ok || price.value <= 0) return null;
-  const move = change24h.ok ? Math.abs(change24h.value) : MAX_STOP_PCT;
-  const stopPct = round(Math.min(MAX_STOP_PCT, Math.max(MIN_STOP_PCT, move * 0.75)), 2);
+  // Stop = 1.5 × ATR(14) when RYO gives it, else 0.75 × the 24 h move; always clamped to 2–8%.
+  const raw = atr?.ok && atr.value > 0 ? (1.5 * atr.value * 100) / price.value : change24h.ok ? Math.abs(change24h.value) * 0.75 : MAX_STOP_PCT;
+  const stopPct = round(Math.min(MAX_STOP_PCT, Math.max(MIN_STOP_PCT, raw)), 2);
   const d = priceDigits(price.value);
   const entry = round(price.value, d);
   const stop = round(side === "LONG" ? entry * (1 - stopPct / 100) : entry * (1 + stopPct / 100), d);
@@ -200,7 +201,7 @@ export function decide(input: DecisionInput, options: DecisionOptions = {}): Dec
       : `${base.token}: rejected. ${failed.map((g) => g.label.toLowerCase()).join(", ") || "no tradable direction"}.`;
     return finish({ ...base, verdict: "REJECT", headline, threshold, gates, missing: missingFacts });
   }
-  const plan = tradePlan(side, facts.price, facts.change24hPct, scored.score);
+  const plan = tradePlan(side, facts.price, facts.change24hPct, scored.score, facts.atr);
   return finish({
     ...base,
     verdict: "OPEN",

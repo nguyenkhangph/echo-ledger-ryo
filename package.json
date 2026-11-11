@@ -7,6 +7,8 @@
     "verify": "bun run scripts/verify-ledger.ts",
     "ryo:capture": "bun run scripts/ryo-capture.ts",
     "ryo:whoami": "bun run scripts/ryo-whoami.ts",
+    "ryo:run": "bun run agent/src/ryo/cli.ts",
+    "ryo:replay": "bun run agent/src/ryo/cli.ts replay",
     "ryo:eval": "bun run scripts/ryo-eval.ts",
     "typecheck": "bun run --filter '*' typecheck",
     "dashboard:dev": "bun run --cwd dashboard dev",

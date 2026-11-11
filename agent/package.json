@@ -9,10 +9,12 @@
     "converge": "bun run src/convergence/cli.ts",
     "debate": "bun run src/debate/cli.ts",
     "submit": "bun run src/submit/cli.ts",
+    "ryo": "bun run src/ryo/cli.ts",
     "test": "bun test",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@echo/shared": "workspace:*",
     "zod": "3.25.76"
   },
   "devDependencies": {

@@ -34,6 +34,10 @@ export type TokenFacts = {
   /** Token performance minus a peer in the same sector, in percentage points. */
   vsPeerPct: Fact<number>;
   peer: string | null;
+  /** ATR(14) in price units, when RYO supplies it; used for the stop distance. */
+  atr?: Fact<number>;
+  /** Risks RYO lists for the token, verbatim, for display. */
+  risks?: string[];
 };
 
 /** Reads one fact from one piece of evidence, refusing anything that is not live. */
