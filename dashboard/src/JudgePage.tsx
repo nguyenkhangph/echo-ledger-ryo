@@ -68,7 +68,8 @@ export function JudgePage() {
         <Table title="Track 2 · Dashboards and interfaces" rows={TRACK2} />
         <Table title="Track 3 · New skills" rows={TRACK3} />
         <p className="mono-font ryo-muted">
-          Source: <a href={REPO}>{REPO.replace("https://", "")}</a> · run locally: <code>bun install && bun test && bun run ryo:eval</code>
+          Source: <a href="https://github.com/RYO-Digital/ryochan-hackathon_repository-427">github.com/RYO-Digital/ryochan-hackathon_repository-427</a> (mirror:{" "}
+          <a href={REPO}>{REPO.replace("https://", "")}</a>) · run locally: <code>bun install && bun test && bun run ryo:eval</code>
         </p>
       </div>
     </SiteLayout>
