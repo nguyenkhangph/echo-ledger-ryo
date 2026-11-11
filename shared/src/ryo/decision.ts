@@ -65,7 +65,11 @@ const WHY: Record<string, string> = {
   safety: "RYO lists a severe risk",
   timing: "the call comes late in the move",
   basket: "the token does not beat its basket",
+  crosscheck: "two RYO tools disagree about the token",
 };
+
+/** Two RYO price readings further apart than this (percent) are treated as inconsistent data. */
+export const CROSS_PRICE_TOLERANCE_PCT = 1;
 
 export type Decision = {
   token: string;
@@ -173,6 +177,18 @@ export function decide(input: DecisionInput, options: DecisionOptions = {}): Dec
       [facts.direction],
     ),
   );
+  // Cross-check: deep_analysis and analyze_token must tell the same story when both answered.
+  const cx = facts.cross;
+  if (cx && ((cx.deepDirection.ok && cx.quickDirection.ok) || (cx.deepPrice.ok && cx.quickPrice.ok))) {
+    const dirOk = !(cx.deepDirection.ok && cx.quickDirection.ok) || cx.deepDirection.value === cx.quickDirection.value;
+    const gapPct = cx.deepPrice.ok && cx.quickPrice.ok ? (Math.abs(cx.deepPrice.value - cx.quickPrice.value) / cx.deepPrice.value) * 100 : null;
+    const priceOk = gapPct === null || gapPct <= CROSS_PRICE_TOLERANCE_PCT;
+    const parts = [
+      cx.deepDirection.ok && cx.quickDirection.ok ? `direction ${cx.deepDirection.value} vs ${cx.quickDirection.value}` : null,
+      gapPct !== null ? `price gap ${gapPct.toFixed(2)}% (max ${CROSS_PRICE_TOLERANCE_PCT}%)` : null,
+    ].filter(Boolean);
+    gates.push(gate("crosscheck", "deep_analysis and analyze_token agree", dirOk && priceOk, parts.join(" · "), [cx.deepDirection, cx.quickDirection, cx.deepPrice, cx.quickPrice]));
+  }
   if (facts.safety.ok || facts.safety.evidence)
     gates.push(gate("safety", "Token safety check", facts.safety.ok && facts.safety.value !== "fail", facts.safety.ok ? `RYO safety: ${facts.safety.value}` : facts.safety.reason, [facts.safety]));
   gates.push(

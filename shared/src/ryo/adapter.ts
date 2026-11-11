@@ -125,23 +125,44 @@ export function compareScores(e: RyoEvidence | undefined): { scores: Record<stri
   return { scores: out, id: e.id };
 }
 
-export function tokenFacts(token: string, deep: RyoEvidence | undefined, compare: RyoEvidence | undefined, peer: string | null, sideHint: "LONG" | "SHORT" | "NONE"): TokenFacts {
-  const T = token.toUpperCase();
-  const deepError = deep && deep.status === "unavailable" ? String((deep.payload as Record<string, unknown> | null)?.error ?? deep.statusReason ?? "") : "";
-  const inCatalog: Fact<boolean> =
-    deep && deep.status === "unavailable" && UNKNOWN_SYMBOL.test(deepError)
-      ? { ok: true, value: false, evidence: deep.id, path: "error" }
-      : deep
-        ? { ok: true, value: true, evidence: deep.id, path: "request.symbol" }
-        : missing("catalog: deep_analysis not requested");
+/** First fact that is present; when both are missing, keep the first reason and add the second. */
+function either<T>(a: Fact<T>, b: Fact<T> | undefined): Fact<T> {
+  if (a.ok || !b) return a;
+  if (b.ok) return b;
+  return { ok: false, reason: `${a.reason}; fallback ${b.reason}`, evidence: a.evidence ?? b.evidence };
+}
 
-  const price = fact<number>(deep, "price", RE.price, (r) => {
+/**
+ * Token facts from deep_analysis (primary), analyze_token (second RYO tool: fallback and cross-check) and
+ * compare_tokens (basket). When deep_analysis is down, analyze_token can still supply price, 24 h change, direction,
+ * RSI and ATR; the fact's evidence id then says which tool it came from.
+ */
+export function tokenFacts(token: string, deep: RyoEvidence | undefined, compare: RyoEvidence | undefined, peer: string | null, sideHint: "LONG" | "SHORT" | "NONE", quick?: RyoEvidence): TokenFacts {
+  const T = token.toUpperCase();
+  const errorOf = (e: RyoEvidence | undefined) => (e && e.status === "unavailable" ? String((e.payload as Record<string, unknown> | null)?.error ?? e.statusReason ?? "") : "");
+  const unknownIn = (e: RyoEvidence | undefined) => !!e && e.status === "unavailable" && UNKNOWN_SYMBOL.test(errorOf(e));
+  // Not in the catalog only when every analysis tool asked says the symbol is unknown.
+  const inCatalog: Fact<boolean> =
+    unknownIn(deep) && (!quick || unknownIn(quick))
+      ? { ok: true, value: false, evidence: deep!.id, path: "error" }
+      : deep && deep.status === "live" ? { ok: true, value: true, evidence: deep.id, path: "request.symbol" }
+      : quick && quick.status === "live" ? { ok: true, value: true, evidence: quick.id, path: "request.symbol" }
+      : deep ? { ok: true, value: true, evidence: deep.id, path: "request.symbol" }
+      : missing("catalog: deep_analysis not requested");
+
+  const positive = (r: unknown) => {
     const n = asNumber(r);
     return n !== undefined && n > 0 ? n : undefined;
-  });
-  const change24hPct = fact<number>(deep, "24h change", RE.change24h, asNumber);
-  const direction = fact<Direction>(deep, "direction", RE.verdict, toDirection);
-  const rsi = fact<number>(deep, "RSI(14)", RE.rsi, asNumber);
+  };
+  const deepPrice = fact<number>(deep, "price", RE.price, positive);
+  const quickPrice = quick ? fact<number>(quick, "price (analyze_token)", RE.price, positive) : missing<number>("price (analyze_token): not requested");
+  const deepDirection = fact<Direction>(deep, "direction", RE.verdict, toDirection);
+  const quickDirection = quick ? fact<Direction>(quick, "direction (analyze_token)", RE.verdict, toDirection) : missing<Direction>("direction (analyze_token): not requested");
+
+  const price = either(deepPrice, quick ? quickPrice : undefined);
+  const change24hPct = either(fact<number>(deep, "24h change", RE.change24h, asNumber), quick ? fact<number>(quick, "24h change (analyze_token)", RE.change24h, asNumber) : undefined);
+  const direction = either(deepDirection, quick ? quickDirection : undefined);
+  const rsi = either(fact<number>(deep, "RSI(14)", RE.rsi, asNumber), quick ? fact<number>(quick, "RSI(14) (analyze_token)", RE.rsi, asNumber) : undefined);
   const phase: Fact<WavePhase> = rsi.ok
     ? {
         ...rsi,
@@ -151,10 +172,7 @@ export function tokenFacts(token: string, deep: RyoEvidence | undefined, compare
         })(rsi.value),
       }
     : rsi;
-  const atr = fact<number>(deep, "ATR(14)", RE.atr, (r) => {
-    const n = asNumber(r);
-    return n !== undefined && n > 0 ? n : undefined;
-  });
+  const atr = either(fact<number>(deep, "ATR(14)", RE.atr, positive), quick ? fact<number>(quick, "ATR(14) (analyze_token)", RE.atr, positive) : undefined);
 
   // Risks listed by deep_analysis stand in for a safety tool (RYO publishes none): any high/critical risk fails.
   const risksNode = deep && deep.status === "live" ? findArray(dataOf(deep), /risk/i, "data") : null;
@@ -173,7 +191,7 @@ export function tokenFacts(token: string, deep: RyoEvidence | undefined, compare
   const vsPeerPct: Fact<number> =
     mine && peerScore && compare ? { ok: true, value: mine.score - peerScore.score, evidence: compare.id, path: `${mine.path} − ${peerScore.path}` } : missing("vs peer: not available", compare?.id);
 
-  return { token: T, inCatalog, price, change24hPct, direction, phase, safety, vsBtcPct, vsPeerPct, peer, atr, risks };
+  return { token: T, inCatalog, price, change24hPct, direction, phase, safety, vsBtcPct, vsPeerPct, peer, atr, risks, rsi, cross: quick ? { deepPrice, quickPrice, deepDirection, quickDirection } : undefined };
 }
 
 function findArray(root: unknown, name: RegExp, base: string, depth = 0): { items: unknown[]; path: string } | null {

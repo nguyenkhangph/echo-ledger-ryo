@@ -1,14 +1,15 @@
 import { describe, expect, test } from "bun:test";
-import { mkdtempSync, writeFileSync } from "node:fs";
+import { mkdtempSync, readFileSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import { RyoClient } from "./client";
 import { replayRun, runRyoStage } from "./stage";
+import { recheckToken, settleDue } from "./followup";
 
 // Shapes follow the public envelope in the RYO Builder MCP Guide; field names inside `data` are test inputs only.
 const envelope = (tool: string, data: unknown, status = "ok", data_mode = "live") => ({ result: { schema_version: "1", tool, status, data_mode, as_of: "2026-11-11T00:00:00Z", request: {}, data, summary: { headline: "x" }, availability: {}, warnings: [] } });
 
-function fakeRyo(opts: { down?: string[]; disabled?: boolean } = {}) {
+function fakeRyo(opts: { down?: string[]; disabled?: boolean; quickDir?: string; solNow?: number } = {}) {
   return (async (url: string, init: RequestInit) => {
     const tool = String(url).split("/tools/")[1]?.split("/")[0] ?? "";
     const args = JSON.parse(String(init.body ?? "{}"));
@@ -19,6 +20,7 @@ function fakeRyo(opts: { down?: string[]; disabled?: boolean } = {}) {
       : tool === "monitor_market_sentiment_shift" ? envelope(tool, { combined_regime: "neutral" })
       : tool === "scan_market" ? envelope(tool, { candidates: [{ symbol: "SOL" }, { symbol: "BTC" }] })
       : tool === "deep_analysis" ? envelope(tool, { market: { price: args.symbol === "SOL" ? 150 : 90000, change_24h: 3 }, technicals: { rsi_14: 55, atr_14: args.symbol === "SOL" ? 6 : 2000 }, verdict: "bullish", risks: [{ title: "volatility", severity: "medium" }] })
+      : tool === "analyze_token" ? envelope(tool, { price: args.symbol === "SOL" ? (opts.solNow ?? 150.3) : 90000, change_24h: 3, rsi_14: 55, atr_14: 6, verdict: opts.quickDir ?? "bullish" })
       : tool === "compare_tokens" ? envelope(tool, { tokens: String(args.symbols).split(/[ ,]+/).filter(Boolean).map((s, i) => ({ symbol: s, score: 70 - i * 5 })) })
       : { error: { code: "unknown_tool" } };
     return new Response(JSON.stringify(body), { status: 200 });
@@ -43,7 +45,9 @@ describe("RYO stage", () => {
   test("combines six tools into a cited decision and replays it without calling RYO", async () => {
     const { dir, file } = candidates();
     const run = await runRyoStage({ candidatesFile: file, outDir: dir, client: new RyoClient(cfg, fakeRyo()), log: quiet });
-    expect(run.calls.map((c) => c.tool)).toEqual(["market_overview", "monitor_market_sentiment_shift", "scan_market", "deep_analysis", "compare_tokens"]);
+    expect(run.calls.map((c) => c.tool)).toEqual(["market_overview", "monitor_market_sentiment_shift", "scan_market", "deep_analysis", "analyze_token", "compare_tokens"]);
+    expect(sol_gate(run, "crosscheck")).toBe(true);
+    expect(run.narratives[0]!.independence.data!.independent.voices).toBe(3);
     expect(run.skipped).toEqual([{ token: "PEPE", reason: "only echoes: no independent voice, RYO not called" }]);
     const sol = run.narratives[0]!;
     expect(sol.decision.verdict).toBe("OPEN");
@@ -60,7 +64,46 @@ describe("RYO stage", () => {
     expect(off.narratives[0]!.decision.verdict).toBe("INSUFFICIENT_EVIDENCE");
     expect(off.narratives[0]!.decision.plan).toBeNull();
     expect(off.evidence.every((e) => e.status === "unavailable")).toBe(true);
+    const both = await runRyoStage({ candidatesFile: file, outDir: dir, client: new RyoClient(cfg, fakeRyo({ down: ["deep_analysis", "analyze_token"] })), log: quiet });
+    expect(both.narratives[0]!.decision.verdict).toBe("INSUFFICIENT_EVIDENCE");
+  });
+
+  test("deep_analysis down: analyze_token supplies the price, and the evidence id says so", async () => {
+    const { dir, file } = candidates();
     const down = await runRyoStage({ candidatesFile: file, outDir: dir, client: new RyoClient(cfg, fakeRyo({ down: ["deep_analysis"] })), log: quiet });
-    expect(down.narratives[0]!.decision.verdict).toBe("INSUFFICIENT_EVIDENCE");
+    const d = down.narratives[0]!.decision;
+    const quick = down.evidence.find((e) => e.tool === "analyze_token")!;
+    expect(d.verdict).toBe("OPEN");
+    expect(d.plan!.priceEvidence).toBe(quick.id);
+    expect(d.plan!.entry).toBe(150.3);
+  });
+
+  test("the two RYO tools disagree: rejected", async () => {
+    const { dir, file } = candidates();
+    const run = await runRyoStage({ candidatesFile: file, outDir: dir, client: new RyoClient(cfg, fakeRyo({ quickDir: "bearish" })), log: quiet });
+    expect(run.narratives[0]!.decision.verdict).toBe("REJECT");
+    expect(sol_gate(run, "crosscheck")).toBe(false);
+  });
+
+  test("recheck appends before/after without changing the replay, settle scores calls after 24 h", async () => {
+    const { dir, file } = candidates();
+    const run = await runRyoStage({ candidatesFile: file, outDir: dir, client: new RyoClient(cfg, fakeRyo()), now: () => new Date("2026-11-10T00:00:00Z"), log: quiet });
+    const runFile = join(dir, `${run.runId}.json`);
+    const r = await recheckToken({ runFile, token: "SOL", client: new RyoClient(cfg, fakeRyo({ quickDir: "bearish" })), log: quiet });
+    expect(r.before.verdict).toBe("OPEN");
+    expect(r.after.verdict).toBe("REJECT");
+    expect(r.evidence[0]!.id).toBe(`E${run.evidence.length + 1}`);
+    const saved = JSON.parse(readFileSync(runFile, "utf8"));
+    expect(replayRun(saved).every((x) => x.same)).toBe(true);
+    const early = await settleDue({ runsDir: dir, outDir: join(dir, "s"), client: new RyoClient(cfg, fakeRyo()), now: () => new Date("2026-11-10T12:00:00Z"), log: quiet });
+    expect(early).toHaveLength(0);
+    const [s] = await settleDue({ runsDir: dir, outDir: join(dir, "s"), client: new RyoClient(cfg, fakeRyo({ solNow: 156 })), now: () => new Date("2026-11-11T01:00:00Z"), log: quiet });
+    const n = s!.narratives[0]!;
+    expect(n.settled && n.move_pct).toBe(4);
+    expect(n.settled && n.calls.filter((c) => c.result === "right").length).toBe(4);
   });
 });
+
+function sol_gate(run: Awaited<ReturnType<typeof runRyoStage>>, id: string) {
+  return run.narratives[0]!.decision.gates.find((g) => g.id === id)?.passed;
+}

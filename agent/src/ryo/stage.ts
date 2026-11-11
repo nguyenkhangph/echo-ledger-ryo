@@ -7,7 +7,9 @@ import {
   evidenceDigest,
   evidenceIndex,
   marketFacts,
+  narrativeIndependence,
   peerOf,
+  staleCall,
   tokenFacts,
   verifyClaims,
   type Claim,
@@ -23,7 +25,8 @@ import { RyoClient, type RyoCall } from "./client";
  * The RYO stage: KOL narratives (already folded for echoes) meet RYO-CHAN's live research layer.
  *  1. market_overview and monitor_market_sentiment_shift once per run (market regime, reversal alarm);
  *  2. scan_market once, to see which tokens RYO ranks first and which KOLs mentioned them independently;
- *  3. for each narrative with an independent voice: deep_analysis and compare_tokens (token, BTC, a fixed peer);
+ *  3. for each narrative with an independent voice: deep_analysis, analyze_token (fallback and cross-check) and
+ *     compare_tokens (token, BTC, a fixed peer);
  *  4. the deterministic rules decide; every number cites its evidence id and payload path.
  * Every response, including failures, is kept as evidence, so the run can be replayed without calling RYO again.
  */
@@ -43,6 +46,8 @@ export type NarrativeResult = {
   claims: ReturnType<typeof verifyClaims>;
   card: Record<string, unknown>;
   cardHash: `0x${string}`;
+  stale: Array<{ handle: string; post_id: string; envelope: ReturnType<typeof staleCall> }>;
+  independence: ReturnType<typeof narrativeIndependence>;
 };
 
 export type RyoRun = {
@@ -167,14 +172,27 @@ export async function runRyoStage(opts: { candidatesFile: string; outDir: string
     const hint = independentScore(voices).side === "bearish" ? "SHORT" : "LONG";
     log(`\n${T}: ${voices.filter((v) => !v.is_echo).length} independent, ${voices.filter((v) => v.is_echo).length} echo`);
     const deep = await call("deep_analysis", { symbol: T, include_perp: false });
+    const quick = await call("analyze_token", { symbol: T });
+    const unknown = (e: RyoEvidence) => e.status === "unavailable" && /unknown|not (found|supported|listed)|unsupported|invalid symbol/i.test(String((e.payload as Record<string, unknown>)?.error ?? ""));
     const symbols = T === "BTC" ? `BTC, ETH, SOL` : `${T}, BTC, ${peer}`;
-    const compare = deep.status === "unavailable" && /unknown|not (found|supported)|invalid/i.test(String((deep.payload as Record<string, unknown>)?.error ?? "")) ? undefined : await call("compare_tokens", { symbols, intent: "swing" });
-    const facts = tokenFacts(T, deep, compare, T === "BTC" ? "ETH" : peer, hint);
+    const compare = unknown(deep) && unknown(quick) ? undefined : await call("compare_tokens", { symbols, intent: "swing" });
+    const facts = tokenFacts(T, deep, compare, T === "BTC" ? "ETH" : peer, hint, quick);
     const input = { token: T, voices, market, facts };
     const decision = decide(input);
     const cf = counterfactuals(input);
     const claims = verifyClaims(claimsFrom(decision, facts), book);
-    const used = [...new Set([overview.id, sentiment.id, deep.id, ...(compare ? [compare.id] : [])])];
+    const used = [...new Set([overview.id, sentiment.id, deep.id, quick.id, ...(compare ? [compare.id] : [])])];
+    // Skills: how stale each original call is against RYO's reading, and how independent the narrative is.
+    const stateEvidence = deep.status === "live" ? deep : quick;
+    const stale = c.sources
+      .filter((s) => !s.is_echo && (s as CandidateSource & { posted_at?: string }).posted_at && s.sentiment !== "neutral")
+      .map((s) => ({ handle: s.handle, post_id: s.post_id, envelope: staleCall({ symbol: T, side: s.sentiment === "bearish" ? "short" : "long", posted_at: (s as CandidateSource & { posted_at?: string }).posted_at!, as_of: stateEvidence.fetchedAt }, stateEvidence) }));
+    const independence = narrativeIndependence({
+      symbol: T,
+      market_risk: market.risk.ok ? market.risk.value : null,
+      as_of: overview.fetchedAt,
+      posts: c.sources.map((s) => ({ id: s.post_id, handle: s.handle, sentiment: s.sentiment, conviction: s.conviction, is_echo: s.is_echo, echo_of: s.echo_of, posted_at: (s as CandidateSource & { posted_at?: string }).posted_at ?? null })),
+    });
     const card = {
       kind: "echo-ledger/ryo-card@1",
       token: T,
@@ -188,12 +206,13 @@ export async function runRyoStage(opts: { candidatesFile: string; outDir: string
       gates: decision.gates.map((g) => ({ id: g.id, passed: g.passed, detail: g.detail, evidence: g.evidence })),
       claims: claims.filter((x) => x.kept).map((x) => ({ by: x.by, text: x.text, evidence: x.evidence, path: x.path ?? null })),
       removed_claims: claims.filter((x) => !x.kept).map((x) => ({ text: x.text, reason: x.reason })),
+      stale_calls: stale.map((x) => ({ kol: x.handle, label: x.envelope.data?.label ?? null, score: x.envelope.data?.score ?? null, status: x.envelope.status })),
       ryo_evidence: evidenceIndex(book.all().filter((e) => used.includes(e.id))),
       decision_hash: decision.hash,
       practice_only: true,
     };
     const hash = cardHash(card);
-    narratives.push({ token: T, voices, sources: c.sources, peer, decision, counterfactuals: cf, claims, card, cardHash: hash });
+    narratives.push({ token: T, voices, sources: c.sources, peer, decision, counterfactuals: cf, claims, card, cardHash: hash, stale, independence });
     log(`  → ${decision.verdict}: ${decision.headline}`);
   }
 

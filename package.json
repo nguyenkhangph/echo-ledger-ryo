@@ -1,7 +1,11 @@
 {
   "name": "echo-ledger",
   "private": true,
-  "workspaces": ["shared", "agent", "dashboard"],
+  "workspaces": [
+    "shared",
+    "agent",
+    "dashboard"
+  ],
   "scripts": {
     "test": "bun test",
     "verify": "bun run scripts/verify-ledger.ts",
@@ -9,6 +13,9 @@
     "ryo:whoami": "bun run scripts/ryo-whoami.ts",
     "ryo:run": "bun run agent/src/ryo/cli.ts",
     "ryo:replay": "bun run agent/src/ryo/cli.ts replay",
+    "ryo:recheck": "bun run agent/src/ryo/cli.ts recheck",
+    "ryo:settle": "bun run agent/src/ryo/cli.ts settle",
+    "skills:serve": "bun run scripts/skills-serve.ts",
     "ryo:eval": "bun run scripts/ryo-eval.ts",
     "typecheck": "bun run --filter '*' typecheck",
     "dashboard:dev": "bun run --cwd dashboard dev",

@@ -20,6 +20,8 @@ type World = {
   inCatalog?: boolean;
   status?: "ok" | "partial" | "unavailable" | "simulated";
   toolDown?: boolean;
+  /** analyze_token's direction and price, for the cross-check; omitted means analyze_token was not asked. */
+  quick?: { dir?: "up" | "down" | "flat"; price?: number };
 };
 
 export type EvalCase = { id: string; title: string; voices: Voice[]; world: World; expect: Verdict; claims?: Claim[]; expectClaimsKept?: boolean[] };
@@ -51,6 +53,10 @@ export function buildWorld(token: string, w: World) {
     vsPeerPct: factFrom(ct, "vs_peer", asNumber, "vs peer"),
     peer: "PEER",
   };
+  if (w.quick) {
+    const qt = book.add("analyze_token", { symbol: token }, { price: w.quick.price ?? w.price ?? 100, trend: w.quick.dir ?? w.dir ?? "up" }, at);
+    facts.cross = { deepPrice: facts.price, quickPrice: factFrom(qt, "price", asNumber, "price (analyze_token)"), deepDirection: facts.direction, quickDirection: factFrom(qt, "trend", s<"up">, "direction (analyze_token)") };
+  }
   return { book, input: { token, voices: [] as Voice[], market, facts } satisfies DecisionInput };
 }
 
@@ -77,6 +83,11 @@ export const EVAL_CASES: EvalCase[] = [
   { id: "overview-down", title: "market_overview unavailable", voices: three, world: { risk: null }, expect: "INSUFFICIENT_EVIDENCE" },
   { id: "reversal", title: "Sentiment monitor flips bearish against a long", voices: three, world: { shift: "bearish" }, expect: "REJECT" },
   { id: "short", title: "Independent bearish call, RYO trend down, token weaker", voices: [v("a", "bearish"), v("b", "bearish"), v("c", "neutral")], world: { dir: "down", vsBtc: -2, vsPeer: -1 }, expect: "OPEN" },
+  { id: "tools-agree", title: "deep_analysis and analyze_token tell the same story", voices: three, world: { quick: { dir: "up", price: 100.4 } }, expect: "OPEN" },
+  { id: "tools-disagree", title: "analyze_token reads the trend down while deep_analysis reads up", voices: three, world: { quick: { dir: "down" } }, expect: "REJECT" },
+  { id: "tools-price-gap", title: "The two RYO tools quote prices 3% apart", voices: three, world: { quick: { price: 103 } }, expect: "REJECT" },
+  { id: "finfluencer-echo", title: "Finfluencer: one promoter and four reposts, RYO sees no direction", voices: [v("promo", "bullish"), v("r1", "bullish", true), v("r2", "bullish", true), v("r3", "bullish", true), v("r4", "bullish", true)], world: { dir: "flat" }, expect: "REJECT" },
+  { id: "finfluencer-no-ryo", title: "Finfluencer: loud consensus, RYO evidence missing", voices: [v("promo", "bullish"), v("p2", "bullish"), v("r1", "bullish", true), v("r2", "bullish", true)], world: { toolDown: true }, expect: "INSUFFICIENT_EVIDENCE" },
   {
     id: "fabricated-number",
     title: "Debate quotes a price RYO never gave",
@@ -91,6 +102,9 @@ export const EVAL_CASES: EvalCase[] = [
     expectClaimsKept: [true, false, false],
   },
 ];
+
+/** The finfluencer cases shown on the dashboard. Illustrative only; not legal advice. */
+export const FINFLUENCER_CASES = ["finfluencer-echo", "finfluencer-no-ryo"];
 
 export function runEval(cases: EvalCase[] = EVAL_CASES) {
   const rows = cases.map((c) => {

@@ -53,10 +53,13 @@ export function classifyStatus(payload: unknown, isError = false): { status: Ryo
 export class EvidenceBook {
   private items: RyoEvidence[] = [];
 
+  /** `offset` continues numbering after an earlier book (rechecks and settlements extend a run: E31, E32, …). */
+  constructor(private offset = 0) {}
+
   add(tool: string, args: Record<string, unknown>, payload: unknown, fetchedAt: string, isError = false): RyoEvidence {
     const { status, reason } = classifyStatus(payload, isError);
     const item: RyoEvidence = {
-      id: `E${this.items.length + 1}` as EvidenceId,
+      id: `E${this.offset + this.items.length + 1}` as EvidenceId,
       tool,
       args,
       status,

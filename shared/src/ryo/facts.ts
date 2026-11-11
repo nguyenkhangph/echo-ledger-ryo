@@ -38,6 +38,10 @@ export type TokenFacts = {
   atr?: Fact<number>;
   /** Risks RYO lists for the token, verbatim, for display. */
   risks?: string[];
+  /** The same reading taken from two RYO tools (deep_analysis and analyze_token), to check they agree. */
+  cross?: { deepPrice: Fact<number>; quickPrice: Fact<number>; deepDirection: Fact<Direction>; quickDirection: Fact<Direction> };
+  /** RSI(14) as read, for the stale_call skill. */
+  rsi?: Fact<number>;
 };
 
 /** Reads one fact from one piece of evidence, refusing anything that is not live. */
